@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>2be6f397-b707-4624-971e-429751247eff</ProjectGuid>
+    <ProjectGuid>{2BE6F397-B707-4624-971E-429751247EFF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SugarForOne</RootNamespace>
@@ -30,22 +30,63 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ISugarable.cs" />
+    <Compile Include="ISugarClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SugarOneClient.cs" />
+    <Compile Include="Sugar\SqlServer\Base\SqlHelper.cs" />
+    <Compile Include="Sugar\SqlServer\Cloud\CloudModels.cs" />
+    <Compile Include="Sugar\SqlServer\Cloud\CloudPubMethod.cs" />
+    <Compile Include="Sugar\SqlServer\Cloud\TaskExtensions.cs" />
+    <Compile Include="Sugar\SqlServer\Core\IDataReaderEntityBuilder.cs" />
+    <Compile Include="Sugar\SqlServer\Core\IDataRecordExtensions.cs" />
+    <Compile Include="Sugar\SqlServer\Core\ResolveExpress\Constant.cs" />
+    <Compile Include="Sugar\SqlServer\Core\ResolveExpress\Expressions.cs" />
+    <Compile Include="Sugar\SqlServer\Core\ResolveExpress\Main.cs" />
+    <Compile Include="Sugar\SqlServer\Core\ResolveExpress\Method.cs" />
+    <Compile Include="Sugar\SqlServer\Core\ResolveExpress\Models.cs" />
+    <Compile Include="Sugar\SqlServer\Core\ResolveExpress\Property.cs" />
+    <Compile Include="Sugar\SqlServer\Core\ResolveExpress\ResolveFieldName.cs" />
+    <Compile Include="Sugar\SqlServer\Core\ResolveExpress\ResolveSelect.cs" />
+    <Compile Include="Sugar\SqlServer\Generating\ClassGenerating.cs" />
+    <Compile Include="Sugar\SqlServer\Generating\ClassTemplate.cs" />
+    <Compile Include="Sugar\SqlServer\Generating\SugarAttribute.cs" />
+    <Compile Include="Sugar\SqlServer\PubModel\KeyValue.cs" />
+    <Compile Include="Sugar\SqlServer\PubModel\PubEnum.cs" />
+    <Compile Include="Sugar\SqlServer\PubModel\PubModel.cs" />
+    <Compile Include="Sugar\SqlServer\Queryable\Queryable.cs" />
+    <Compile Include="Sugar\SqlServer\Queryable\QueryableExtensions.cs" />
+    <Compile Include="Sugar\SqlServer\Sqlable\Sqlable.cs" />
+    <Compile Include="Sugar\SqlServer\Sqlable\SqlableExtensions.cs" />
+    <Compile Include="Sugar\SqlServer\SqlSugarClient.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\CacheManager.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\Check.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\FileSugar.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\IEnumerableExtensions.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\IStorageObject.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\IsWhatExtensions.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\JsonConverter.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\LanguageHelper.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\PubConvert.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\SqlException.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\SqlSugarTool.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolCoreDiff.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolExtensions.cs" />
+    <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolWithSqlMethod.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sugar\MySql\" />
+    <Folder Include="Sugar\Oracle\" />
+    <Folder Include="Sugar\Sqlite\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -55,5 +96,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>
