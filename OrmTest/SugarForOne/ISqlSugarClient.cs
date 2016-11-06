@@ -55,7 +55,6 @@ namespace SugarForOne
         void BeginTran();
         void BeginTran(string transactionName);
         void CommitTran();
-        void Dispose();
         int ExecuteCommand(string sql, params SqlParameter[] pars);
         int ExecuteCommand(string sql, object pars);
         DataSet GetDataSetAll(string sql, params SqlParameter[] pars);
