@@ -40,7 +40,5 @@ namespace SugarForOne
             return db;
         }
 
-
-        public static 
     }
 }
