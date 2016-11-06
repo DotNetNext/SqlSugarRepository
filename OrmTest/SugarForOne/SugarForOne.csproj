@@ -42,9 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISugarable.cs" />
-    <Compile Include="ISugarClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SugarOneClient.cs" />
+    <Compile Include="SqlSugarClient.cs" />
     <Compile Include="Sugar\SqlServer\Base\SqlHelper.cs" />
     <Compile Include="Sugar\SqlServer\Cloud\CloudModels.cs" />
     <Compile Include="Sugar\SqlServer\Cloud\CloudPubMethod.cs" />
@@ -62,6 +61,7 @@
     <Compile Include="Sugar\SqlServer\Generating\ClassGenerating.cs" />
     <Compile Include="Sugar\SqlServer\Generating\ClassTemplate.cs" />
     <Compile Include="Sugar\SqlServer\Generating\SugarAttribute.cs" />
+    <Compile Include="ISqlSugarClient.cs" />
     <Compile Include="Sugar\SqlServer\PubModel\KeyValue.cs" />
     <Compile Include="Sugar\SqlServer\PubModel\PubEnum.cs" />
     <Compile Include="Sugar\SqlServer\PubModel\PubModel.cs" />
