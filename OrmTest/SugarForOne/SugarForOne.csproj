@@ -86,9 +86,10 @@
     <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolWithSqlMethod.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Sugar\MySql\" />
-    <Folder Include="Sugar\Oracle\" />
-    <Folder Include="Sugar\Sqlite\" />
+    <Folder Include="Sugar\MySql\Append\" />
+    <Folder Include="Sugar\Oracle\Append\" />
+    <Folder Include="Sugar\Sqlite\Append\" />
+    <Folder Include="Sugar\SqlServer\Append\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
