@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Reflection;
 using System.Data;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-
-namespace SqlSugar
+using SugarForOne;
+namespace MySqlSugar
 {
     /// <summary>
     /// ** 描述：SQL糖 ORM 核心类
@@ -185,8 +185,8 @@ namespace SqlSugar
         /// 添加禁止更新列
         /// </summary>
         /// <param name="columns"></param>
-        public void AddDisableUpdateColumn(params string[] columns) {
-
+        public void AddDisableUpdateColumn(params string[] columns)
+        {
             this.DisableUpdateColumns = this.DisableUpdateColumns.ArrayAdd(columns);
         }
 
@@ -194,6 +194,7 @@ namespace SqlSugar
         /// 设置禁止插入的列
         /// </summary>
         public string[] DisableInsertColumns { get; set; }
+
 
         /// <summary>
         /// 添加禁止插入列
@@ -350,7 +351,7 @@ namespace SqlSugar
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public Queryable<T> Queryable<T>() where T : class,new()
+        public Queryable<T> Queryable<T>() where T : new()
         {
             InitAttributes<T>();
             var queryable = new Queryable<T>() { DB = this, TableName = typeof(T).Name };
@@ -399,7 +400,7 @@ namespace SqlSugar
         /// <typeparam name="T"></typeparam>
         /// <param name="tableName">T类型对应的真实表名</param>
         /// <returns></returns>
-        public Queryable<T> Queryable<T>(string tableName) where T : class,new()
+        public Queryable<T> Queryable<T>(string tableName) where T : new()
         {
             InitAttributes<T>();
             var queryable = new Queryable<T>() { DB = this, TableName = tableName };
@@ -476,7 +477,7 @@ namespace SqlSugar
         /// <param name="sql">sql语句</param>
         /// <param name="pars">SqlParameter的集合</param>
         /// <returns>T的集合</returns>
-        public List<T> SqlQuery<T>(string sql, SqlParameter[] pars)
+        public List<T> SqlQuery<T>(string sql, MySqlParameter[] pars)
         {
             return SqlQuery<T>(sql, pars.ToList());
         }
@@ -488,9 +489,9 @@ namespace SqlSugar
         /// <param name="sql">sql语句</param>
         /// <param name="pars">SqlParameter集合</param>
         /// <returns>T的集合</returns>
-        public List<T> SqlQuery<T>(string sql, List<SqlParameter> pars)
+        public List<T> SqlQuery<T>(string sql, List<MySqlParameter> pars)
         {
-            SqlDataReader reader = null;
+            MySqlDataReader reader = null;
             //全局过滤器
             if (CurrentFilterKey.IsValuable())
             {
@@ -513,7 +514,7 @@ namespace SqlSugar
                 }
             }
             var type = typeof(T);
-            if (base.CommandType == CommandType.Text)
+            if (CommandType == CommandType.Text)
             {
                 sql = string.Format(PubModel.SqlSugarClientConst.SqlQuerySqlTemplate, type.Name, sql);
             }
@@ -564,7 +565,7 @@ namespace SqlSugar
             typeName = GetTableNameByClassType(typeName);
 
             StringBuilder sbInsertSql = new StringBuilder();
-            List<SqlParameter> pars = new List<SqlParameter>();
+            List<MySqlParameter> pars = new List<MySqlParameter>();
             var identities = SqlSugarTool.GetIdentitiesKeyByTableName(this, typeName);
             isIdentity = identities != null && identities.Count > 0;
             //sql语句缓存
@@ -690,12 +691,8 @@ namespace SqlSugar
                         val = (int)(val);
                     }
 
-                    var par = new SqlParameter(SqlSugarTool.ParSymbol + propName, val);
+                    var par = new MySqlParameter(SqlSugarTool.ParSymbol + propName, val);
                     SqlSugarTool.SetParSize(par);
-                    if (par.SqlDbType == SqlDbType.Udt)
-                    {
-                        par.UdtTypeName = "HIERARCHYID";
-                    }
                     pars.Add(par);
                 }
             }
@@ -709,7 +706,7 @@ namespace SqlSugar
                 }
                 else
                 {
-                    sbInsertSql.Append(");select SCOPE_IDENTITY();");
+                    sbInsertSql.Append(");select @@IDENTITY;");
                 }
                 cacheSqlManager.Add(cacheSqlKey, sbInsertSql, cacheSqlManager.Day);
             }
@@ -725,7 +722,7 @@ namespace SqlSugar
                         sql = sql.Replace(SqlSugarTool.ParSymbol + item.Key + ")", SqlSugarTool.ParSymbol + item.Value + ")");
                     }
                 }
-                var lastInsertRowId = base.GetScalar(sql, pars.ToArray());
+                var lastInsertRowId = GetScalar(sql, pars.ToArray());
                 return lastInsertRowId;
             }
             catch (Exception ex)
@@ -793,7 +790,7 @@ namespace SqlSugar
             var columnNames =props.Select(it=>it.Name).ToList();
             if (DisableInsertColumns.IsValuable())
             {//去除禁止插入列
-                columnNames.RemoveAll(it=>DisableInsertColumns.Any(dc=>dc.ToLower()==it.ToLower()));
+                columnNames.RemoveAll(it=>DisableInsertColumns.Any(dc=>dc.ToLower()==(it.ToLower())));
             }
             //启用别名列
             if (this.IsEnableAttributeMapping = true && _mappingColumns.IsValuable()) {
@@ -886,7 +883,7 @@ namespace SqlSugar
         /// <param name="expression">表达式条件</param>
         /// <param name="whereObj">匿名参数(例如:new{id=1,name="张三"})</param>
         /// <returns></returns>
-        public bool Update<T>(string setValues, Expression<Func<T, bool>> expression, object whereObj=null) where T:class
+        public bool Update<T>(string setValues, Expression<Func<T, bool>> expression, object whereObj = null)
         {
             Type type = typeof(T);
             string typeName = type.Name;
@@ -894,10 +891,10 @@ namespace SqlSugar
             Check.ArgumentNullException(setValues.IsNullOrEmpty(), "Update.setValues不为能空。");
             ResolveExpress re = new ResolveExpress();
             re.ResolveExpression(re, expression, this);
-            string sql =string.Format( "UPDATE {0} SET {1} WHERE 1=1 {2}",typeName.GetTranslationSqlName(),setValues,re.SqlWhere);
+            string sql = string.Format("UPDATE {0} SET {1} WHERE 1=1 {2}", typeName.GetTranslationSqlName(), setValues, re.SqlWhere);
             var pars = SqlSugarTool.GetParameters(whereObj).ToList();
             pars.AddRange(re.Paras);
-            var reval= base.ExecuteCommand(sql, pars.ToArray())>0;
+            var reval = base.ExecuteCommand(sql, pars.ToArray()) > 0;
             sql = null;
             return reval;
         }
@@ -976,17 +973,13 @@ namespace SqlSugar
                 cacheSqlManager.Add(cacheSqlKey, sbSql, cacheSqlManager.Day);
             }
 
-            List<SqlParameter> parsList = new List<SqlParameter>();
+            List<MySqlParameter> parsList = new List<MySqlParameter>();
             parsList.AddRange(re.Paras);
             var pars = rows;
             if (pars != null)
             {
                 foreach (var par in pars)
                 {
-                    if (par.SqlDbType == SqlDbType.Udt)
-                    {
-                        par.UdtTypeName = "HIERARCHYID";
-                    }
                     par.ParameterName = SqlSugarTool.ParSymbol + GetMappingColumnDbName(par.ParameterName.TrimStart(SqlSugarTool.ParSymbol));
                     SqlSugarTool.SetParSize(par);
                     parsList.Add(par);
@@ -994,7 +987,7 @@ namespace SqlSugar
             }
             try
             {
-                var updateRowCount = base.ExecuteCommand(sbSql.ToString(), parsList.ToArray());
+                var updateRowCount = ExecuteCommand(sbSql.ToString(), parsList.ToArray());
                 return updateRowCount > 0;
             }
             catch (Exception ex)
@@ -1135,10 +1128,6 @@ namespace SqlSugar
                     {
                         par.Value = DBNull.Value;
                     }
-                    if (par.SqlDbType == SqlDbType.Udt || par.ParameterName.ToLower().Contains("hierarchyid"))
-                    {
-                        par.UdtTypeName = "HIERARCHYID";
-                    }
                     par.ParameterName = name;
                     return par;
 
@@ -1146,7 +1135,7 @@ namespace SqlSugar
             }
             try
             {
-                var updateRowCount = base.ExecuteCommand(sbSql.ToString(), pars);
+                var updateRowCount = ExecuteCommand(sbSql.ToString(),pars);
                 sbSql = null;
                 return updateRowCount > 0;
             }
@@ -1165,152 +1154,10 @@ namespace SqlSugar
         /// <returns>全部更新成功返回true</returns>
         public bool SqlBulkReplace<T>(List<T> entities) where T : class
         {
-            InitAttributes<T>();
-            int actionNum = BulkNum;
-            var reval = true;
-            while (entities.Count > 0)
-            {
-                var insertRes = SqlBulkReplace<T>(entities.Take(actionNum));
-                if (reval && insertRes)
-                {
-                    reval = true;
-                }
-                else
-                {
-                    reval = false;
-                }
-                if (actionNum > entities.Count)
-                {
-                    actionNum = entities.Count;
-                }
-                entities.RemoveRange(0, actionNum);
-            }
-            return reval;
+            var result = UpdateRange(entities);
+            return result != null && !result.Any(it => it == false);
         }
-
-        private bool SqlBulkReplace<T>(IEnumerable<T> entities) where T : class
-        {
-            InitAttributes<T>();
-            if (entities == null) { return false; };
-
-            Type type = typeof(T);
-
-            //属性缓存
-            string cachePropertiesKey = "db." + type.FullName + ".GetProperties";
-            var cachePropertiesManager = CacheManager<PropertyInfo[]>.GetInstance();
-            PropertyInfo[] props = null;
-            if (cachePropertiesManager.ContainsKey(cachePropertiesKey))
-            {
-                props = cachePropertiesManager[cachePropertiesKey];
-            }
-            else
-            {
-                props = type.GetProperties();
-                cachePropertiesManager.Add(cachePropertiesKey, props, cachePropertiesManager.Day);
-            }
-
-            string typeName = type.Name;
-            typeName = GetTableNameByClassType(typeName);
-            string pkName = SqlSugarTool.GetPrimaryKeyByTableName(this, typeName);
-            var identityNames = SqlSugarTool.GetIdentitiesKeyByTableName(this, typeName);
-            var isIdentity = identityNames != null && identityNames.Count > 0;
-            var columnNames = props.Select(it => it.Name).ToList();
-            if (DisableUpdateColumns.IsValuable())
-            {//去除禁止插入列
-                columnNames.RemoveAll(it => DisableUpdateColumns.Any(dc => dc.ToLower()==it.ToLower()));
-            }
-            //启用别名列
-            if (this.IsEnableAttributeMapping = true && _mappingColumns.IsValuable())
-            {
-                //将别名列转换成数据列
-                columnNames = columnNames.Select(it =>
-                {
-                    var cmInfo = _mappingColumns.Where(mc => mc.Key == it).ToList();
-                    return cmInfo.IsValuable() ? cmInfo.Single().Value : it;
-                }).ToList();
-            }
-            if (this.IsIgnoreErrorColumns)
-            {//去除非数据库列
-                var tableColumns = SqlSugarTool.GetColumnsByTableName(this, typeName);
-                columnNames = columnNames.Where(it => tableColumns.Any(tc => tc.ToLower() == it.ToLower())).ToList();
-            }
-            var columnNamesWidthIdentity = columnNames;
-            if (isIdentity)
-            {
-                columnNames = columnNames.Where(c => !identityNames.Any(it => it.Value == c)).ToList();//去掉自添列
-
-            }
-            Check.Exception(columnNames == null || columnNames.Count == 0, "没有可插入的列，请查看实体和插入配置。");
-
-            StringBuilder sbSql = new StringBuilder();
-            sbSql.AppendFormat(@"UPDATE S SET {{0}} FROM {1} S INNER JOIN 
-            (
-              {{1}}
-
-            ) T  ON T.{0}=S.{0}",pkName.GetTranslationSqlName(),typeName.GetTranslationSqlName());
-            StringBuilder sbSqlInnerFromTables = new StringBuilder();
-            StringBuilder sbSqlInnerUpdateColumns = new StringBuilder();
-            sbSqlInnerUpdateColumns.Append(string.Join(",", columnNames.Select(it => "S." + it.GetTranslationSqlName() + "=" + "T." + it.GetTranslationSqlName())));
-            foreach (var entity in entities)
-            {
-
-                sbSqlInnerFromTables.AppendLine("SELECT ");
-                foreach (var name in columnNamesWidthIdentity)
-                {
-                    var className = name;
-                    //启用别名列
-                    if (this.IsEnableAttributeMapping = true && _mappingColumns.IsValuable())
-                    {
-                        var mappInfo = _mappingColumns.Where(mc => mc.Value.ToLower() == name.ToLower()).ToList();
-                        if (mappInfo.IsValuable())
-                        {
-                            className = mappInfo.Single().Key;
-                        }
-                    }
-                    var isLastName = name == columnNames.Last();
-                    var prop = props.Single(it => it.Name == className);
-                    var objValue = prop.GetValue(entity, null);
-                    bool isNullable = false;
-                    var underType = SqlSugarTool.GetUnderType(prop, ref isNullable);
-                    if (objValue == null)
-                    {
-                        objValue = "NULL";
-                    }
-                    else if (underType == SqlSugarTool.DateType)
-                    {
-                        objValue = "'" + objValue.ObjToDate().ToString("yyyy-MM-dd HH:mm:ss")  + "'";
-                    }
-                    else if (underType == SqlSugarTool.BoolType)
-                    {
-                        objValue = Convert.ToBoolean(objValue) ? 1 : 0;
-                    }
-                    else if (underType == SqlSugarTool.StringType)
-                    {
-                        //string参数需要处理注入 (因为SqlParameter参数上限为2100所以无法使用参数化)
-                        objValue = "'" + objValue.ToString().ToSqlFilter() + "'";
-                    }
-                    else
-                    {
-                        objValue = "'" + objValue.ToString() + "'";
-                    }
-
-                    sbSqlInnerFromTables.Append(objValue + (isLastName ? (" AS "+name) :(" AS "+name+",")));
-                }
-                var isLastEntity = entities.Last() == entity;
-                if (!isLastEntity)
-                {
-                    sbSqlInnerFromTables.AppendLine(" UNION ALL ");
-                }
-            }
-
-            string sql = string.Format(sbSql.ToString(), sbSqlInnerUpdateColumns.ToString(), sbSqlInnerFromTables);
-            var reval = base.ExecuteCommand(sql);
-            sbSqlInnerFromTables = null;
-            sbSqlInnerUpdateColumns=null;
-            sbSql = null;
-            sql = null;
-            return reval > 0;
-        }
+ 
         #endregion
 
 
@@ -1321,7 +1168,7 @@ namespace SqlSugar
         /// <typeparam name="T"></typeparam>
         /// <param name="deleteObj"></param>
         /// <returns></returns>
-        public bool Delete<T>(T deleteObj) where T:class
+        public bool Delete<T>(T deleteObj)where T:class
         {
             InitAttributes<T>();
             var isDynamic = typeof(T).IsAnonymousType();
@@ -1339,9 +1186,9 @@ namespace SqlSugar
             var pkValue=type.GetProperty(pkClassPropName).GetValue(deleteObj,null);
             Check.Exception(pkValue == DBNull.Value, typeName + "主键的值不能为DBNull.Value。");
             string sql = string.Format("DELETE FROM {0} WHERE {1}={2}", typeName.GetTranslationSqlName(),pkName.GetTranslationSqlName(), pkName.GetSqlParameterName());
-            var par = new SqlParameter(pkName.GetSqlParameterName(), pkValue);
+            var par = new MySqlParameter(pkName.GetSqlParameterName(), pkValue);
             SqlSugarTool.SetParSize(par);
-            bool isSuccess = base.ExecuteCommand(sql, par) > 0;
+            bool isSuccess = ExecuteCommand(sql,par) > 0;
             return isSuccess;
         }
 
@@ -1351,7 +1198,7 @@ namespace SqlSugar
         /// <typeparam name="T"></typeparam>
         /// <param name="deleteObjList"></param>
         /// <returns>全部删除成功返回true</returns>
-        public bool Delete<T>(List<T> deleteObjList) where T:class
+        public bool Delete<T>(List<T> deleteObjList) where T : class
         {
             if (deleteObjList == null || deleteObjList.Count == 0) return false;
             var reval=true;
@@ -1371,7 +1218,7 @@ namespace SqlSugar
         /// <typeparam name="T"></typeparam>
         /// <param name="expression">表达式条件</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T>(Expression<Func<T, bool>> expression) where T:class
+        public bool Delete<T>(Expression<Func<T, bool>> expression) where T : class
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1380,7 +1227,7 @@ namespace SqlSugar
             ResolveExpress re = new ResolveExpress();
             re.ResolveExpression(re, expression, this);
             string sql = string.Format("DELETE FROM {0} WHERE 1=1 {1}", typeName.GetTranslationSqlName(), re.SqlWhere);
-            bool isSuccess = base.ExecuteCommand(sql, re.Paras.ToArray()) > 0;
+            bool isSuccess = ExecuteCommand(sql, re.Paras.ToArray()) > 0;
             return isSuccess;
         }
 
@@ -1392,7 +1239,7 @@ namespace SqlSugar
         /// <param name="SqlWhereString">不包含Where的字符串</param>
         /// <param name="whereObj">匿名参数(例如:new{id=1,name="张三"})</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T>(string SqlWhereString, object whereObj = null) where T:class
+        public bool Delete<T>(string SqlWhereString, object whereObj = null) where T : class
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1402,8 +1249,8 @@ namespace SqlSugar
             if (SqlWhereString.IsValuable()) {
                 SqlWhereString = Regex.Replace(SqlWhereString,@"^\s*(and|where)\s*","",RegexOptions.IgnoreCase);
             }
-            string sql = string.Format("DELETE FROM {0} WHERE 1=1 AND {1}", typeName.GetTranslationSqlName(), SqlWhereString);
-            bool isSuccess = base.ExecuteCommand(sql, pars.ToArray()) > 0;
+            string sql = string.Format("DELETE FROM {0} WHERE 1=1 AND {1}", typeName, SqlWhereString);
+            bool isSuccess = ExecuteCommand(sql,pars.ToArray()) > 0;
             return isSuccess;
         }
 
@@ -1414,7 +1261,7 @@ namespace SqlSugar
         /// <typeparam name="FiledType">主键类型</typeparam>
         /// <param name="whereIn">主键集合</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T, FiledType>(params FiledType[] whereIn) where T:class
+        public bool Delete<T, FiledType>(params FiledType[] whereIn) where T : class
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1428,7 +1275,7 @@ namespace SqlSugar
             if (whereIn != null && whereIn.Length > 0)
             {
                 string sql = string.Format("DELETE FROM {0} WHERE {1} IN ({2})", typeName.GetTranslationSqlName(), SqlSugarTool.GetPrimaryKeyByTableName(this, typeName).GetTranslationSqlName(), whereIn.ToJoinSqlInVal());
-                int deleteRowCount = base.ExecuteCommand(sql);
+                int deleteRowCount = ExecuteCommand(sql);
                 isSuccess = deleteRowCount > 0;
             }
             return isSuccess;
@@ -1442,7 +1289,7 @@ namespace SqlSugar
         /// <param name="expression">表达式条件</param>
         /// <param name="whereIn">批定列值的集合</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, List<FiledType> whereIn) where T:class
+        public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, List<FiledType> whereIn) where T : class
         {
             InitAttributes<T>();
             if (whereIn == null) return false;
@@ -1457,7 +1304,7 @@ namespace SqlSugar
         /// <param name="expression">表达式条件</param>
         /// <param name="whereIn">批定列值的集合</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, params FiledType[] whereIn) where T:class
+        public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, params FiledType[] whereIn) where T : class
         {
             InitAttributes<T>();
             ResolveExpress re = new ResolveExpress();
@@ -1473,7 +1320,7 @@ namespace SqlSugar
             if (whereIn != null && whereIn.Length > 0)
             {
                 string sql = string.Format("DELETE FROM {0} WHERE {1} IN ({2})", typeName.GetTranslationSqlName(), fieldName.GetTranslationSqlName(), whereIn.ToJoinSqlInVal());
-                int deleteRowCount = base.ExecuteCommand(sql);
+                int deleteRowCount = ExecuteCommand(sql);
                 isSuccess = deleteRowCount > 0;
             }
             return isSuccess;
@@ -1487,7 +1334,7 @@ namespace SqlSugar
         /// <param name="field">标识删除的字段</param>
         /// <param name="whereIn">主键集合</param>
         /// <returns>将field的值更新为1,则返回true表示状态删除成功</returns>
-        public bool FalseDelete<T, FiledType>(string field, params FiledType[] whereIn) where T:class
+        public bool FalseDelete<T, FiledType>(string field, params FiledType[] whereIn) where T : class
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1501,7 +1348,7 @@ namespace SqlSugar
             if (whereIn != null && whereIn.Length > 0)
             {
                 string sql = string.Format("UPDATE  {0} SET {3}=1 WHERE {1} IN ({2})", typeName.GetTranslationSqlName(), SqlSugarTool.GetPrimaryKeyByTableName(this, typeName), whereIn.ToJoinSqlInVal(), field);
-                int deleteRowCount = base.ExecuteCommand(sql);
+                int deleteRowCount = ExecuteCommand(sql);
                 isSuccess = deleteRowCount > 0;
             }
             return isSuccess;
@@ -1514,7 +1361,7 @@ namespace SqlSugar
         /// <param name="field">标识删除的字段</param>
         /// <param name="expression">表达式条件</param>
         /// <returns>将field的值更新为1,则返回true表示状态删除成功</returns>
-        public bool FalseDelete<T>(string field, Expression<Func<T, bool>> expression) where T:class
+        public bool FalseDelete<T>(string field, Expression<Func<T, bool>> expression) where T : class
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1537,7 +1384,7 @@ namespace SqlSugar
             ResolveExpress re = new ResolveExpress();
             re.ResolveExpression(re, expression, this);
             string sql = string.Format("UPDATE  {0} SET {1}=1 WHERE  1=1 {2}", typeName.GetTranslationSqlName(), field, re.SqlWhere);
-            int deleteRowCount = base.ExecuteCommand(sql, re.Paras.ToArray());
+            int deleteRowCount = ExecuteCommand(sql, re.Paras.ToArray());
             isSuccess = deleteRowCount > 0;
             return isSuccess;
         }

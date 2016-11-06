@@ -9,25 +9,12 @@ using System.Data;
 
 namespace SugarForOne
 {
-    public partial class SqlSugarClient : ISqlSugarClient, IDisposable
+    public partial class SqlSeverSugarClient : ISqlSugarClient, IDisposable
     {
-        ISqlSugarClient _db = null;
-        public SqlSugarClient(DbType type, string connectionString)
+        SqlSugarClient _db = null;
+        public SqlSeverSugarClient(string connectionString)
         {
-            switch (type)
-            {
-                case DbType.SqlServer:
-                    _db = new SqlSugar.SqlSugarClient(connectionString);
-                    break;
-                case DbType.Oracle:
-                    break;
-                case DbType.Sqlite:
-                    break;
-                case DbType.MySql:
-                    break;
-                default:
-                    break;
-            }
+            _db = new SqlSugarClient(connectionString);
         }
 
         public string ConnectionString
@@ -76,12 +63,12 @@ namespace SugarForOne
 
         public void AddMappingColum(KeyValue mappingColumns)
         {
-            _db.AddMappingColum(mappingColumns);
+            _db.AddMappingColum(new SqlSugar.KeyValue() { Key = mappingColumns.Key, Value = mappingColumns.Value });
         }
 
         public void AddMappingTable(KeyValue mappingTable)
         {
-            _db.AddMappingTable(mappingTable);
+            _db.AddMappingTable(new SqlSugar.KeyValue() { Key = mappingTable.Key, Value = mappingTable.Value });
         }
 
         public void BeginTran()
@@ -291,7 +278,20 @@ namespace SugarForOne
 
         public void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows)
         {
-            _db.SetFilterFilterParas(filterRows);
+            Dictionary<string, Func<SqlSugar.KeyValueObj>> values = new Dictionary<string, Func<SqlSugar.KeyValueObj>>();
+            foreach (var item in filterRows)
+            {
+                values.Add(item.Key, () =>
+                {
+                    var value = item.Value();
+                    return new SqlSugar.KeyValueObj()
+                    {
+                        Key = value.Key,
+                        Value = value.Value
+                    };
+                });
+            }
+            _db.SetFilterFilterParas(values);
         }
 
         public void SetFilterFilterParas(Dictionary<string, List<string>> filterColumns)
@@ -301,17 +301,32 @@ namespace SugarForOne
 
         public void SetMappingColumns(List<KeyValue> mappingColumns)
         {
-            _db.SetMappingColumns(mappingColumns);
+            _db.SetMappingColumns(mappingColumns.Select(it => new SqlSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
         }
 
         public void SetMappingTables(List<KeyValue> mappingTables)
         {
-            _db.SetMappingTables(mappingTables);
+            _db.SetMappingTables(mappingTables.Select(it => new SqlSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
         }
 
-        public void SetSerialNumber(List<PubModel.SerialNumber> serNum)
+        public void SetSerialNumber(List<SerialNumber> serNum)
         {
-            _db.SetSerialNumber(serNum);
+            var values = new List<SqlSugar.PubModel.SerialNumber>();
+            foreach (var item in serNum)
+            {
+                var value = new SqlSugar.PubModel.SerialNumber()
+                {
+                    FieldName = item.FieldName,
+                    TableName = item.TableName,
+                    GetNumFunc = item.GetNumFunc,
+                };
+                if (value.GetNumFuncWithDb != null) {
+                    value.GetNumFunc = ()=> {
+                        return item.GetNumFuncWithDb(this);
+                    };
+                }
+            }
+            _db.SetSerialNumber(values);
         }
 
         //public Sqlable Sqlable()
