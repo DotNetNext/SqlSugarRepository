@@ -5,15 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
+using System.Data;
 
 namespace SugarForOne
 {
-    public class SugarClient : ISqlSugarClient
+    public partial class SqlSugarClient : ISqlSugarClient
     {
         ISqlSugarClient _db = null;
-        public SugarClient(string connectionString)
+        public SqlSugarClient(DbType type, string connectionString)
         {
-            _db = new SqlSugarClient(connectionString);
+            switch (type)
+            {
+                case DbType.SqlServer:
+                    _db = new SqlSugar.SqlSugarClient(connectionString);
+                    break;
+                case DbType.Oracle:
+                    break;
+                case DbType.Sqlite:
+                    break;
+                case DbType.MySql:
+                    break;
+                default:
+                    break;
+            }
         }
 
         public string ConnectionString
