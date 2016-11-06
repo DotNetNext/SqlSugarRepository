@@ -34,6 +34,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -51,6 +55,47 @@
     <Compile Include="Models\SerialNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sugar\MySql\Append\MySqlSugarClient.cs" />
+    <Compile Include="Sugar\Oracle\Append\PlSqlSugarClient.cs" />
+    <Compile Include="Sugar\Oracle\Base\OracleConfig.cs" />
+    <Compile Include="Sugar\Oracle\Base\SqlHelper.cs" />
+    <Compile Include="Sugar\Oracle\Cloud\CloudModels.cs" />
+    <Compile Include="Sugar\Oracle\Cloud\CloudPubMethod.cs" />
+    <Compile Include="Sugar\Oracle\Cloud\TaskExtensions.cs" />
+    <Compile Include="Sugar\Oracle\Core\IDataReaderEntityBuilder.cs" />
+    <Compile Include="Sugar\Oracle\Core\IDataRecordExtensions.cs" />
+    <Compile Include="Sugar\Oracle\Core\ResolveExpress\Constant.cs" />
+    <Compile Include="Sugar\Oracle\Core\ResolveExpress\Expressions.cs" />
+    <Compile Include="Sugar\Oracle\Core\ResolveExpress\Main.cs" />
+    <Compile Include="Sugar\Oracle\Core\ResolveExpress\Method.cs" />
+    <Compile Include="Sugar\Oracle\Core\ResolveExpress\Models.cs" />
+    <Compile Include="Sugar\Oracle\Core\ResolveExpress\Property.cs" />
+    <Compile Include="Sugar\Oracle\Core\ResolveExpress\ResolveFieldName.cs" />
+    <Compile Include="Sugar\Oracle\Core\ResolveExpress\ResolveSelect.cs" />
+    <Compile Include="Sugar\Oracle\Generating\ClassGenerating.cs" />
+    <Compile Include="Sugar\Oracle\Generating\ClassTemplate.cs" />
+    <Compile Include="Sugar\Oracle\Generating\SugarAttribute.cs" />
+    <Compile Include="Sugar\Oracle\PubModel\KeyValue.cs" />
+    <Compile Include="Sugar\Oracle\PubModel\PubEnum.cs" />
+    <Compile Include="Sugar\Oracle\PubModel\PubModel.cs" />
+    <Compile Include="Sugar\Oracle\Queryable\Queryable.cs" />
+    <Compile Include="Sugar\Oracle\Queryable\QueryableExtensions.cs" />
+    <Compile Include="Sugar\Oracle\Sqlable\Sqlable.cs" />
+    <Compile Include="Sugar\Oracle\Sqlable\SqlableExtensions.cs" />
+    <Compile Include="Sugar\Oracle\SqlSugarClient.cs" />
+    <Compile Include="Sugar\Oracle\Tool\CacheManager.cs" />
+    <Compile Include="Sugar\Oracle\Tool\Check.cs" />
+    <Compile Include="Sugar\Oracle\Tool\FileSugar.cs" />
+    <Compile Include="Sugar\Oracle\Tool\IEnumerableExtensions.cs" />
+    <Compile Include="Sugar\Oracle\Tool\IStorageObject.cs" />
+    <Compile Include="Sugar\Oracle\Tool\IsWhatExtensions.cs" />
+    <Compile Include="Sugar\Oracle\Tool\JsonConverter.cs" />
+    <Compile Include="Sugar\Oracle\Tool\LanguageHelper.cs" />
+    <Compile Include="Sugar\Oracle\Tool\PubConvert.cs" />
+    <Compile Include="Sugar\Oracle\Tool\SqlException.cs" />
+    <Compile Include="Sugar\Oracle\Tool\SqlSugarTool.cs" />
+    <Compile Include="Sugar\Oracle\Tool\SqlSugarToolCoreDiff.cs" />
+    <Compile Include="Sugar\Oracle\Tool\SqlSugarToolExtensions.cs" />
+    <Compile Include="Sugar\Oracle\Tool\SqlSugarToolWithSqlMethod.cs" />
     <Compile Include="Sugar\SqlServer\Append\SqlSeverSugarClient.cs" />
     <Compile Include="Sugar\MySql\Base\SqlHelper.cs" />
     <Compile Include="Sugar\MySql\Cloud\CloudModels.cs" />
@@ -134,11 +179,11 @@
     <Compile Include="Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Sugar\Oracle\Append\" />
     <Folder Include="Sugar\Sqlite\Append\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lib\MySql.Data.dll" />
+    <Content Include="Lib\Oracle.ManagedDataAccess.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -24,6 +25,24 @@ namespace SugarForOne
         public static MySqlParameter ToMySqlPars(this SqlParameter par)
         {
             return new MySqlParameter() { ParameterName = par.ParameterName, Value = par.Value };
+        }
+
+        public static OracleParameter[] ToOracleSqlPars(this SqlParameter[] pars)
+        {
+            if (pars == null)
+            {
+                return null;
+            }
+            List<OracleParameter> reval = new List<OracleParameter>();
+            foreach (var item in pars)
+            {
+                reval.Add(item.ToOracleSqlPars());
+            }
+            return reval.ToArray();
+        }
+        public static OracleParameter ToOracleSqlPars(this SqlParameter par)
+        {
+            return new OracleParameter() { ParameterName = par.ParameterName, Value = par.Value };
         }
     }
 }
