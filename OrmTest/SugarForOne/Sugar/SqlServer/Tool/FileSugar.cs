@@ -6,7 +6,6 @@ using System.Text;
 using System.IO;
 using System.Web;
 using System.Threading;
-using System.Web.UI.WebControls;
 #endregion
 
 namespace SqlSugar
