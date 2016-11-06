@@ -44,7 +44,6 @@
     <Compile Include="ISugarable.cs" />
     <Compile Include="Models\DbType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlHelper.cs" />
     <Compile Include="SqlSugarClient.cs" />
     <Compile Include="Sugar\SqlServer\Base\SqlHelper.cs" />
     <Compile Include="Sugar\SqlServer\Cloud\CloudModels.cs" />

@@ -9,7 +9,7 @@ using System.Data;
 
 namespace SugarForOne
 {
-    public partial class SqlSugarClient : ISqlSugarClient
+    public partial class SqlSugarClient : ISqlSugarClient, IDisposable
     {
         ISqlSugarClient _db = null;
         public SqlSugarClient(DbType type, string connectionString)
@@ -84,6 +84,21 @@ namespace SugarForOne
             _db.AddMappingTable(mappingTable);
         }
 
+        public void BeginTran()
+        {
+            _db.BeginTran();
+        }
+
+        public void BeginTran(string transactionName)
+        {
+            _db.BeginTran(transactionName);
+        }
+
+        public void CommitTran()
+        {
+            _db.CommitTran();
+        }
+
         public bool Delete<T>(Expression<Func<T, bool>> expression) where T : class
         {
             return _db.Delete(expression);
@@ -119,6 +134,21 @@ namespace SugarForOne
             return _db.Delete(expression, whereIn);
         }
 
+        public void Dispose()
+        {
+            _db.Dispose();
+        }
+
+        public int ExecuteCommand(string sql, object pars)
+        {
+            return _db.ExecuteCommand(sql, pars);
+        }
+
+        public int ExecuteCommand(string sql, params SqlParameter[] pars)
+        {
+            return _db.ExecuteCommand(sql, pars);
+        }
+
         public bool FalseDelete<T>(string field, Expression<Func<T, bool>> expression) where T : class
         {
             return _db.FalseDelete(field, expression);
@@ -127,6 +157,106 @@ namespace SugarForOne
         public bool FalseDelete<T, FiledType>(string field, params FiledType[] whereIn) where T : class
         {
             return _db.FalseDelete<T, FiledType>(field, whereIn);
+        }
+
+        public SqlConnection GetConnection()
+        {
+            return _db.GetConnection();
+        }
+
+        public DataSet GetDataSetAll(string sql, object pars)
+        {
+            return _db.GetDataSetAll(sql, pars);
+        }
+
+        public DataSet GetDataSetAll(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetDataSetAll(sql, pars);
+        }
+
+        public DataTable GetDataTable(string sql, object pars)
+        {
+            return _db.GetDataTable(sql, pars);
+        }
+
+        public DataTable GetDataTable(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetDataTable(sql, pars);
+        }
+
+        public DateTime GetDateTime(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetDateTime(sql, pars);
+        }
+
+        public decimal GetDecimal(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetDecimal(sql, pars);
+        }
+
+        public double GetDouble(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetDouble(sql, pars);
+        }
+
+        public int GetInt(string sql, object pars)
+        {
+            return _db.GetInt(sql, pars);
+        }
+
+        public int GetInt(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetInt(sql, pars);
+        }
+
+        public List<T> GetList<T>(string sql, object pars)
+        {
+            return _db.GetList<T>(sql, pars);
+        }
+
+        public List<T> GetList<T>(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetList<T>(sql, pars);
+        }
+
+        public SqlDataReader GetReader(string sql, object pars)
+        {
+            return _db.GetReader(sql, pars);
+        }
+
+        public SqlDataReader GetReader(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetReader(sql, pars);
+        }
+
+        public object GetScalar(string sql, object pars)
+        {
+            return _db.GetScalar(sql, pars);
+        }
+
+        public object GetScalar(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetScalar(sql, pars);
+        }
+
+        public T GetSingle<T>(string sql, object pars)
+        {
+            return _db.GetSingle<T>(sql, pars);
+        }
+
+        public T GetSingle<T>(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetSingle<T>(sql, pars);
+        }
+
+        public string GetString(string sql, object pars)
+        {
+            return _db.GetString(sql, pars);
+        }
+
+        public string GetString(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetString(sql, pars);
         }
 
         public object Insert<T>(T entity, bool isIdentity = true) where T : class
@@ -152,6 +282,11 @@ namespace SugarForOne
         public void RemoveAllCache<T>()
         {
             _db.RemoveAllCache<T>();
+        }
+
+        public void RollbackTran()
+        {
+            _db.RollbackTran();
         }
 
         public void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows)
