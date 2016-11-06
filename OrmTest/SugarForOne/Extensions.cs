@@ -3,6 +3,7 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 
@@ -44,5 +45,24 @@ namespace SugarForOne
         {
             return new OracleParameter() { ParameterName = par.ParameterName, Value = par.Value };
         }
+
+        public static SQLiteParameter[] ToSqlitePars(this SqlParameter[] pars)
+        {
+            if (pars == null)
+            {
+                return null;
+            }
+            List<SQLiteParameter> reval = new List<SQLiteParameter>();
+            foreach (var item in pars)
+            {
+                reval.Add(item.ToSqlitePars());
+            }
+            return reval.ToArray();
+        }
+        public static SQLiteParameter ToSqlitePars(this SqlParameter par)
+        {
+            return new SQLiteParameter() { ParameterName = par.ParameterName, Value = par.Value };
+        }
+
     }
 }
