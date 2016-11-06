@@ -1,1 +1,2 @@
 E:\MyOpenSource\AllForOne\OrmTest\OrmTest\bin\Debug\OrmTest.exe.config
+E:\MyOpenSource\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.exe.config
