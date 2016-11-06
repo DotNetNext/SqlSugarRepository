@@ -58,7 +58,6 @@ namespace SugarForOne
         void Dispose();
         int ExecuteCommand(string sql, params SqlParameter[] pars);
         int ExecuteCommand(string sql, object pars);
-        SqlConnection GetConnection();
         DataSet GetDataSetAll(string sql, params SqlParameter[] pars);
         DataSet GetDataSetAll(string sql, object pars);
         DataTable GetDataTable(string sql, params SqlParameter[] pars);
@@ -70,8 +69,8 @@ namespace SugarForOne
         int GetInt(string sql, object pars);
         List<T> GetList<T>(string sql, params SqlParameter[] pars);
         List<T> GetList<T>(string sql, object pars);
-        SqlDataReader GetReader(string sql, params SqlParameter[] pars);
-        SqlDataReader GetReader(string sql, object pars);
+        //SqlDataReader GetReader(string sql, params SqlParameter[] pars);
+        //SqlDataReader GetReader(string sql, object pars);
         object GetScalar(string sql, params SqlParameter[] pars);
         object GetScalar(string sql, object pars);
         T GetSingle<T>(string sql, params SqlParameter[] pars);
