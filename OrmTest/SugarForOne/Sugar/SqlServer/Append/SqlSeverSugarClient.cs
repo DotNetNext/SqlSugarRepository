@@ -9,7 +9,7 @@ using System.Data;
 
 namespace SugarForOne
 {
-    public partial class SqlSeverSugarClient : ISqlSugarClient, IDisposable
+    internal partial class SqlSeverSugarClient : ISqlSugarClient, IDisposable
     {
         SqlSugarClient _db = null;
         public SqlSeverSugarClient(string connectionString)

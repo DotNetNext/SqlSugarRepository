@@ -10,7 +10,7 @@ using System.Data;
 
 namespace SugarForOne
 {
-    public partial class PlSqlSugarClient : ISqlSugarClient, IDisposable
+    internal partial class PlSqlSugarClient : ISqlSugarClient, IDisposable
     {
         SqlSugarClient _db = null;
         public PlSqlSugarClient(string connectionString)

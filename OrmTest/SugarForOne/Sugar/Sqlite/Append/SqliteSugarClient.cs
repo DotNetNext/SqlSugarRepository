@@ -9,7 +9,7 @@ using System.Data;
 
 namespace SugarForOne
 {
-    public partial class SqliteSugarClient : ISqlSugarClient, IDisposable
+    internal partial class SqliteSugarClient : ISqlSugarClient, IDisposable
     {
         SqlSugarClient _db = null;
         public SqliteSugarClient(string connectionString)
