@@ -9,7 +9,7 @@ using System.Text;
 
 namespace SugarForOne
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static MySqlParameter[] ToMySqlPars(this SqlParameter[] pars)
         {

@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace SugarForOne
 {
-    public interface ISqlSugarClient
+    public interface ISqlSugarClient: IDisposable
     {
         #region Sugar
         string ConnectionString { get; }
