@@ -269,15 +269,15 @@ namespace SugarForOne
             return _db.InsertRange(entities, isIdentity);
         }
 
-        public Queryable<T> Queryable<T>() where T : class, new()
-        {
-            return _db.Queryable<T>();
-        }
+        //public Queryable<T> Queryable<T>() where T : class, new()
+        //{
+        //    return _db.Queryable<T>();
+        //}
 
-        public Queryable<T> Queryable<T>(string tableName) where T : class, new()
-        {
-            return _db.Queryable<T>(tableName);
-        }
+        //public Queryable<T> Queryable<T>(string tableName) where T : class, new()
+        //{
+        //    return _db.Queryable<T>(tableName);
+        //}
 
         public void RemoveAllCache<T>()
         {
@@ -314,10 +314,10 @@ namespace SugarForOne
             _db.SetSerialNumber(serNum);
         }
 
-        public Sqlable Sqlable()
-        {
-            return _db.Sqlable();
-        }
+        //public Sqlable Sqlable()
+        //{
+        //    return _db.Sqlable();
+        //}
 
         public bool SqlBulkCopy<T>(List<T> entities) where T : class
         {

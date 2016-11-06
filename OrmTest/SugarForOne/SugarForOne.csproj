@@ -63,9 +63,9 @@
     <Compile Include="Sugar\SqlServer\Generating\ClassTemplate.cs" />
     <Compile Include="Sugar\SqlServer\Generating\SugarAttribute.cs" />
     <Compile Include="ISqlSugarClient.cs" />
-    <Compile Include="Sugar\SqlServer\PubModel\KeyValue.cs" />
-    <Compile Include="Sugar\SqlServer\PubModel\PubEnum.cs" />
-    <Compile Include="Sugar\SqlServer\PubModel\PubModel.cs" />
+    <Compile Include="Models\PubModel\KeyValue.cs" />
+    <Compile Include="Models\PubModel\PubEnum.cs" />
+    <Compile Include="Models\PubModel\PubModel.cs" />
     <Compile Include="Sugar\SqlServer\Queryable\Queryable.cs" />
     <Compile Include="Sugar\SqlServer\Queryable\QueryableExtensions.cs" />
     <Compile Include="Sugar\SqlServer\Sqlable\Sqlable.cs" />

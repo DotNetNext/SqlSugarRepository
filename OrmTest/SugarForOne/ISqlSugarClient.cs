@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 
-namespace SqlSugar
+namespace SugarForOne
 {
     public interface ISqlSugarClient
     {
@@ -27,15 +27,15 @@ namespace SqlSugar
         bool FalseDelete<T, FiledType>(string field, params FiledType[] whereIn) where T : class;
         object Insert<T>(T entity, bool isIdentity = true) where T : class;
         List<object> InsertRange<T>(List<T> entities, bool isIdentity = true) where T : class;
-        Queryable<T> Queryable<T>() where T : class, new();
-        Queryable<T> Queryable<T>(string tableName) where T : class, new();
+      //  Queryable<T> Queryable<T>() where T : class, new();
+     //   Queryable<T> Queryable<T>(string tableName) where T : class, new();
         void RemoveAllCache<T>();
         void SetFilterFilterParas(Dictionary<string, List<string>> filterColumns);
         void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows);
         void SetMappingColumns(List<KeyValue> mappingColumns);
         void SetMappingTables(List<KeyValue> mappingTables);
         void SetSerialNumber(List<PubModel.SerialNumber> serNum);
-        Sqlable Sqlable();
+       // Sqlable Sqlable();
         bool SqlBulkCopy<T>(List<T> entities) where T : class;
         bool SqlBulkReplace<T>(List<T> entities) where T : class;
         List<T> SqlQuery<T>(string sql, SqlParameter[] pars);
