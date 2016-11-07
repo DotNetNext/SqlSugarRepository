@@ -26,6 +26,11 @@ namespace SqlSugarRepository
             }
         }
 
+        public Guid ConnectionUniqueKey
+        {
+            get;set;
+        }
+
         public string[] DisableInsertColumns
         {
             get

@@ -13,6 +13,9 @@ namespace SqlSugarRepository
     /// </summary>
     public class DbRepository : IDisposable
     {
+        private List<ISqlSugarClient> _dbs = null;
+        private ISqlSugarClient _currentClient = null;
+        internal ConnectionConfig _currentConfig = null;
 
         /// <summary>
         /// 获取数据库连接实例
@@ -21,6 +24,18 @@ namespace SqlSugarRepository
         /// <param name="connectionString">数据库连接字符串</param>
         /// <returns></returns>
         public static ISqlSugarClient GetInstance(DbType type, string connectionString)
+        {
+            ISqlSugarClient db = GetConnectionClient(type, connectionString);
+            return db;
+        }
+
+        /// <summary>
+        /// 根据类型获取连接对象
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
+        private static ISqlSugarClient GetConnectionClient(DbType type, string connectionString)
         {
             ISqlSugarClient db = null;
             switch (type)
@@ -38,6 +53,7 @@ namespace SqlSugarRepository
                     db = new PlSqlSugarClient(connectionString);
                     break;
             }
+
             return db;
         }
 
@@ -52,9 +68,30 @@ namespace SqlSugarRepository
             get
             {
                 var isInit = _dbs == null;
-                if (isInit) {
-
-
+                if (isInit)
+                {
+                    var fileds = this.GetType().GetFields();
+                    Check.Exception(fileds == null || fileds.Count() == 0, InternalConst.ConnectionMessageNoConfig);
+                    foreach (var item in fileds)
+                    {
+                        var itemValue = item.GetValue(this);
+                        if (itemValue is ConnectionConfig)
+                        {
+                            var conObj = (ConnectionConfig)itemValue;
+                            ISqlSugarClient db = GetConnectionClient(conObj.DbType, conObj.ConnectionString);
+                            db.ConnectionUniqueKey = conObj.UniqueKey;
+                            if (_currentClient == null)
+                            {
+                                _currentClient = db;
+                                _currentConfig = conObj;
+                            }
+                            if (_dbs == null)
+                            {
+                                _dbs = new List<ISqlSugarClient>();
+                            }
+                            _dbs.Add(db);
+                        }
+                    }
                 }
                 return _currentClient;
             }
@@ -71,55 +108,21 @@ namespace SqlSugarRepository
             }
         }
 
-
-        private List<ISqlSugarClient> _dbs = null;
-        private ISqlSugarClient _currentClient = null;
-        internal ConnectionConfig ConnectionConfig = null;
-
-        public DbRepository()
-        {
-
-        }
-
         /// <summary>
         /// 设置当前连接池
         /// </summary>
         /// <param name="config"></param>
         public void SetCurrent(ConnectionConfig config)
         {
-            ISqlSugarClient db = null;
-            switch (config.DbType)
+            var currentDb = _dbs.SingleOrDefault(it => it.ConnectionUniqueKey == config.UniqueKey);
+            if (currentDb != null)
             {
-                case DbType.SqlServer:
-                    db = new SqlSeverSugarClient(config.ConnectionString);
-                    break;
-                case DbType.Sqlite:
-                    db = new SqliteSugarClient(config.ConnectionString);
-                    break;
-                case DbType.MySql:
-                    db = new MySqlSugarClient(config.ConnectionString);
-                    break;
-                case DbType.Oracle:
-                    db = new PlSqlSugarClient(config.ConnectionString);
-                    break;
-            }
-            var isFirstDb = _dbs == null || _dbs.Count == 0;
-            if (isFirstDb)
-            {
-                _dbs.Add(db);
+                _currentClient = currentDb;
+                _currentConfig = config;
             }
             else
             {
-                var currentDb = _dbs.SingleOrDefault(it => it.ConnectionUniqueKey == config.UniqueKey);
-                if (db != null)
-                {
-                    _currentClient = currentDb;
-                }
-                else
-                {
-                    throw new Exception("");
-                }
-
+                Check.Exception(true, InternalConst.ConnectionMessageNoConfig);
             }
         }
 

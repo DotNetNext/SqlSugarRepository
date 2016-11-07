@@ -18,11 +18,8 @@ namespace SqlSugarRepository
         }
         public string GetSql(string SqlServerSql, string OracleSql, string SqlieSql, string MysqlSql)
         {
-            if (_dr.ConnectionConfig == null)
-            {
-                throw new ArgumentNullException("没有设置连接配置。");
-            }
-            DbType type = _dr.ConnectionConfig.DbType;
+            Check.Exception(_dr._currentConfig == null, InternalConst.ConnectionMessageNoConfig);
+            DbType type = _dr._currentConfig.DbType;
             switch (type)
             {
                 case DbType.SqlServer:

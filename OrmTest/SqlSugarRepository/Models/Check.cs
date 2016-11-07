@@ -36,6 +36,11 @@ namespace SqlSugarRepository
             if (isException)
                 throw new SqlSugarRepositoryException(string.Format(message, args));
         }
+
+        internal static void Exception(bool v, object connectionMessageNoConfig)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     

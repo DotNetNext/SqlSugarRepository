@@ -10,5 +10,6 @@ namespace SqlSugarRepository
     /// </summary>
     internal class InternalConst
     {
+        public static string ConnectionMessageNoConfig = "没有可用的连接池。";
     }
 }
