@@ -240,6 +240,8 @@
     <Content Include="Lib\MySql.Data.dll" />
     <Content Include="Lib\Oracle.ManagedDataAccess.dll" />
     <Content Include="Lib\System.Data.SQLite.dll" />
+    <Content Include="Lib\x64\SQLite.Interop.dll" />
+    <Content Include="Lib\x86\SQLite.Interop.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
