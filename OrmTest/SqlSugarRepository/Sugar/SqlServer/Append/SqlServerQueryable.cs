@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using SqlSugar;
 namespace SqlSugarRepository
 {
     class SqlServerQueryable<T> : ISugarQueryable<T>
@@ -15,7 +15,8 @@ namespace SqlSugarRepository
 
         public ISugarQueryable<T> JoinTable<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).JoinTable<T2>(expression, (SqlSugar.JoinType)(int)type);
+            return this;
         }
 
         public ISugarQueryable<T> JoinTable<T2, T3>(System.Linq.Expressions.Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT)

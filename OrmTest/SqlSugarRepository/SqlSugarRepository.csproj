@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="ISugarQueryable.cs" />
     <Compile Include="ISugarQueryable1.cs" />
+    <Compile Include="ISugarQueryableExtensions.cs" />
     <Compile Include="Models\CacheManager.cs" />
     <Compile Include="Models\Check.cs" />
     <Compile Include="Models\ConnectionConfig.cs" />

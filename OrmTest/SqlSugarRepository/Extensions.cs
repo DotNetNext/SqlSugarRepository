@@ -43,6 +43,9 @@ namespace SqlSugarRepository
         }
         public static OracleParameter ToOracleSqlPars(this SqlParameter par)
         {
+            par.ParameterName=par.ParameterName.TrimStart('@');
+            par.ParameterName = par.ParameterName.TrimStart(':');
+            par.ParameterName = ":"+par.ParameterName;
             return new OracleParameter() { ParameterName = par.ParameterName, Value = par.Value };
         }
 
