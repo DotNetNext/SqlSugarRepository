@@ -230,7 +230,6 @@
     <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolExtensions.cs" />
     <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolWithSqlMethod.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Temp.cs" />
     <Compile Include="Tool.cs" />
   </ItemGroup>
   <ItemGroup />
