@@ -817,23 +817,28 @@ namespace SqlSugarRepository
             if (queryable.QueryableCore is SqlSugar.Queryable<T>)
             {
                 queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, TResult>(expression);
-
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
             }
             else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
             {
                 queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, TResult>(expression);
+                reval = new MySqlQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
             }
             else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
             {
                 queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, TResult>(expression);
+                reval = new OracleQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
             }
             else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
             {
                 queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
             }
-
-
-            return null;
+            return reval;
         }
 
         /// <summary>
@@ -848,8 +853,32 @@ namespace SqlSugarRepository
         /// <returns>ISugarQueryable</returns>
         public static ISugarQueryable<TResult> Select<T, T2, T3, TResult>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, T3, TResult>> expression)
         {
-
-            return null;
+            ISugarQueryable<TResult> reval = null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, TResult>(expression);
+                reval = new MySqlQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, TResult>(expression);
+                reval = new OracleQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            return reval;
         }
 
         /// <summary>
@@ -866,7 +895,32 @@ namespace SqlSugarRepository
         public static ISugarQueryable<TResult> Select<T, T2, T3, T4, TResult>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, T3, T4, TResult>> expression)
         {
 
-            return null;
+            ISugarQueryable<TResult> reval = null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, T4, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, T4, TResult>(expression);
+                reval = new MySqlQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, T4, TResult>(expression);
+                reval = new OracleQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, T4, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            return reval;
         }
 
         /// <summary>
@@ -884,7 +938,32 @@ namespace SqlSugarRepository
         public static ISugarQueryable<TResult> Select<T, T2, T3, T4, T5, TResult>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, T3, T4, T5, TResult>> expression)
         {
 
-            return null;
+            ISugarQueryable<TResult> reval = null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, T4, T5, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, T4, T5, TResult>(expression);
+                reval = new MySqlQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, T4, T5, TResult>(expression);
+                reval = new OracleQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Select<T, T2, T3, T4, T5, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            return reval;
         }
 
         /// <summary>
@@ -897,8 +976,32 @@ namespace SqlSugarRepository
         /// <returns>ISugarQueryable</returns>
         public static ISugarQueryable<TResult> Select<TSource, TResult>(this ISugarQueryable<TSource> queryable, Expression<Func<TSource, TResult>> expression)
         {
-
-            return null;
+            ISugarQueryable<TResult> reval = null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<TSource>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<TSource>)queryable.QueryableCore).Select<TSource, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<TSource>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<TSource>)queryable.QueryableCore).Select<TSource, TResult>(expression);
+                reval = new MySqlQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<TSource>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<TSource>)queryable.QueryableCore).Select<TSource, TResult>(expression);
+                reval = new OracleQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<TSource>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<TSource>)queryable.QueryableCore).Select<TSource, TResult>(expression);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            return reval;
         }
 
 
@@ -913,8 +1016,32 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public static ISugarQueryable<TResult> Select<TSource, TResult>(this ISugarQueryable<TSource> queryable, string select)
         {
-
-            return null;
+            ISugarQueryable<TResult> reval = null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<TSource>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<TSource>)queryable.QueryableCore).Select<TSource, TResult>(select);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<TSource>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<TSource>)queryable.QueryableCore).Select<TSource, TResult>(select);
+                reval = new MySqlQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<TSource>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<TSource>)queryable.QueryableCore).Select<TSource, TResult>(select);
+                reval = new OracleQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<TSource>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<TSource>)queryable.QueryableCore).Select<TSource, TResult>(select);
+                reval = new SqlServerQueryable<TResult>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            return reval;
         }
 
         /// <summary>
@@ -926,7 +1053,23 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public static ISugarQueryable<T> Select<T>(this ISugarQueryable<T> queryable, string select)
         {
-            return null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).Select<T>(select);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Select<T>(select);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).Select<T>(select);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Select<T>(select);
+            }
+            return queryable;
         }
         /// <summary>
         /// 将select的字段映射到T对象
@@ -938,7 +1081,32 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public static ISugarQueryable<Result> Select<T, Result>(this ISugarQueryable<Result> queryable, string select)
         {
-            return null;
+            ISugarQueryable<Result> reval = null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, Result>(select);
+                reval = new SqlServerQueryable<Result>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Select<T, Result>(select);
+                reval = new MySqlQueryable<Result>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).Select<T, Result>(select);
+                reval = new OracleQueryable<Result>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Select<T, Result>(select);
+                reval = new SqlServerQueryable<Result>();
+                reval.QueryableCore = queryable.QueryableCore;
+            }
+            return reval;
         }
 
         /// <summary>
@@ -948,7 +1116,23 @@ namespace SqlSugarRepository
         /// <returns>int</returns>
         public static int Count<T>(this ISugarQueryable<T> queryable)
         {
-            return 1;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).Count();
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Count();
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).Count();
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Count();
+            }
+            return 0;
         }
 
 
@@ -962,8 +1146,23 @@ namespace SqlSugarRepository
         /// <returns>TResult</returns>
         public static TResult Max<TSource, TResult>(this ISugarQueryable<TSource> queryable, string maxField)
         {
-            var reval = Convert.ChangeType(null, typeof(TResult));
-            return (TResult)reval;
+            if (queryable.QueryableCore is SqlSugar.Queryable<TSource>)
+            {
+                return ((SqlSugar.Queryable<TSource>)queryable.QueryableCore).Max<TSource, TResult>(maxField);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<TSource>)
+            {
+                return ((MySqlSugar.Queryable<TSource>)queryable.QueryableCore).Max<TSource, TResult>(maxField);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<TSource>)
+            {
+                return ((OracleSugar.Queryable<TSource>)queryable.QueryableCore).Max<TSource, TResult>(maxField);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<TSource>)
+            {
+                return ((SQLiteSugar.Queryable<TSource>)queryable.QueryableCore).Max<TSource, TResult>(maxField);
+            }
+            return default(TResult);
         }
 
         /// <summary>
@@ -975,7 +1174,23 @@ namespace SqlSugarRepository
         /// <returns>object</returns>
         public static object Max<T>(this ISugarQueryable<T> queryable, Expression<Func<T, object>> expression)
         {
-            return null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).Max<T>(expression);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Max<T>(expression);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).Max<T>(expression);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Max<T>(expression);
+            }
+            return 0;
         }
 
         /// <summary>
@@ -988,6 +1203,22 @@ namespace SqlSugarRepository
         /// <returns>TResult</returns>
         public static TResult Min<TSource, TResult>(this ISugarQueryable<TSource> queryable, string minField)
         {
+            if (queryable.QueryableCore is SqlSugar.Queryable<TSource>)
+            {
+                return ((SqlSugar.Queryable<TSource>)queryable.QueryableCore).Min<TSource, TResult>(minField);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<TSource>)
+            {
+                return ((MySqlSugar.Queryable<TSource>)queryable.QueryableCore).Min<TSource, TResult>(minField);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<TSource>)
+            {
+                return ((OracleSugar.Queryable<TSource>)queryable.QueryableCore).Min<TSource, TResult>(minField);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<TSource>)
+            {
+                return ((SQLiteSugar.Queryable<TSource>)queryable.QueryableCore).Min<TSource, TResult>(minField);
+            }
             return default(TResult);
         }
 
@@ -1000,7 +1231,23 @@ namespace SqlSugarRepository
         /// <returns>object</returns>
         public static object Min<T>(this ISugarQueryable<T> queryable, Expression<Func<T, object>> expression)
         {
-            return null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).Min<T>(expression);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).Min<T>(expression);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).Min<T>(expression);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).Min<T>(expression);
+            }
+            return 0;
         }
 
 
@@ -1039,7 +1286,23 @@ namespace SqlSugarRepository
         /// <returns>json字符串</returns>
         public static string ToJson<T>(this ISugarQueryable<T> queryable)
         {
-            return "";
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToJson();
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToJson();
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToJson();
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToJson();
+            }
+            return null;
         }
 
         /// <summary>
@@ -1050,7 +1313,23 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public static KeyValuePair<string, string[]> ToSql<T>(this ISugarQueryable<T> queryable)
         {
-            return new KeyValuePair<string, string[]>();
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToSql();
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToSql();
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToSql();
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToSql();
+            }
+            return default(KeyValuePair<string, string[]>);
         }
 
         /// <summary>
@@ -1061,7 +1340,23 @@ namespace SqlSugarRepository
         /// <returns>dynamic</returns>
         public static dynamic ToDynamic<T>(this ISugarQueryable<T> queryable)
         {
-            return 1;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToDynamic();
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToDynamic();
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToDynamic();
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToDynamic();
+            }
+            return null;
         }
 
         /// <summary>
@@ -1072,7 +1367,23 @@ namespace SqlSugarRepository
         /// <returns>DataTable</returns>
         public static DataTable ToDataTable<T>(this ISugarQueryable<T> queryable)
         {
-            return new DataTable();
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToDataTable();
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToDataTable();
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToDataTable();
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToDataTable();
+            }
+            return null;
         }
 
         /// <summary>
@@ -1085,6 +1396,22 @@ namespace SqlSugarRepository
         /// <returns>T的集合</returns>
         public static List<T> ToPageList<T>(this ISugarQueryable<T> queryable, int pageIndex, int pageSize)
         {
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToPageList(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToPageList(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToPageList(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToPageList(pageIndex, pageSize);
+            }
             return null;
         }
 
@@ -1099,7 +1426,23 @@ namespace SqlSugarRepository
         /// <returns>ISugarQueryable</returns>
         public static ISugarQueryable<T> JoinTable<T, T2>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT)
         {
-            return null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T, T2>(expression, (SqlSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T, T2>(expression, (MySqlSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T, T2>(expression, (OracleSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T, T2>(expression, (SQLiteSugar.JoinType)((int)type));
+            }
+            return queryable;
         }
 
 
@@ -1115,7 +1458,23 @@ namespace SqlSugarRepository
         /// <returns>ISugarQueryable</returns>
         public static ISugarQueryable<T> JoinTable<T, T2, T3>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT)
         {
-            return null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T, T2, T3>(expression, (SqlSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T, T2, T3>(expression, (MySqlSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T, T2, T3>(expression, (OracleSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T, T2, T3>(expression, (SQLiteSugar.JoinType)((int)type));
+            }
+            return queryable;
         }
 
         /// <summary>
@@ -1131,7 +1490,23 @@ namespace SqlSugarRepository
         /// <returns>ISugarQueryable</returns>
         public static ISugarQueryable<T> JoinTable<T>(this ISugarQueryable<T> queryable, string tableName, string shortName, string onWhere, object whereObj, JoinType type = JoinType.LEFT)
         {
-            return null;
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SqlSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T>(tableName,shortName,onWhere,whereObj, (SqlSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((MySqlSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T>(tableName, shortName, onWhere, whereObj, (MySqlSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((OracleSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T>(tableName, shortName, onWhere, whereObj, (OracleSugar.JoinType)((int)type));
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                queryable.QueryableCore = ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).JoinTable<T>(tableName, shortName, onWhere, whereObj, (SQLiteSugar.JoinType)((int)type));
+            }
+            return queryable;
         }
 
     }
