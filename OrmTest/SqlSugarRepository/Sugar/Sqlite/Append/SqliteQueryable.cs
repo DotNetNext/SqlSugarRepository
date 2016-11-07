@@ -1,12 +1,12 @@
-﻿using SqlSugarRepository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SqlSugar;
+using SQLiteSugar;
+
 namespace SqlSugarRepository
 {
-   public class SqlServerQueryable<T> : ISugarQueryable<T>
+    public class SqliteQueryable<T> : ISugarQueryable<T>
     {
         public object QueryableCore
         {
@@ -15,13 +15,13 @@ namespace SqlSugarRepository
 
         public ISugarQueryable<T> JoinTable<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT)
         {
-            this.QueryableCore = ((Queryable<T>)this.QueryableCore).JoinTable<T2>(expression, (SqlSugar.JoinType)(int)type);
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).JoinTable<T2>(expression, (SQLiteSugar.JoinType)(int)type);
             return this;
         }
 
         public ISugarQueryable<T> JoinTable<T2, T3>(System.Linq.Expressions.Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT)
         {
-            this.QueryableCore = ((Queryable<T>)this.QueryableCore).JoinTable<T2, T3>(expression, (SqlSugar.JoinType)(int)type);
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).JoinTable<T2, T3>(expression, (SQLiteSugar.JoinType)(int)type);
             return this;
         }
 
@@ -37,14 +37,14 @@ namespace SqlSugarRepository
 
         public ISugarQueryable<T> OrderBy<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, OrderByType type = OrderByType.asc)
         {
-            this.QueryableCore = ((Queryable<T>)this.QueryableCore).OrderBy<T2>(expression, (SqlSugar.OrderByType)(int)type);
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).OrderBy<T2>(expression, (SQLiteSugar.OrderByType)(int)type);
             return this;
         }
 
         public ISugarQueryable<T2> Select<T2>(string select)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2>(select);
-            SqlServerQueryable<T2> reval = new SqlServerQueryable<T2>();
+            SqliteQueryable<T2> reval = new SqliteQueryable<T2>();
             reval.QueryableCore = this.QueryableCore;
             return reval;
         }
@@ -52,7 +52,7 @@ namespace SqlSugarRepository
         public ISugarQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<T, TResult>> expression)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<TResult>(expression);
-            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            SqliteQueryable<TResult> reval = new SqliteQueryable<TResult>();
             reval.QueryableCore = this.QueryableCore;
             return reval;
         }
@@ -60,7 +60,7 @@ namespace SqlSugarRepository
         public ISugarQueryable<TResult> Select<T2, TResult>(System.Linq.Expressions.Expression<Func<T, T2, TResult>> expression)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2, TResult>(expression);
-            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            SqliteQueryable<TResult> reval = new SqliteQueryable<TResult>();
             reval.QueryableCore = this.QueryableCore;
             return reval;
         }
@@ -68,7 +68,7 @@ namespace SqlSugarRepository
         public ISugarQueryable<TResult> Select<T2, T3, TResult>(System.Linq.Expressions.Expression<Func<T, T2, T3, TResult>> expression)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2, T3, TResult>(expression);
-            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            SqliteQueryable<TResult> reval = new SqliteQueryable<TResult>();
             reval.QueryableCore = this.QueryableCore;
             return reval;
         }
@@ -76,7 +76,7 @@ namespace SqlSugarRepository
         public ISugarQueryable<TResult> Select<T2, T3, T4, TResult>(System.Linq.Expressions.Expression<Func<T, T2, T3, T4, TResult>> expression)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2, T3, T4, TResult>(expression);
-            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            SqliteQueryable<TResult> reval = new SqliteQueryable<TResult>();
             reval.QueryableCore = this.QueryableCore;
             return reval;
         }
@@ -84,7 +84,7 @@ namespace SqlSugarRepository
         public ISugarQueryable<TResult> Select<T2, T3, T4, T5, TResult>(System.Linq.Expressions.Expression<Func<T, T2, T3, T4, T5, TResult>> expression)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2, T3, T4, T5, TResult>(expression);
-            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            SqliteQueryable<TResult> reval = new SqliteQueryable<TResult>();
             reval.QueryableCore = this.QueryableCore;
             return reval;
         }
