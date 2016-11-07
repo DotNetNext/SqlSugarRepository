@@ -74,21 +74,31 @@ namespace SqlSugarRepository
 
         public void SetCurrent(ConnectionConfig config)
         {
-            //switch (config.DbType)
-            //{
-            //    //case DbType.SqlServer:
-            //    //    _db = new SqlSeverSugarClient(config.ConnectionString);
-            //    //    break;
-            //    //case DbType.Sqlite:
-            //    //    db = new SqliteSugarClient(config.ConnectionString);
-            //    //    break;
-            //    //case DbType.MySql:
-            //    //    db = new MySqlSugarClient(config.ConnectionString);
-            //    //    break;
-            //    //case DbType.Oracle:
-            //    //    db = new PlSqlSugarClient(config.ConnectionString);
-            //    //    break;
-            //}
+            ISqlSugarClient db = null;
+            switch (config.DbType)
+            {
+                case DbType.SqlServer:
+                    db = new SqlSeverSugarClient(config.ConnectionString);
+                    break;
+                case DbType.Sqlite:
+                    db = new SqliteSugarClient(config.ConnectionString);
+                    break;
+                case DbType.MySql:
+                    db = new MySqlSugarClient(config.ConnectionString);
+                    break;
+                case DbType.Oracle:
+                    db = new PlSqlSugarClient(config.ConnectionString);
+                    break;
+            }
+            var isFirstDb = _dbs == null || _dbs.Count== 0;
+            if (isFirstDb)
+            {
+                _dbs.Add(db);
+            }
+            else {
+                var isAny = _dbs.Any(it => it.ConnectionUniqueKey == config.UniqueKey);
+
+            }
         }
 
         public void Dispose()

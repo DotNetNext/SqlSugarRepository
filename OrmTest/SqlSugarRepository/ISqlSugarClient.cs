@@ -8,6 +8,8 @@ namespace SqlSugarRepository
 {
     public interface ISqlSugarClient: IDisposable
     {
+        Guid ConnectionUniqueKey { get; set; }
+
         #region Sugar
         string ConnectionString { get; }
         string[] DisableInsertColumns { get; set; }

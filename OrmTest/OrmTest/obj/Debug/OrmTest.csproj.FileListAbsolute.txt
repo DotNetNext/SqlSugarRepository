@@ -13,8 +13,6 @@ E:\MyOpenSource\SugarForOne\OrmTest\OrmTest\bin\Debug\Oracle.ManagedDataAccess.d
 E:\MyOpenSource\SugarForOne\OrmTest\OrmTest\bin\Debug\SugarForOne.pdb
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.exe.config
 F:\SugarForOne\OrmTest\OrmTest\obj\Debug\OrmTest.csprojResolveAssemblyReference.cache
-F:\SugarForOne\OrmTest\OrmTest\bin\Debug\x64\SQLite.Interop.dll
-F:\SugarForOne\OrmTest\OrmTest\bin\Debug\x86\SQLite.Interop.dll
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.dll
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\MySql.Data.dll
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\System.Data.SQLite.dll
@@ -22,3 +20,5 @@ F:\SugarForOne\OrmTest\OrmTest\bin\Debug\Oracle.ManagedDataAccess.dll
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.pdb
 F:\SugarForOne\OrmTest\OrmTest\obj\Debug\OrmTest.exe
 F:\SugarForOne\OrmTest\OrmTest\obj\Debug\OrmTest.pdb
+F:\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.exe
+F:\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.pdb
