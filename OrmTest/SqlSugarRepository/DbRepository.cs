@@ -47,24 +47,33 @@ namespace SqlSugarRepository
         /// <param name="type">数据库类型</param>
         /// <param name="connectionString">数据库连接字符串</param>
         /// <returns></returns>
-        public  ISqlSugarClient Database
+        public ISqlSugarClient Database
         {
             get
             {
-                return null;
+                var isInit = _dbs == null;
+                if (isInit) {
+
+
+                }
+                return _currentClient;
             }
         }
 
+        /// <summary>
+        /// 工具类
+        /// </summary>
         public Tool Tool
         {
             get
             {
-               return  new Tool(this);
+                return new Tool(this);
             }
         }
 
 
         private List<ISqlSugarClient> _dbs = null;
+        private ISqlSugarClient _currentClient = null;
         internal ConnectionConfig ConnectionConfig = null;
 
         public DbRepository()
@@ -72,6 +81,10 @@ namespace SqlSugarRepository
 
         }
 
+        /// <summary>
+        /// 设置当前连接池
+        /// </summary>
+        /// <param name="config"></param>
         public void SetCurrent(ConnectionConfig config)
         {
             ISqlSugarClient db = null;
@@ -90,17 +103,29 @@ namespace SqlSugarRepository
                     db = new PlSqlSugarClient(config.ConnectionString);
                     break;
             }
-            var isFirstDb = _dbs == null || _dbs.Count== 0;
+            var isFirstDb = _dbs == null || _dbs.Count == 0;
             if (isFirstDb)
             {
                 _dbs.Add(db);
             }
-            else {
-                var isAny = _dbs.Any(it => it.ConnectionUniqueKey == config.UniqueKey);
+            else
+            {
+                var currentDb = _dbs.SingleOrDefault(it => it.ConnectionUniqueKey == config.UniqueKey);
+                if (db != null)
+                {
+                    _currentClient = currentDb;
+                }
+                else
+                {
+                    throw new Exception("");
+                }
 
             }
         }
 
+        /// <summary>
+        /// 释放资源
+        /// </summary>
         public void Dispose()
         {
             if (_dbs != null && _dbs.Count > 0)

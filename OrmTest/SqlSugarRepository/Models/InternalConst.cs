@@ -6,13 +6,9 @@ using System.Text;
 namespace SqlSugarRepository
 {
     /// <summary>
-    /// 数据库类型
+    /// 当前集序集可以访问的常量
     /// </summary>
-    public enum DbType
+    internal class InternalConst
     {
-        SqlServer=0,
-        Sqlite=1,
-        MySql=2,
-        Oracle=3
     }
 }
