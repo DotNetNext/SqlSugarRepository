@@ -1,4 +1,4 @@
-﻿using SQLiteSugar;
+﻿using MySqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +7,12 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Data;
 
-namespace SugarForOne
+namespace SqlSugarRepository
 {
-    internal partial class SqliteSugarClient : ISqlSugarClient, IDisposable
+    internal partial class MySqlSugarClient : ISqlSugarClient, IDisposable
     {
         SqlSugarClient _db = null;
-        public SqliteSugarClient(string connectionString)
+        public MySqlSugarClient(string connectionString)
         {
             _db = new SqlSugarClient(connectionString);
         }
@@ -63,12 +63,12 @@ namespace SugarForOne
 
         public void AddMappingColum(KeyValue mappingColumns)
         {
-            _db.AddMappingColum(new SQLiteSugar.KeyValue() { Key = mappingColumns.Key, Value = mappingColumns.Value });
+            _db.AddMappingColum(new MySqlSugar.KeyValue() { Key = mappingColumns.Key, Value = mappingColumns.Value });
         }
 
         public void AddMappingTable(KeyValue mappingTable)
         {
-            _db.AddMappingTable(new SQLiteSugar.KeyValue() { Key = mappingTable.Key, Value = mappingTable.Value });
+            _db.AddMappingTable(new MySqlSugar.KeyValue() { Key = mappingTable.Key, Value = mappingTable.Value });
         }
 
         public void BeginTran()
@@ -153,7 +153,7 @@ namespace SugarForOne
 
         public DataSet GetDataSetAll(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDataSetAll(sql, pars.ToSqlitePars());
+            return _db.GetDataSetAll(sql, pars.ToMySqlPars());
         }
 
         public DataTable GetDataTable(string sql, object pars)
@@ -163,22 +163,22 @@ namespace SugarForOne
 
         public DataTable GetDataTable(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDataTable(sql, pars.ToSqlitePars());
+            return _db.GetDataTable(sql, pars.ToMySqlPars());
         }
 
         public DateTime GetDateTime(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDateTime(sql, pars.ToSqlitePars());
+            return _db.GetDateTime(sql, pars.ToMySqlPars());
         }
 
         public decimal GetDecimal(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDecimal(sql, pars.ToSqlitePars());
+            return _db.GetDecimal(sql, pars.ToMySqlPars());
         }
 
         public double GetDouble(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDouble(sql, pars.ToSqlitePars());
+            return _db.GetDouble(sql, pars.ToMySqlPars());
         }
 
         public int GetInt(string sql, object pars)
@@ -188,7 +188,7 @@ namespace SugarForOne
 
         public int GetInt(string sql, params SqlParameter[] pars)
         {
-            return _db.GetInt(sql, pars.ToSqlitePars());
+            return _db.GetInt(sql, pars.ToMySqlPars());
         }
 
         public List<T> GetList<T>(string sql, object pars)
@@ -198,7 +198,7 @@ namespace SugarForOne
 
         public List<T> GetList<T>(string sql, params SqlParameter[] pars)
         {
-            return _db.GetList<T>(sql, pars.ToSqlitePars());
+            return _db.GetList<T>(sql, pars.ToMySqlPars());
         }
 
         public object GetScalar(string sql, object pars)
@@ -208,7 +208,7 @@ namespace SugarForOne
 
         public object GetScalar(string sql, params SqlParameter[] pars)
         {
-            return _db.GetScalar(sql, pars.ToSqlitePars());
+            return _db.GetScalar(sql, pars.ToMySqlPars());
         }
 
         public T GetSingle<T>(string sql, object pars)
@@ -218,7 +218,7 @@ namespace SugarForOne
 
         public T GetSingle<T>(string sql, params SqlParameter[] pars)
         {
-            return _db.GetSingle<T>(sql, pars.ToSqlitePars());
+            return _db.GetSingle<T>(sql, pars.ToMySqlPars());
         }
 
         public string GetString(string sql, object pars)
@@ -228,7 +228,7 @@ namespace SugarForOne
 
         public string GetString(string sql, params SqlParameter[] pars)
         {
-            return _db.GetString(sql, pars.ToSqlitePars());
+            return _db.GetString(sql, pars.ToMySqlPars());
         }
 
         public object Insert<T>(T entity, bool isIdentity = true) where T : class
@@ -263,13 +263,13 @@ namespace SugarForOne
 
         public void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows)
         {
-            Dictionary<string, Func<SQLiteSugar.KeyValueObj>> values = new Dictionary<string, Func<SQLiteSugar.KeyValueObj>>();
+            Dictionary<string, Func<MySqlSugar.KeyValueObj>> values = new Dictionary<string, Func<MySqlSugar.KeyValueObj>>();
             foreach (var item in filterRows)
             {
                 values.Add(item.Key, () =>
                 {
                     var value = item.Value();
-                    return new SQLiteSugar.KeyValueObj()
+                    return new MySqlSugar.KeyValueObj()
                     {
                         Key = value.Key,
                         Value = value.Value
@@ -286,20 +286,20 @@ namespace SugarForOne
 
         public void SetMappingColumns(List<KeyValue> mappingColumns)
         {
-            _db.SetMappingColumns(mappingColumns.Select(it => new SQLiteSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
+            _db.SetMappingColumns(mappingColumns.Select(it => new MySqlSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
         }
 
         public void SetMappingTables(List<KeyValue> mappingTables)
         {
-            _db.SetMappingTables(mappingTables.Select(it => new SQLiteSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
+            _db.SetMappingTables(mappingTables.Select(it => new MySqlSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
         }
 
         public void SetSerialNumber(List<SerialNumber> serNum)
         {
-            var values = new List<SQLiteSugar.PubModel.SerialNumber>();
+            var values = new List<MySqlSugar.PubModel.SerialNumber>();
             foreach (var item in serNum)
             {
-                var value = new SQLiteSugar.PubModel.SerialNumber()
+                var value = new MySqlSugar.PubModel.SerialNumber()
                 {
                     FieldName = item.FieldName,
                     TableName = item.TableName,
@@ -341,7 +341,7 @@ namespace SugarForOne
 
         public List<T> SqlQuery<T>(string sql, SqlParameter[] pars)
         {
-            return _db.SqlQuery<T>(sql, pars.ToSqlitePars());
+            return _db.SqlQuery<T>(sql, pars.ToMySqlPars());
         }
 
         public dynamic SqlQueryDynamic(string sql, object whereObj = null)

@@ -1,4 +1,4 @@
-﻿using SugarForOne;
+﻿using SqlSugarRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

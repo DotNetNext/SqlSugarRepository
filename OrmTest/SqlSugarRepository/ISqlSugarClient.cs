@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 
-namespace SugarForOne
+namespace SqlSugarRepository
 {
     public interface ISqlSugarClient: IDisposable
     {

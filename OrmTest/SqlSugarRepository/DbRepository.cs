@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace SugarForOne
+namespace SqlSugarRepository
 {
     /// <summary>
     /// 数据库服务
@@ -51,7 +51,7 @@ namespace SugarForOne
         {
             get
             {
-                return _dbs.Single(it=>it.un);
+                return null;
             }
         }
 
@@ -74,21 +74,21 @@ namespace SugarForOne
 
         public void SetCurrent(ConnectionConfig config)
         {
-            switch (config.DbType)
-            {
-                case DbType.SqlServer:
-                    _db = new SqlSeverSugarClient(config.ConnectionString);
-                    break;
-                case DbType.Sqlite:
-                    db = new SqliteSugarClient(config.ConnectionString);
-                    break;
-                case DbType.MySql:
-                    db = new MySqlSugarClient(config.ConnectionString);
-                    break;
-                case DbType.Oracle:
-                    db = new PlSqlSugarClient(config.ConnectionString);
-                    break;
-            }
+            //switch (config.DbType)
+            //{
+            //    //case DbType.SqlServer:
+            //    //    _db = new SqlSeverSugarClient(config.ConnectionString);
+            //    //    break;
+            //    //case DbType.Sqlite:
+            //    //    db = new SqliteSugarClient(config.ConnectionString);
+            //    //    break;
+            //    //case DbType.MySql:
+            //    //    db = new MySqlSugarClient(config.ConnectionString);
+            //    //    break;
+            //    //case DbType.Oracle:
+            //    //    db = new PlSqlSugarClient(config.ConnectionString);
+            //    //    break;
+            //}
         }
 
         public void Dispose()

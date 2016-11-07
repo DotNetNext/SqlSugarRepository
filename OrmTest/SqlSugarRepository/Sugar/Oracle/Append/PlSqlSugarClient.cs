@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace SugarForOne
+namespace SqlSugarRepository
 {
     internal partial class PlSqlSugarClient : ISqlSugarClient, IDisposable
     {

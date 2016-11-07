@@ -7,8 +7,8 @@
     <ProjectGuid>{2BE6F397-B707-4624-971E-429751247EFF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SugarForOne</RootNamespace>
-    <AssemblyName>SugarForOne</AssemblyName>
+    <RootNamespace>SqlSugarRepository</RootNamespace>
+    <AssemblyName>SqlSugarRepository</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

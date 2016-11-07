@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Data;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using SugarForOne;
+using SqlSugarRepository;
 namespace MySqlSugar
 {
     /// <summary>

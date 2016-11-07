@@ -7,7 +7,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 
-namespace SugarForOne
+namespace SqlSugarRepository
 {
     internal static class Extensions
     {

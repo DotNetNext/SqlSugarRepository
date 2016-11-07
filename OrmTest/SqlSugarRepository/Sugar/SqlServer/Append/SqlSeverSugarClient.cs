@@ -1,4 +1,4 @@
-﻿using MySqlSugar;
+﻿using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +7,12 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Data;
 
-namespace SugarForOne
+namespace SqlSugarRepository
 {
-    internal partial class MySqlSugarClient : ISqlSugarClient, IDisposable
+    internal partial class SqlSeverSugarClient : ISqlSugarClient, IDisposable
     {
         SqlSugarClient _db = null;
-        public MySqlSugarClient(string connectionString)
+        public SqlSeverSugarClient(string connectionString)
         {
             _db = new SqlSugarClient(connectionString);
         }
@@ -63,12 +63,12 @@ namespace SugarForOne
 
         public void AddMappingColum(KeyValue mappingColumns)
         {
-            _db.AddMappingColum(new MySqlSugar.KeyValue() { Key = mappingColumns.Key, Value = mappingColumns.Value });
+            _db.AddMappingColum(new SqlSugar.KeyValue() { Key = mappingColumns.Key, Value = mappingColumns.Value });
         }
 
         public void AddMappingTable(KeyValue mappingTable)
         {
-            _db.AddMappingTable(new MySqlSugar.KeyValue() { Key = mappingTable.Key, Value = mappingTable.Value });
+            _db.AddMappingTable(new SqlSugar.KeyValue() { Key = mappingTable.Key, Value = mappingTable.Value });
         }
 
         public void BeginTran()
@@ -78,7 +78,7 @@ namespace SugarForOne
 
         public void BeginTran(string transactionName)
         {
-            throw new MulticastNotSupportedException();
+            _db.BeginTran(transactionName);
         }
 
         public void CommitTran()
@@ -146,6 +146,11 @@ namespace SugarForOne
             return _db.FalseDelete<T, FiledType>(field, whereIn);
         }
 
+        public SqlConnection GetConnection()
+        {
+            return _db.GetConnection();
+        }
+
         public DataSet GetDataSetAll(string sql, object pars)
         {
             return _db.GetDataSetAll(sql, pars);
@@ -153,7 +158,7 @@ namespace SugarForOne
 
         public DataSet GetDataSetAll(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDataSetAll(sql, pars.ToMySqlPars());
+            return _db.GetDataSetAll(sql, pars);
         }
 
         public DataTable GetDataTable(string sql, object pars)
@@ -163,22 +168,22 @@ namespace SugarForOne
 
         public DataTable GetDataTable(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDataTable(sql, pars.ToMySqlPars());
+            return _db.GetDataTable(sql, pars);
         }
 
         public DateTime GetDateTime(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDateTime(sql, pars.ToMySqlPars());
+            return _db.GetDateTime(sql, pars);
         }
 
         public decimal GetDecimal(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDecimal(sql, pars.ToMySqlPars());
+            return _db.GetDecimal(sql, pars);
         }
 
         public double GetDouble(string sql, params SqlParameter[] pars)
         {
-            return _db.GetDouble(sql, pars.ToMySqlPars());
+            return _db.GetDouble(sql, pars);
         }
 
         public int GetInt(string sql, object pars)
@@ -188,7 +193,7 @@ namespace SugarForOne
 
         public int GetInt(string sql, params SqlParameter[] pars)
         {
-            return _db.GetInt(sql, pars.ToMySqlPars());
+            return _db.GetInt(sql, pars);
         }
 
         public List<T> GetList<T>(string sql, object pars)
@@ -198,7 +203,17 @@ namespace SugarForOne
 
         public List<T> GetList<T>(string sql, params SqlParameter[] pars)
         {
-            return _db.GetList<T>(sql, pars.ToMySqlPars());
+            return _db.GetList<T>(sql, pars);
+        }
+
+        public SqlDataReader GetReader(string sql, object pars)
+        {
+            return _db.GetReader(sql, pars);
+        }
+
+        public SqlDataReader GetReader(string sql, params SqlParameter[] pars)
+        {
+            return _db.GetReader(sql, pars);
         }
 
         public object GetScalar(string sql, object pars)
@@ -208,7 +223,7 @@ namespace SugarForOne
 
         public object GetScalar(string sql, params SqlParameter[] pars)
         {
-            return _db.GetScalar(sql, pars.ToMySqlPars());
+            return _db.GetScalar(sql, pars);
         }
 
         public T GetSingle<T>(string sql, object pars)
@@ -218,7 +233,7 @@ namespace SugarForOne
 
         public T GetSingle<T>(string sql, params SqlParameter[] pars)
         {
-            return _db.GetSingle<T>(sql, pars.ToMySqlPars());
+            return _db.GetSingle<T>(sql, pars);
         }
 
         public string GetString(string sql, object pars)
@@ -228,7 +243,7 @@ namespace SugarForOne
 
         public string GetString(string sql, params SqlParameter[] pars)
         {
-            return _db.GetString(sql, pars.ToMySqlPars());
+            return _db.GetString(sql, pars);
         }
 
         public object Insert<T>(T entity, bool isIdentity = true) where T : class
@@ -263,13 +278,13 @@ namespace SugarForOne
 
         public void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows)
         {
-            Dictionary<string, Func<MySqlSugar.KeyValueObj>> values = new Dictionary<string, Func<MySqlSugar.KeyValueObj>>();
+            Dictionary<string, Func<SqlSugar.KeyValueObj>> values = new Dictionary<string, Func<SqlSugar.KeyValueObj>>();
             foreach (var item in filterRows)
             {
                 values.Add(item.Key, () =>
                 {
                     var value = item.Value();
-                    return new MySqlSugar.KeyValueObj()
+                    return new SqlSugar.KeyValueObj()
                     {
                         Key = value.Key,
                         Value = value.Value
@@ -286,20 +301,20 @@ namespace SugarForOne
 
         public void SetMappingColumns(List<KeyValue> mappingColumns)
         {
-            _db.SetMappingColumns(mappingColumns.Select(it => new MySqlSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
+            _db.SetMappingColumns(mappingColumns.Select(it => new SqlSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
         }
 
         public void SetMappingTables(List<KeyValue> mappingTables)
         {
-            _db.SetMappingTables(mappingTables.Select(it => new MySqlSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
+            _db.SetMappingTables(mappingTables.Select(it => new SqlSugar.KeyValue() { Key = it.Key, Value = it.Value }).ToList());
         }
 
         public void SetSerialNumber(List<SerialNumber> serNum)
         {
-            var values = new List<MySqlSugar.PubModel.SerialNumber>();
+            var values = new List<SqlSugar.PubModel.SerialNumber>();
             foreach (var item in serNum)
             {
-                var value = new MySqlSugar.PubModel.SerialNumber()
+                var value = new SqlSugar.PubModel.SerialNumber()
                 {
                     FieldName = item.FieldName,
                     TableName = item.TableName,
@@ -336,12 +351,12 @@ namespace SugarForOne
 
         public List<T> SqlQuery<T>(string sql, List<SqlParameter> pars)
         {
-            return _db.SqlQuery<T>(sql, pars.ToArray().ToMySqlPars());
+            return _db.SqlQuery<T>(sql, pars);
         }
 
         public List<T> SqlQuery<T>(string sql, SqlParameter[] pars)
         {
-            return _db.SqlQuery<T>(sql, pars.ToMySqlPars());
+            return _db.SqlQuery<T>(sql, pars);
         }
 
         public dynamic SqlQueryDynamic(string sql, object whereObj = null)
