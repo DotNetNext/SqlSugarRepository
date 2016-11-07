@@ -10,7 +10,7 @@ namespace SqlSugarRepository
     {
         public object QueryableCore
         {
-            get;set;
+            get; set;
         }
 
         public ISugarQueryable<T> JoinTable<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT)
@@ -21,77 +21,102 @@ namespace SqlSugarRepository
 
         public ISugarQueryable<T> JoinTable<T2, T3>(System.Linq.Expressions.Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).JoinTable<T2, T3>(expression, (SqlSugar.JoinType)(int)type);
+            return this;
         }
 
         public TResult Max<TResult>(string maxField)
         {
-            throw new NotImplementedException();
+            return ((Queryable<T>)this.QueryableCore).Max<TResult>(maxField);
         }
 
         public TResult Min<TResult>(string minField)
         {
-            throw new NotImplementedException();
+            return ((Queryable<T>)this.QueryableCore).Min<TResult>(minField);
         }
 
         public ISugarQueryable<T> OrderBy<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, OrderByType type = OrderByType.asc)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).OrderBy<T2>(expression, (SqlSugar.OrderByType)(int)type);
+            return this;
         }
 
         public ISugarQueryable<T2> Select<T2>(string select)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2>(select);
+            SqlServerQueryable<T2> reval = new SqlServerQueryable<T2>();
+            reval.QueryableCore = this.QueryableCore;
+            return reval;
         }
 
         public ISugarQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<T, TResult>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<TResult>(expression);
+            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            reval.QueryableCore = this.QueryableCore;
+            return reval;
         }
 
         public ISugarQueryable<TResult> Select<T2, TResult>(System.Linq.Expressions.Expression<Func<T, T2, TResult>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2, TResult>(expression);
+            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            reval.QueryableCore = this.QueryableCore;
+            return reval;
         }
 
         public ISugarQueryable<TResult> Select<T2, T3, TResult>(System.Linq.Expressions.Expression<Func<T, T2, T3, TResult>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2, T3, TResult>(expression);
+            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            reval.QueryableCore = this.QueryableCore;
+            return reval;
         }
 
         public ISugarQueryable<TResult> Select<T2, T3, T4, TResult>(System.Linq.Expressions.Expression<Func<T, T2, T3, T4, TResult>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2, T3, T4, TResult>(expression);
+            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            reval.QueryableCore = this.QueryableCore;
+            return reval;
         }
 
         public ISugarQueryable<TResult> Select<T2, T3, T4, T5, TResult>(System.Linq.Expressions.Expression<Func<T, T2, T3, T4, T5, TResult>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Select<T2, T3, T4, T5, TResult>(expression);
+            SqlServerQueryable<TResult> reval = new SqlServerQueryable<TResult>();
+            reval.QueryableCore = this.QueryableCore;
+            return reval;
         }
 
         public ISugarQueryable<T> Where<T2>(System.Linq.Expressions.Expression<Func<T, T2, bool>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Where<T2>(expression);
+            return this;
         }
 
         public ISugarQueryable<T> Where<T2>(string whereString, object whereObj = null)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Where<T2>(whereString, whereObj);
+            return this;
         }
 
         public ISugarQueryable<T> Where<T2, T3>(System.Linq.Expressions.Expression<Func<T, T2, T3, bool>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Where<T2, T3>(expression);
+            return this;
         }
 
         public ISugarQueryable<T> Where<T2, T3, T4>(System.Linq.Expressions.Expression<Func<T, T2, T3, T4, bool>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Where<T2, T3, T4>(expression);
+            return this;
         }
 
         public ISugarQueryable<T> Where<T2, T3, T4, T5>(System.Linq.Expressions.Expression<Func<T, T2, T3, T4, T5, bool>> expression)
         {
-            throw new NotImplementedException();
+            this.QueryableCore = ((Queryable<T>)this.QueryableCore).Where<T2, T3, T4, T5>(expression);
+            return this;
         }
     }
 }
