@@ -72,41 +72,26 @@ namespace SqlSugarRepository
                 {
                     var fileds = this.GetType().GetFields();
                     Check.Exception(fileds == null || fileds.Count() == 0, InternalConst.ConnectionMessageNoConfig);
-                    string cacheKey = "DbRepository.Database.Init" + this.GetType().FullName;
-                    var cm = CacheManager<List<ConnectionConfig>>.GetInstance();
-                    List<ConnectionConfig> configList = null;
-                    if (cm.ContainsKey(cacheKey))
+                    List<ConnectionConfig> configList = new List<ConnectionConfig>();
+                    foreach (var item in fileds)
                     {
-                        configList = cm[cacheKey];
-                    }
-                    else
-                    {
-                        configList = new List<ConnectionConfig>();
-                        foreach (var item in fileds)
+                        var itemValue = item.GetValue(this);
+                        if (itemValue is ConnectionConfig)
                         {
-                            var itemValue = item.GetValue(this);
-                            if (itemValue is ConnectionConfig)
+                            var conObj = (ConnectionConfig)itemValue;
+                            ISqlSugarClient db = GetConnectionClient(conObj.DbType, conObj.ConnectionString);
+                            db.ConnectionUniqueKey = conObj.UniqueKey;
+                            if (_currentClient == null)
                             {
-                                var conObj = (ConnectionConfig)itemValue;
-                                configList.Add(conObj);
+                                _currentClient = db;
+                                _currentConfig = conObj;
                             }
+                            if (_dbs == null)
+                            {
+                                _dbs = new List<ISqlSugarClient>();
+                            }
+                            _dbs.Add(db);
                         }
-                        cm.Add(cacheKey, configList, int.MaxValue);
-                    }
-                    foreach (var conObj in configList)
-                    {
-                        ISqlSugarClient db = GetConnectionClient(conObj.DbType, conObj.ConnectionString);
-                        db.ConnectionUniqueKey = conObj.UniqueKey;
-                        if (_currentClient == null)
-                        {
-                            _currentClient = db;
-                            _currentConfig = conObj;
-                        }
-                        if (_dbs == null)
-                        {
-                            _dbs = new List<ISqlSugarClient>();
-                        }
-                        _dbs.Add(db);
                     }
                 }
                 return _currentClient;
