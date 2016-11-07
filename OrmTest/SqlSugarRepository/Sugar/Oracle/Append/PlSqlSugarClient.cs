@@ -247,15 +247,19 @@ namespace SqlSugarRepository
             return _db.InsertRange(entities, isIdentity);
         }
 
-        //public Queryable<T> Queryable<T>() where T : class, new()
-        //{
-        //    return _db.Queryable<T>();
-        //}
+        public ISugarQueryable<T> Queryable<T>() where T : class, new()
+        {
+            ISugarQueryable<T> queryable = new SqlServerQueryable<T>();
+            queryable.QueryableCore = _db.Queryable<T>();
+            return queryable;
+        }
 
-        //public Queryable<T> Queryable<T>(string tableName) where T : class, new()
-        //{
-        //    return _db.Queryable<T>(tableName);
-        //}
+        public ISugarQueryable<T> Queryable<T>(string tableName) where T : class, new()
+        {
+            ISugarQueryable<T> queryable = new SqlServerQueryable<T>();
+            queryable.QueryableCore = _db.Queryable<T>(tableName);
+            return queryable;
+        }
 
         public void RemoveAllCache<T>()
         {

@@ -41,7 +41,7 @@ namespace SqlSugarRepository
             switch (type)
             {
                 case DbType.SqlServer:
-                    db = new SqlSeverSugarClient(connectionString);
+                    db = new SqlServerSugarClient(connectionString);
                     break;
                 case DbType.Sqlite:
                     db = new SqliteSugarClient(connectionString);

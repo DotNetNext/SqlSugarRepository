@@ -5,7 +5,8 @@ using System.Text;
 
 namespace SqlSugarRepository
 {
-    class Iqueryable
+    internal abstract class SugarQueryTemp
     {
+       
     }
 }

@@ -29,8 +29,8 @@ namespace SqlSugarRepository
         bool FalseDelete<T, FiledType>(string field, params FiledType[] whereIn) where T : class;
         object Insert<T>(T entity, bool isIdentity = true) where T : class;
         List<object> InsertRange<T>(List<T> entities, bool isIdentity = true) where T : class;
-      //  Queryable<T> Queryable<T>() where T : class, new();
-      //  Queryable<T> Queryable<T>(string tableName) where T : class, new();
+        ISugarQueryable<T> Queryable<T>() where T : class, new();
+        ISugarQueryable<T> Queryable<T>(string tableName) where T : class, new();
         void RemoveAllCache<T>();
         void SetFilterFilterParas(Dictionary<string, List<string>> filterColumns);
         void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows);

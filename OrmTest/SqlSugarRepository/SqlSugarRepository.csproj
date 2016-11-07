@@ -53,13 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISugarable.cs" />
+    <Compile Include="ISugarQueryable.cs" />
+    <Compile Include="ISugarQueryable1.cs" />
     <Compile Include="Models\CacheManager.cs" />
     <Compile Include="Models\Check.cs" />
     <Compile Include="Models\ConnectionConfig.cs" />
     <Compile Include="Models\DbType.cs" />
     <Compile Include="Models\KeyValue.cs" />
     <Compile Include="Models\InternalConst.cs" />
+    <Compile Include="Models\PubEnum.cs" />
     <Compile Include="Models\SerialNumber.cs" />
     <Compile Include="Models\SqlSugarRepositoryException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,7 +148,8 @@
     <Compile Include="Sugar\Sqlite\Tool\SqlSugarToolCoreDiff.cs" />
     <Compile Include="Sugar\Sqlite\Tool\SqlSugarToolExtensions.cs" />
     <Compile Include="Sugar\Sqlite\Tool\SqlSugarToolWithSqlMethod.cs" />
-    <Compile Include="Sugar\SqlServer\Append\SqlSeverSugarClient.cs" />
+    <Compile Include="Sugar\SqlServer\Append\SqlServerQueryable.cs" />
+    <Compile Include="Sugar\SqlServer\Append\SqlServerSugarClient.cs" />
     <Compile Include="Sugar\MySql\Base\SqlHelper.cs" />
     <Compile Include="Sugar\MySql\Cloud\CloudModels.cs" />
     <Compile Include="Sugar\MySql\Cloud\CloudPubMethod.cs" />
@@ -227,6 +230,7 @@
     <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolExtensions.cs" />
     <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolWithSqlMethod.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Temp.cs" />
     <Compile Include="Tool.cs" />
   </ItemGroup>
   <ItemGroup />
