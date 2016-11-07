@@ -17,6 +17,7 @@ namespace OrmTest
             using (ISqlSugarClient db = DbRepository.GetInstance(DbType.SqlServer, SqlConnString))
             {
                var x= db.SqlQuery<String>("select 1");
+                var x2 = db.Queryable<Models.School>().Where(it=>it.id==1).ToList();
             }
             using (ISqlSugarClient db = DbRepository.GetInstance(DbType.MySql, MySqlConnString))
             {
