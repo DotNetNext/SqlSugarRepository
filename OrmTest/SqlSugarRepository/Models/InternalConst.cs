@@ -12,4 +12,5 @@ namespace SqlSugarRepository
     {
         public static string ConnectionMessageNoConfig = "没有可用的连接池。";
     }
+
 }

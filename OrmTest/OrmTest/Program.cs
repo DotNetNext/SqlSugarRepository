@@ -37,6 +37,26 @@ namespace OrmTest
                 var sql= db2.Tool.GetSql("exec sp", "call sp", "select xxx","exex oracle sp");
             
             }
+
+            //强类型用法
+            using (MyDbRepository db3 = new MyDbRepository())
+            {
+                db3.Database.SqlQuery<string>("select 1");
+
+
+
+                //db2.SetCurrent(db2.MySql2);
+                //当前MYSQL2
+
+
+                db3.SetCurrent(db3.SqlServer);
+                //当前SqlServer
+
+
+                //根据当前库获取不同的SQL
+                var sql = db3.Tool.GetSql("exec sp", "call sp", "select xxx", "exex oracle sp");
+
+            }
         }
     }
 

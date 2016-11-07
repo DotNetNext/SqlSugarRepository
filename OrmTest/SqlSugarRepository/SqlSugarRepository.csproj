@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISugarable.cs" />
+    <Compile Include="Models\CacheManager.cs" />
     <Compile Include="Models\Check.cs" />
     <Compile Include="Models\ConnectionConfig.cs" />
     <Compile Include="Models\DbType.cs" />
