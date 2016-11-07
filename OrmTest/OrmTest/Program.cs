@@ -9,12 +9,18 @@ namespace OrmTest
 {
     class Program
     {
+        private static string SqlConnString = "server=.;uid=sa;pwd=sasa;database=SqlSugarTest";
+        private static string MySqlConnString = "server=localhost;Database=SqlSugarTest;Uid=root;Pwd=root";
         static void Main(string[] args)
         {
             //简单用法
-            using (ISqlSugarClient db = DbRepository.GetInstance(DbType.SqlServer, "server=.;uid=sa;pwd=sasa;database=SqlSugarTest"))
+            using (ISqlSugarClient db = DbRepository.GetInstance(DbType.SqlServer, SqlConnString))
             {
                var x= db.SqlQuery<String>("select 1");
+            }
+            using (ISqlSugarClient db = DbRepository.GetInstance(DbType.MySql, MySqlConnString))
+            {
+                var x = db.SqlQuery<String>("select name from student limit 0,1");
             }
 
 
