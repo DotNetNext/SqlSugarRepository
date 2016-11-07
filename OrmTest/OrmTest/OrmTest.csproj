@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Database\demo.sqlite" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlSugarRepository\SqlSugarRepository.csproj">
@@ -66,7 +67,20 @@
       <Name>SqlSugarRepository</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Database\Oracle\AREA.sql" />
+    <Content Include="Database\Oracle\INSERTTEST.sql" />
+    <Content Include="Database\Oracle\SCHOOL.sql" />
+    <Content Include="Database\Oracle\SEQ.sql" />
+    <Content Include="Database\Oracle\STUDENT.sql" />
+    <Content Include="Database\Oracle\SUBJECT.sql" />
+    <Content Include="Database\Oracle\TEST.sql" />
+    <Content Include="Database\Oracle\TESTUPDATECOLUMNS.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\MySql\" />
+    <Folder Include="Database\SqlServer\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

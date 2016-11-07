@@ -11,6 +11,8 @@ namespace OrmTest
     {
         private static string SqlConnString = "server=.;uid=sa;pwd=sasa;database=SqlSugarTest";
         private static string MySqlConnString = "server=localhost;Database=SqlSugarTest;Uid=root;Pwd=root";
+        private static string PlSqlConnString = "Data Source=localhost/orcl;User ID=system;Password=JHL52771jhl;";
+        private static string SqliteSqlConnString = @"DataSource=F:\SugarForOne\OrmTest\OrmTest\Database\demo.sqlite";
         static void Main(string[] args)
         {
             //简单用法
@@ -24,6 +26,16 @@ namespace OrmTest
                 var x = db.SqlQuery<String>("select name from student limit 0,1");
                 var x21 = db.Queryable<Models.School>().Where(it => it.id == 1).OrderBy(it => it.name).ToList();
             }
+            using (ISqlSugarClient db = DbRepository.GetInstance(DbType.Oracle, PlSqlConnString))
+            {
+                var x21 = db.Queryable<Models.School>().Where(it => it.id == 1).OrderBy(it => it.name).ToList();
+            }
+
+            using (ISqlSugarClient db = DbRepository.GetInstance(DbType.Sqlite, SqliteSqlConnString))
+            {
+                var x21 = db.Queryable<Models.School>().Where(it => it.id == 2).OrderBy(it => it.name).ToList();
+            }
+
 
 
             //强类型用法
