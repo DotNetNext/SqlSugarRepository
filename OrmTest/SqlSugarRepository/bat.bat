@@ -1,1 +1,2 @@
-%~dp0nuget.exe pack %~dp0SQLiteSugar.csproj -OutputDirectory %~dp0
+%~dp0nuget.exe pack %~dp0SqlSugarRepository.csproj-OutputDirectory %~dp0
+

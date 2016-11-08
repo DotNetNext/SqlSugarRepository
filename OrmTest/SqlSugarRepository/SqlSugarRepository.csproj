@@ -62,6 +62,7 @@
     <Compile Include="Models\DbType.cs" />
     <Compile Include="Models\KeyValue.cs" />
     <Compile Include="Models\InternalConst.cs" />
+    <Compile Include="Models\PubConvert.cs" />
     <Compile Include="Models\PubEnum.cs" />
     <Compile Include="Models\SerialNumber.cs" />
     <Compile Include="Models\SqlSugarRepositoryException.cs" />

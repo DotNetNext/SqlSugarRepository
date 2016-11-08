@@ -15,6 +15,11 @@
     <tags>asp.net orm</tags>
   </metadata>
 <files>
-     <file src="F:\MyOpenSource\SqliteSugar\SqlSugar\bin\Debug\SqliteSugar.XML"  target=""></file>
+     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\bin\Debug\SqlSugarRepository.XML"  target=""></file>
+     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\MySql.Data.dll"  target=""></file>
+     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\Oracle.ManagedDataAccess.dll"  target=""></file>
+     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\System.Data.SQLite.dll"  target=""></file>
+     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\x64\SQLite.Interop.dll"  target="\x64"></file>
+     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\x86\SQLite.Interop.dll"  target="\x86"></file>
     </files>
 </package>

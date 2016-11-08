@@ -249,14 +249,14 @@ namespace SqlSugarRepository
 
         public ISugarQueryable<T> Queryable<T>() where T : class, new()
         {
-            ISugarQueryable<T> queryable = new SqlServerQueryable<T>();
+            ISugarQueryable<T> queryable = new OracleQueryable<T>();
             queryable.QueryableCore = _db.Queryable<T>();
             return queryable;
         }
 
         public ISugarQueryable<T> Queryable<T>(string tableName) where T : class, new()
         {
-            ISugarQueryable<T> queryable = new SqlServerQueryable<T>();
+            ISugarQueryable<T> queryable = new OracleQueryable<T>();
             queryable.QueryableCore = _db.Queryable<T>(tableName);
             return queryable;
         }

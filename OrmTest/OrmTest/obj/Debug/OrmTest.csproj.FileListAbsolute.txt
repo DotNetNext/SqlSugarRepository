@@ -22,3 +22,4 @@ F:\SugarForOne\OrmTest\OrmTest\obj\Debug\OrmTest.exe
 F:\SugarForOne\OrmTest\OrmTest\obj\Debug\OrmTest.pdb
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.exe
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.pdb
+F:\SugarForOne\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.xml
