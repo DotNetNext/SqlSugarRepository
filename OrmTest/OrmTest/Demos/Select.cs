@@ -10,12 +10,9 @@ using SqlSugarRepository;
 namespace NewTest.Demos
 {
     //查询的例子
-    public class Select : IDemos
+    public class Select 
     {
-        private ISqlSugarClient _db;
-        public Select(ISqlSugarClient db) {
-            _db=db;
-        }
+  
 
         public void Init()
         {
@@ -38,7 +35,7 @@ namespace NewTest.Demos
         private void QueryableDemo()
         {
 
-            using (var db = _db)
+            using (var db = SugarDao.GetInstance())
             {
 
 
@@ -257,7 +254,7 @@ namespace NewTest.Demos
         private void QueryableSelectNewClass()
         {
 
-            using (var db = _db)
+            using (var db = SugarDao.GetInstance())
             {
 
                 //单表操作将Student转换成V_Student
@@ -358,7 +355,7 @@ namespace NewTest.Demos
         /// </summary>
         private void SqlQuery()
         {
-            using (var db = _db)
+            using (var db = SugarDao.GetInstance())
             {
                 //转成list
                 List<Student> list1 = db.SqlQuery<Student>("select * from Student");

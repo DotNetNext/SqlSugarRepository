@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SqlSugar;
+using SqlSugarRepository;
 namespace NewTest.Dao
 {
     /// <summary>
@@ -14,19 +15,16 @@ namespace NewTest.Dao
         {
 
         }
-        public static string ConnectionString
+        private static string SqlConnString = "server=.;uid=sa;pwd=sasa;database=SqlSugarTest";
+        private static string MySqlConnString = "server=localhost;Database=SqlSugarTest;Uid=root;Pwd=root";
+        private static string PlSqlConnString = "Data Source=localhost/orcl;User ID=system;Password=JHL52771jhl;";
+        private static string SqliteSqlConnString = @"DataSource=F:\SugarForOne\OrmTest\OrmTest\Database\demo.sqlite";
+ 
+        public static ISqlSugarClient GetInstance()
         {
-            get
-            {
-                string reval = "server=.;uid=sa;pwd=sasa;database=SqlSugarTest"; //这里可以动态根据cookies或session实现多库切换
-                return reval;
-            }
-        }
-        public static SqlSugarClient GetInstance()
-        {
-            var db = new SqlSugarClient(ConnectionString);
-            db.IsEnableLogEvent = true;//启用日志事件
-            db.LogEventStarting = (sql, par) => { Console.WriteLine(sql + " " + par+"\r\n"); };
+            var dbType = DbType.MySql;
+            var db =DbRepository.GetInstance(dbType, MySqlConnString);//可以切换成其它数据库
+            Console.WriteLine("启动"+dbType.ToString());
             return db;
         }
     }
