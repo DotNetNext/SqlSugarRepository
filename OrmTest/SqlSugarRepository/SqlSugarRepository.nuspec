@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SqlSugarRepository</id>
-    <version>1.0</version>
+    <version>1.1</version>
     <title>SqlSugarRepository ORM</title>
     <authors>sun kaixuan</authors>
     <owners>landa</owners>
@@ -20,6 +20,6 @@
      <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\Oracle.ManagedDataAccess.dll"  target=""></file>
      <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\System.Data.SQLite.dll"  target=""></file>
      <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\x64\SQLite.Interop.dll"  target="\x64"></file>
-     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\x86\SQLite.Interop.dll"  target="\x86"></file>
+     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\Lib\x86\SQLite2.Interop.dll"  target="\x86"></file>
     </files>
 </package>
