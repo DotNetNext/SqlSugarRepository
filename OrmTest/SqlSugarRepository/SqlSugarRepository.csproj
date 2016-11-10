@@ -237,15 +237,18 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Tool.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Lib\MySql.Data.dll" />
-    <Content Include="Lib\Oracle.ManagedDataAccess.dll" />
-    <Content Include="Lib\System.Data.SQLite.dll" />
-    <Content Include="Lib\x64\SQLite.Interop.dll">
+    <None Include="SqlSugarRepository.1.5.nupkg" />
+    <None Include="SqlSugarRepository.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MyLib\MySql.Data.dll" />
+    <Content Include="MyLib\Oracle.ManagedDataAccess.dll" />
+    <Content Include="MyLib\System.Data.SQLite.dll" />
+    <Content Include="MyLib\x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Lib\x86\SQLite.Interop2.dll">
+    <Content Include="MyLib\x86\SQLite.Interop2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
