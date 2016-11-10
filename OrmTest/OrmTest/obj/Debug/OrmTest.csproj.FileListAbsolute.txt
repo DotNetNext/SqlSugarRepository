@@ -23,3 +23,5 @@ F:\SugarForOne\OrmTest\OrmTest\obj\Debug\OrmTest.pdb
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.exe
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.pdb
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.xml
+F:\SugarForOne\OrmTest\OrmTest\bin\Debug\Lib\x64\SQLite.Interop.dll
+F:\SugarForOne\OrmTest\OrmTest\bin\Debug\Lib\x86\SQLite.Interop2.dll
