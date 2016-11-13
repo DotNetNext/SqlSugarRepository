@@ -238,7 +238,6 @@
     <Compile Include="Tool.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SqlSugarRepository.1.5.nupkg" />
     <None Include="SqlSugarRepository.nuspec" />
   </ItemGroup>
   <ItemGroup>

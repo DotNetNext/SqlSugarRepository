@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SqlSugarRepository</id>
-    <version>1.5</version>
+    <version>1.6</version>
     <title>SqlSugarRepository ORM</title>
     <authors>sun kaixuan</authors>
     <owners>landa</owners>
@@ -16,6 +16,7 @@
   </metadata>
 <files>
      <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\bin\Debug\SqlSugarRepository.XML"  target=""></file>
+     <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\bin\Debug\SqlSugarRepository.dll"  target="\lib\net40"></file>
      <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\MyLib\MySql.Data.dll"  target="\lib\net40"></file>
      <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\MyLib\Oracle.ManagedDataAccess.dll"  target="\lib\net40"></file>
      <file src="F:\SugarForOne\OrmTest\SqlSugarRepository\MyLib\System.Data.SQLite.dll"  target="\lib\net40"></file>
