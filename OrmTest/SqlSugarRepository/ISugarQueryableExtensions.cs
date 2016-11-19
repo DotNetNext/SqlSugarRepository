@@ -11,6 +11,9 @@ using System.Data;
 
 namespace SqlSugarRepository
 {
+    /// <summary>
+    /// 拉姆达表达式查询对象的扩展类
+    /// </summary>
     public static class ISugarISugarQueryableExtensions
     {
         /// <summary>
