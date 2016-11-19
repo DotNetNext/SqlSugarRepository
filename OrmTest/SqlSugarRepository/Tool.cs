@@ -10,6 +10,8 @@ namespace SqlSugarRepository
     /// </summary>
     public class Tool
     {
+        public static string SqlEmpty = string.Empty;
+
         private Tool()
         {
 

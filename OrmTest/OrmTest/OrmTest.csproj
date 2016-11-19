@@ -80,6 +80,12 @@
     <Content Include="Database\Oracle\TEST.sql" />
     <Content Include="Database\Oracle\TESTUPDATECOLUMNS.sql" />
     <Content Include="Database\SqlServer\TestDB.sql" />
+    <Content Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\SQLite.Interop2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

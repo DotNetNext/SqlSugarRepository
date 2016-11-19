@@ -15,7 +15,17 @@ namespace SqlSugarRepository
     {
         private List<ISqlSugarClient> _dbs = null;
         private ISqlSugarClient _currentClient = null;
+        private SqlBuilder _SqlBuilder = null;
         internal ConnectionConfig _currentConfig = null;
+
+        /// <summary>
+        /// Sql拼接器
+        /// </summary>
+        public SqlBuilder SqlBuilder()
+        {
+            _SqlBuilder = new SqlBuilder(this);
+            return _SqlBuilder;
+        }
 
         /// <summary>
         /// 获取数据库连接实例

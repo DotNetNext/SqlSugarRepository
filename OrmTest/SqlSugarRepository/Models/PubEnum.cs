@@ -80,4 +80,5 @@ namespace SqlSugarRepository
         nT = 1,
 
     }
+
 }

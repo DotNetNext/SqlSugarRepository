@@ -39,3 +39,5 @@ F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.xml
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\obj\Debug\OrmTest.exe
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\obj\Debug\OrmTest.pdb
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\x64\SQLite.Interop.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\x86\SQLite.Interop2.dll

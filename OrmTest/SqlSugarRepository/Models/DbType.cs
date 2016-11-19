@@ -10,9 +10,21 @@ namespace SqlSugarRepository
     /// </summary>
     public enum DbType
     {
-        SqlServer=0,
-        Sqlite=1,
-        MySql=2,
-        Oracle=3
+        /// <summary>
+        /// SqlServer
+        /// </summary>
+        SqlServer = 0,
+        /// <summary>
+        /// Sqlite
+        /// </summary>
+        Sqlite = 1,
+        /// <summary>
+        /// MySql
+        /// </summary>
+        MySql = 2,
+        /// <summary>
+        /// Oracle
+        /// </summary>
+        Oracle = 3
     }
 }

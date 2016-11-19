@@ -365,36 +365,29 @@ namespace NewTest.Demos
                 dynamic list3 = db.SqlQueryDynamic("select * from student");
                 //转成json
                 string list4 = db.SqlQueryJson("select * from student");
-                //返回int
-                var list5 = db.SqlQuery<int>("select top 1 id from Student").SingleOrDefault();
+
+                string sql = db.Sqlbuilder()
+                    .ToSqlServer("select top 1 id from student ")//当前连接对象是SqlServer获取这条语句
+                    .ToOracle("select id from student where rownum=1")//当前连接对象是Oracle获取这条语句
+                    .ToOther("select id from student limit 0,1").ToString();//当前连接对象Mysql和sqlite获取这条语句
+                var list5 = db.SqlQuery<int>(sql).SingleOrDefault();
+
                 //反回键值
                 Dictionary<string, string> list6 = db.SqlQuery<KeyValuePair<string, string>>("select id,name from Student").ToDictionary(it => it.Key, it => it.Value);
-                //反回List<string[]>
-                var list7 = db.SqlQuery<string[]>("select top 1 id,name from Student").SingleOrDefault();
-                //存储过程
-                var spResult = db.SqlQuery<School>("exec sp_school @p1,@p2", new { p1 = 1, p2 = 2 });
 
-                ////存储过程加Output 
-                //var pars = SqlSugarTool.GetParameters(new { p1 = 1,p2=0 }); //将匿名对象转成SqlParameter
-                //db.IsClearParameters = false;//禁止清除参数
-                //pars[1].Direction = ParameterDirection.Output; //将p2设为 output
-                //var spResult2 = db.SqlQuery<School>("exec sp_school @p1,@p2 output", pars);
-                //db.IsClearParameters = true;//启用清除参数
-                //var outPutValue = pars[1].Value;//获取output @p2的值
+                sql = db.Sqlbuilder()
+               .ToSqlServer("select top 1 id,name from student ") 
+               .ToOracle("select id,name from student where rownum=1") 
+               .ToOther("select id,name from student limit 0,1").ToString(); 
+                var list7 = db.SqlQuery<string[]>(sql).SingleOrDefault();
 
-
-                ////存储过程优化操作
-                //var pars2 = SqlSugarTool.GetParameters(new { p1 = 1, p2 = 0 }); //将匿名对象转成SqlParameter
-                //db.CommandType = CommandType.StoredProcedure;//指定为存储过程可比上面少写EXEC和参数
-                //var spResult3 = db.SqlQuery<School>("sp_school", pars2);
-                //db.CommandType = CommandType.Text;//还原回默认
-
+                //存储过程同理
 
                 //获取第一行第一列的值
-                string v1 = db.GetString("select '张三' as name");
-                int v2 = db.GetInt("select 1 as name");
-                double v3 = db.GetDouble("select 1 as name");
-                decimal v4 = db.GetDecimal("select 1 as name");
+                string v1 = db.GetString(db.Sqlbuilder().ToOracle("select '张三' as name from dual").ToOther("select '张三' as name").ToString());
+                int v2 = db.GetInt(db.Sqlbuilder().ToOracle("select 1 as name from dual").ToOther("select 1 as name").ToString());
+                double v3 = db.GetDouble(db.Sqlbuilder().ToOracle("select 1 as name from dual").ToOther("select 1 as name").ToString());
+                decimal v4 = db.GetDecimal(db.Sqlbuilder().ToOracle("select 1 as name from dual").ToOther("select 1 as name").ToString());
                 //....
             }
         }

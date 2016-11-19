@@ -18,12 +18,12 @@ namespace NewTest.Dao
         private static string SqlConnString = "server=.;uid=sa;pwd=sasa;database=SqlSugarTest";
         private static string MySqlConnString = "server=localhost;Database=SqlSugarTest;Uid=root;Pwd=root";
         private static string PlSqlConnString = "Data Source=localhost/orcl;User ID=system;Password=JHL52771jhl;";
-        private static string SqliteSqlConnString = @"DataSource=F:\SugarForOne\OrmTest\OrmTest\Database\demo.sqlite";
+        private static string SqliteSqlConnString = @"DataSource=F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\Database\demo.sqlite";
  
         public static ISqlSugarClient GetInstance()
         {
-            var dbType = DbType.MySql;
-            var db =DbRepository.GetInstance(dbType, MySqlConnString);//可以切换成其它数据库
+            var dbType = DbType.Sqlite;
+            var db =DbRepository.GetInstance(dbType, SqliteSqlConnString);//可以切换成其它数据库
             Console.WriteLine("启动"+dbType.ToString());
             return db;
         }
