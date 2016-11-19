@@ -35,6 +35,11 @@ namespace NewTest.Dao
         {
             var dbType = DbType.SqlServer;
             var db = DbRepository.GetInstance(dbType, SqlConnString);//可以切换成其它数据库
+            db.IsEnableLogEvent = true;
+            db.LogEventStarting = (sql, pars)=>
+            {
+                PrintSql(sql, pars);
+            };
             Console.WriteLine("启动" + dbType.ToString());
             return db;
         }
@@ -42,6 +47,10 @@ namespace NewTest.Dao
         {
             var dbType = DbType.MySql;
             var db = DbRepository.GetInstance(dbType, MySqlConnString);//可以切换成其它数据库
+            db.IsEnableLogEvent = true;
+            db.LogEventStarting = (sql, pars) => {
+                PrintSql(sql, pars);
+            };
             Console.WriteLine("启动" + dbType.ToString());
             return db;
         }
@@ -49,6 +58,10 @@ namespace NewTest.Dao
         {
             var dbType = DbType.Oracle;
             var db = DbRepository.GetInstance(dbType, PlSqlConnString);//可以切换成其它数据库
+            db.IsEnableLogEvent = true;
+            db.LogEventStarting = (sql, pars) => {
+                PrintSql(sql, pars);
+            };
             Console.WriteLine("启动" + dbType.ToString());
             return db;
         }
@@ -56,8 +69,23 @@ namespace NewTest.Dao
         {
             var dbType = DbType.Sqlite;
             var db = DbRepository.GetInstance(dbType, SqliteSqlConnString);//可以切换成其它数据库
+            db.IsEnableLogEvent = true;
+            db.LogEventStarting = (sql, pars) => {
+                PrintSql(sql, pars);
+            };
             Console.WriteLine("启动" + dbType.ToString());
             return db;
         }
+
+        private static void PrintSql(string sql, string pars)
+        {
+            Console.WriteLine("sql:" + sql);
+            if (pars != null)
+            {
+                Console.WriteLine(" pars:" + pars);
+            }
+            Console.WriteLine("");
+        }
+
     }
 }
