@@ -114,9 +114,9 @@ namespace OracleSugar
         {
             if (this.IsEnableAttributeMapping && _mappingColumns.IsValuable())
             {
-                if (_mappingColumns.Any(it => it.Key == name))
+                if (_mappingColumns.Any(it => it.Key.ToLower() == name.ToLower()))
                 {
-                    name = this._mappingColumns.Single(it => it.Key == name).Value;
+                    name = this._mappingColumns.Single(it => it.Key.ToLower() == name.ToLower()).Value;
                 }
             }
             return name;
@@ -125,9 +125,9 @@ namespace OracleSugar
         {
             if (this.IsEnableAttributeMapping && _mappingColumns.IsValuable())
             {
-                if (_mappingColumns.Any(it => it.Value == name))
+                if (_mappingColumns.Any(it => it.Value.ToLower() == name.ToLower()))
                 {
-                    name = _mappingColumns.Single(it => it.Value == name).Key;
+                    name = _mappingColumns.Single(it => it.Value.ToLower() == name.ToLower()).Key;
                 }
             }
             return name;
@@ -714,7 +714,7 @@ namespace OracleSugar
                 else {
                     if (!cacheSqlManager.ContainsKey(cacheSqlKey))
                     {
-                        var seqList = seqMap.Where(it => it.TableName.ToLower() == typeName.ToLower() && it.ColumnName.ToLower() == prop.Name.ToLower());
+                        var seqList = seqMap.Where(it => it.TableName.ToLower() == typeName.ToLower() && it.ColumnName.ToLower() == propName.ToLower());
                         if (seqList.Any())
                         {
                             var seqName = seqList.First().Value;
@@ -869,6 +869,7 @@ namespace OracleSugar
                 foreach (var name in columnNames)
                 {
                     var className = name;
+                    var dbName=GetMappingColumnDbName(className);
                       //启用别名列
                     if (this.IsEnableAttributeMapping = true && _mappingColumns.IsValuable()) {
                         var mappInfo = _mappingColumns.Where(mc => mc.Value.ToLower() == name.ToLower()).ToList();
@@ -881,7 +882,7 @@ namespace OracleSugar
                     var objValue = prop.GetValue(entity, null);
                     bool isNullable = false;
                     var underType = SqlSugarTool.GetUnderType(prop, ref isNullable);
-                    var seqList = seqMap.Where(it => it.TableName.ToLower() == typeName.ToLower() && it.ColumnName.ToLower() == prop.Name.ToLower());
+                    var seqList = seqMap.Where(it => it.TableName.ToLower() == typeName.ToLower() && it.ColumnName.ToLower() == dbName.ToLower());
                     if (seqList.Any())
                     {
                         objValue = sqBegin;
