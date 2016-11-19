@@ -9,7 +9,7 @@ namespace SqlSugarRepository
     /// <summary>
     /// 连接数据库对象
     /// </summary>
-    public interface ISqlSugarClient: IDisposable
+    public partial interface ISqlSugarClient : IDisposable
     {
         /// <summary>
         /// 连接唯一KEY
@@ -17,6 +17,22 @@ namespace SqlSugarRepository
         Guid ConnectionUniqueKey { get; set; }
 
         #region Sugar
+        /// <summary>
+        /// 是否启用日志事件(默认为:false)
+        /// </summary>
+        bool IsEnableLogEvent { get; set; }
+        /// <summary>
+        /// 如何解释命令字符串 默认为Text 
+        /// </summary>
+        CommandType CommandType { get; set; }
+        /// <summary>
+        /// 是否清空SqlParameters
+        /// </summary>
+        bool IsClearParameters { get; set; }
+        /// <summary>
+        /// 设置在终止执行命令的尝试并生成错误之前的等待时间。（单位：秒）
+        /// </summary>
+        int CommandTimeOut { get; set; }
         /// <summary>
         /// 执行访数据库前的回调函数  (sql,pars)=>{}
         /// </summary>
@@ -443,7 +459,7 @@ namespace SqlSugarRepository
         /// <summary>
         /// 回滚事务
         /// </summary>
-        void RollbackTran(); 
+        void RollbackTran();
         #endregion
     }
 }
