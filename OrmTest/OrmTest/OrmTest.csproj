@@ -70,6 +70,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\MySql\sqlsugartest.sql" />
     <Content Include="Database\Oracle\AREA.sql" />
     <Content Include="Database\Oracle\INSERTTEST.sql" />
     <Content Include="Database\Oracle\SCHOOL.sql" />
@@ -78,11 +79,9 @@
     <Content Include="Database\Oracle\SUBJECT.sql" />
     <Content Include="Database\Oracle\TEST.sql" />
     <Content Include="Database\Oracle\TESTUPDATECOLUMNS.sql" />
+    <Content Include="Database\SqlServer\TestDB.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Database\MySql\" />
-    <Folder Include="Database\SqlServer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
