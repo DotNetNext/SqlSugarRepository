@@ -69,7 +69,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DbRepository.cs" />
     <Compile Include="Sqlbuilder.cs" />
-    <Compile Include="SugarAttribute.cs" />
     <Compile Include="Sugar\MySql\Append\MySqlSugarClient.cs" />
     <Compile Include="Sugar\MySql\Append\MySqlQueryable.cs" />
     <Compile Include="Sugar\Oracle\Append\PlSqlSugarClient.cs" />

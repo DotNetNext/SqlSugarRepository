@@ -17,9 +17,9 @@ namespace OrmTest
             OracleSugar.OracleConfig.SequenceMapping = new List<OracleSugar.SequenceModel>() { new OracleSugar.SequenceModel() { TableName="student", ColumnName="id", Value="seq" } };
 
             //设置执行的DEMO
-            string switchOn = "mappingcolumns";
+            string switchOn = "attributesmapping";
             //数据库类型
-            DbType type = DbType.Oracle;
+            DbType type = DbType.Sqlite;
             switch (switchOn)
             {
                 /****************************基本功能**************************************/
@@ -29,6 +29,7 @@ namespace OrmTest
                 case "insertorupdate": new InsertOrUpdate().Init(type); break;
                 case "mappingtable": new MappingTable().Init(type); break;
                 case "mappingcolumns": new MappingColumns().Init(type); break;
+                case "attributesmapping": new AttributesMapping().Init(type); break;
                 case "tran": new Tran().Init(type); break;
             }
             Console.WriteLine("执行成功请关闭窗口");

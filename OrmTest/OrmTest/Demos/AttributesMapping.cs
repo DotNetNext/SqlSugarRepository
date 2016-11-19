@@ -56,17 +56,29 @@ namespace NewTest.Demos
         /// <summary>
         /// 属性只作为初始化映射，SetMappingTables和SetMappingColumns可以覆盖
         /// </summary>
-        [SugarMapping(TableName = "Student")]
+        [SqlSugar.SugarMapping(TableName = "Student")]
+        [MySqlSugar.SugarMapping(TableName = "Student")]
+        [SQLiteSugar.SugarMapping(TableName = "Student")]
+        [OracleSugar.SugarMapping(TableName = "Student")]
         public class TestStudent
         {
 
-            [SugarMapping(ColumnName = "id")]
+            [SqlSugar.SugarMapping(ColumnName = "id")]
+            [MySqlSugar.SugarMapping(ColumnName = "id")]
+            [SQLiteSugar.SugarMapping(ColumnName = "id")]
+            [OracleSugar.SugarMapping(ColumnName = "id")]
             public int classId { get; set; }
 
-            [SugarMapping(ColumnName = "name")]
+            [SqlSugar.SugarMapping(ColumnName = "name")]
+            [MySqlSugar.SugarMapping(ColumnName = "name")]
+            [SQLiteSugar.SugarMapping(ColumnName = "name")]
+            [OracleSugar.SugarMapping(ColumnName = "name")]
             public string className { get; set; }
 
-            [SugarMapping(ColumnName = "sch_id")]
+            [SqlSugar.SugarMapping(ColumnName = "sch_id")]
+            [MySqlSugar.SugarMapping(ColumnName = "sch_id")]
+            [SQLiteSugar.SugarMapping(ColumnName = "sch_id")]
+            [OracleSugar.SugarMapping(ColumnName = "sch_id")]
             public int classSchoolId { get; set; }
 
             public int isOk { get; set; }
@@ -78,14 +90,23 @@ namespace NewTest.Demos
         }
 
  
-        [SugarMapping(TableName = "School")]
+        [SqlSugar.SugarMapping(TableName = "School")]
+        [MySqlSugar.SugarMapping(TableName = "School")]
+        [SQLiteSugar.SugarMapping(TableName = "School")]
+        [OracleSugar.SugarMapping(TableName = "School")]
         public class TestSchool
         {
 
-            [SugarMapping(ColumnName = "id")]
+            [SqlSugar.SugarMapping(ColumnName = "id")]
+            [MySqlSugar.SugarMapping(ColumnName = "id")]
+            [SQLiteSugar.SugarMapping(ColumnName = "id")]
+            [OracleSugar.SugarMapping(ColumnName = "id")]
             public int classId { get; set; }
 
-            [SugarMapping(ColumnName = "name")]
+            [SqlSugar.SugarMapping(ColumnName = "name")]
+            [MySqlSugar.SugarMapping(ColumnName = "name")]
+            [SQLiteSugar.SugarMapping(ColumnName = "name")]
+            [OracleSugar.SugarMapping(ColumnName = "name")]
             public string className { get; set; }
 
             public int AreaId = 1;
