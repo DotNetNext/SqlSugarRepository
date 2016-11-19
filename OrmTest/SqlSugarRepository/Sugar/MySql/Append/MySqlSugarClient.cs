@@ -80,6 +80,72 @@ namespace SqlSugarRepository
                 _db.LogEventCompleted = value;
             }
         }
+
+        public bool IsEnableLogEvent
+        {
+            get
+            {
+                return _db.IsEnableLogEvent;
+            }
+
+            set
+            {
+                _db.IsEnableLogEvent = value;
+            }
+        }
+
+        public CommandType CommandType
+        {
+            get
+            {
+                return _db.CommandType;
+            }
+
+            set
+            {
+                _db.CommandType = value;
+            }
+        }
+
+        public bool IsClearParameters
+        {
+            get
+            {
+                return _db.IsClearParameters;
+            }
+
+            set
+            {
+                _db.IsClearParameters = value;
+            }
+        }
+
+        public bool IsGetPageParas
+        {
+            get
+            {
+                return _db.IsGetPageParas;
+            }
+
+            set
+            {
+                _db.IsGetPageParas = value;
+            }
+        }
+
+        public int CommandTimeOut
+        {
+            get
+            {
+                return _db.CommandTimeOut;
+            }
+
+            set
+            {
+                _db.CommandTimeOut = value;
+            }
+        }
+
         public void AddDisableInsertColumns(params string[] columns)
         {
             _db.AddDisableInsertColumns(columns);
