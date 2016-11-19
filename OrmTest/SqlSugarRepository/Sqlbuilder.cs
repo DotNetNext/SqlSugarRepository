@@ -34,7 +34,7 @@ namespace SqlSugarRepository
         /// 转成字符串
         /// </summary>
         /// <returns></returns>
-        public string ToString()
+        public override string ToString()
         {
             var reval = sqlSb.ToString();
             var regStr = @"\[[A-Z]{1,10}DB\]\:[^\[]+";
@@ -44,23 +44,23 @@ namespace SqlSugarRepository
                 switch (_type)
                 {
                     case DbType.SqlServer:
-
+                        reval = GetSqlByKey("[MSSQLDB]:", reval, sqls);
                         break;
                     case DbType.Sqlite:
-
+                        reval = GetSqlByKey("[SQLITEDB]:", reval, sqls);
                         break;
                     case DbType.MySql:
-                       reval= GetSqlByKey("[MYSQLDB]:", reval, sqls);
+                        reval = GetSqlByKey("[MYSQLDB]:", reval, sqls);
                         break;
                     case DbType.Oracle:
-
+                        reval = GetSqlByKey("[ORACLEDB]:", reval, sqls);
                         break;
                 }
             }
             return reval;
         }
 
-        private static string GetSqlByKey(string key,string reval, string[] sqls)
+        private static string GetSqlByKey(string key, string reval, string[] sqls)
         {
             var sql = sqls.Where(it => it.Contains(key)).SingleOrDefault();
             if (sql == null)
@@ -75,7 +75,8 @@ namespace SqlSugarRepository
             {
                 sql = reval;
             }
-            else {
+            else
+            {
                 var regStr = @"\[[A-Z]{1,10}DB\]:";
                 sql = Regex.Replace(sql, regStr, "");
             }

@@ -22,8 +22,8 @@ namespace NewTest.Dao
  
         public static ISqlSugarClient GetInstance()
         {
-            var dbType = DbType.Sqlite;
-            var db =DbRepository.GetInstance(dbType, SqliteSqlConnString);//可以切换成其它数据库
+            var dbType = DbType.Oracle;
+            var db =DbRepository.GetInstance(dbType, PlSqlConnString);//可以切换成其它数据库
             Console.WriteLine("启动"+dbType.ToString());
             return db;
         }
