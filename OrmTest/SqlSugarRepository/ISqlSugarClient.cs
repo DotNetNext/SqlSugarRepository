@@ -18,6 +18,14 @@ namespace SqlSugarRepository
 
         #region Sugar
         /// <summary>
+        /// 执行访数据库前的回调函数  (sql,pars)=>{}
+        /// </summary>
+        Action<string, string> LogEventStarting { get; set; }
+        /// <summary>
+        /// 执行访数据库后的回调函数  (sql,pars)=>{}
+        /// </summary>
+        Action<string, string> LogEventCompleted { get; set; }
+        /// <summary>
         /// 当前连接字符串
         /// </summary>
         string ConnectionString { get; }

@@ -56,6 +56,32 @@ namespace SqlSugarRepository
             }
         }
 
+        public Action<string, string> LogEventStarting
+        {
+            get
+            {
+                return _db.LogEventStarting;
+            }
+
+            set
+            {
+                _db.LogEventStarting = value;
+            }
+        }
+
+        public Action<string, string> LogEventCompleted
+        {
+            get
+            {
+                return _db.LogEventCompleted;
+            }
+
+            set
+            {
+                _db.LogEventCompleted = value;
+            }
+        }
+
         public void AddDisableInsertColumns(params string[] columns)
         {
             _db.AddDisableInsertColumns(columns);
