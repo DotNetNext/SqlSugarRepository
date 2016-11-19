@@ -25,3 +25,17 @@ F:\SugarForOne\OrmTest\OrmTest\bin\Debug\OrmTest.pdb
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.xml
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\Lib\x64\SQLite.Interop.dll
 F:\SugarForOne\OrmTest\OrmTest\bin\Debug\Lib\x86\SQLite.Interop2.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\OrmTest.exe.config
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\obj\Debug\OrmTest.csprojResolveAssemblyReference.cache
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\MyLib\x64\SQLite.Interop.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\MyLib\x86\SQLite.Interop2.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\OrmTest.exe
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\OrmTest.pdb
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\MySql.Data.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\System.Data.SQLite.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\Oracle.ManagedDataAccess.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.pdb
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.xml
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\obj\Debug\OrmTest.exe
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\obj\Debug\OrmTest.pdb

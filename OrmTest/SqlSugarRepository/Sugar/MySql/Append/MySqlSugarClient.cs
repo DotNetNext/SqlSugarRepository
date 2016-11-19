@@ -61,12 +61,12 @@ namespace SqlSugarRepository
             _db.AddDisableInsertColumns(columns);
         }
 
-        public void AddDisableUpdateColumn(params string[] columns)
+        public void AddDisableUpdateColumns(params string[] columns)
         {
             _db.AddDisableUpdateColumn(columns);
         }
 
-        public void AddMappingColum(KeyValue mappingColumns)
+        public void AddMappingColumn(KeyValue mappingColumns)
         {
             _db.AddMappingColum(new MySqlSugar.KeyValue() { Key = mappingColumns.Key, Value = mappingColumns.Value });
         }
@@ -270,7 +270,7 @@ namespace SqlSugarRepository
             _db.RollbackTran();
         }
 
-        public void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows)
+        public void SetFilterItems(Dictionary<string, Func<KeyValueObj>> filterRows)
         {
             Dictionary<string, Func<MySqlSugar.KeyValueObj>> values = new Dictionary<string, Func<MySqlSugar.KeyValueObj>>();
             foreach (var item in filterRows)
@@ -285,12 +285,12 @@ namespace SqlSugarRepository
                     };
                 });
             }
-            _db.SetFilterFilterParas(values);
+            _db.SetFilterItems(values);
         }
 
-        public void SetFilterFilterParas(Dictionary<string, List<string>> filterColumns)
+        public void SetFilterItems(Dictionary<string, List<string>> filterColumns)
         {
-            _db.SetFilterFilterParas(filterColumns);
+            _db.SetFilterItems(filterColumns);
         }
 
         public void SetMappingColumns(List<KeyValue> mappingColumns)

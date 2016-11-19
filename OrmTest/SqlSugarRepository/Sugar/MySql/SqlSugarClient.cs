@@ -229,7 +229,7 @@ namespace MySqlSugar
         /// 设置过滤器（用户权限过滤）
         /// </summary>
         /// <param name="filterRows">参数Dictionary string 为过滤器的名称 , Dictionary Func&lt;KeyValueObj&gt; 为过滤函数 (KeyValueObj 中的 Key为Sql条件,Value为Sql参数)</param>
-        public void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows)
+        public void SetFilterItems(Dictionary<string, Func<KeyValueObj>> filterRows)
         {
             _filterRows = filterRows;
         }
@@ -238,11 +238,11 @@ namespace MySqlSugar
         /// 设置过滤器（用户权限过滤）
         /// </summary>
         /// <param name="filterColumns">参数Dictionary string 为过滤器的名称 , Dictionary List&lt;string&gt;为允许查询的列的集合</param>
-        public void SetFilterFilterParas(Dictionary<string, List<string>> filterColumns)
+        public void SetFilterItems(Dictionary<string, List<string>> filterColumns)
         {
             if (filterColumns.Values == null || filterColumns.Values.Count == 0)
             {
-                throw new Exception("过滤器的列名集合不能为空SetFilterFilterParas.filters");
+                throw new Exception("过滤器的列名集合不能为空SetFilterItems.filters");
             }
             _filterColumns = filterColumns;
         }

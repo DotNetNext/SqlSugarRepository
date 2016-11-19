@@ -15,8 +15,8 @@ namespace SqlSugarRepository
         string[] DisableInsertColumns { get; set; }
         string[] DisableUpdateColumns { get; set; }
         void AddDisableInsertColumns(params string[] columns);
-        void AddDisableUpdateColumn(params string[] columns);
-        void AddMappingColum(KeyValue mappingColumns);
+        void AddDisableUpdateColumns(params string[] columns);
+        void AddMappingColumn(KeyValue mappingColumn);
         void AddMappingTable(KeyValue mappingTable);
         bool Delete<T>(T deleteObj) where T : class;
         bool Delete<T>(List<T> deleteObjList) where T : class;
@@ -32,8 +32,8 @@ namespace SqlSugarRepository
         ISugarQueryable<T> Queryable<T>() where T : class, new();
         ISugarQueryable<T> Queryable<T>(string tableName) where T : class, new();
         void RemoveAllCache<T>();
-        void SetFilterFilterParas(Dictionary<string, List<string>> filterColumns);
-        void SetFilterFilterParas(Dictionary<string, Func<KeyValueObj>> filterRows);
+        void SetFilterItems(Dictionary<string, List<string>> filterColumns);
+        void SetFilterItems(Dictionary<string, Func<KeyValueObj>> filterRows);
         void SetMappingColumns(List<KeyValue> mappingColumns);
         void SetMappingTables(List<KeyValue> mappingTables);
         void SetSerialNumber(List<SerialNumber> serNum);
