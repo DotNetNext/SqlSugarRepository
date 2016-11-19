@@ -1309,6 +1309,65 @@ namespace SqlSugarRepository
         }
 
         /// <summary>
+        /// 将Queryable转换为分页后的Json
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryable">查询对象</param>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示数量</param>
+        /// <returns>Json</returns>
+        public static string ToJsonPage<T>(this ISugarQueryable<T> queryable, int pageIndex, int pageSize)
+        {
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToJsonPage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToJsonPage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToJsonPage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToJsonPage(pageIndex, pageSize);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 将Queryable转换为分页后的Json
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryable">查询对象</param>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示数量</param>
+        /// <param name="pageCount">pageCount无需赋值，函数执行完自动赋值</param>
+        /// <returns>Json</returns>
+        public static string ToJsonPage<T>(this ISugarQueryable<T> queryable, int pageIndex, int pageSize, ref int pageCount)
+        {
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToJsonPage(pageIndex, pageSize, ref pageCount);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToJsonPage(pageIndex, pageSize, ref pageCount);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToJsonPage(pageIndex, pageSize, ref pageCount);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToJsonPage(pageIndex, pageSize, ref pageCount);
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 返回Sql和参数信息
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
@@ -1363,6 +1422,65 @@ namespace SqlSugarRepository
         }
 
         /// <summary>
+        /// 将Queryable转换为分页后的Dynamic
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryable">查询对象</param>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示数量</param>
+        /// <returns>Dynamic</returns>
+        public static dynamic ToDynamicPage<T>(this ISugarQueryable<T> queryable, int pageIndex, int pageSize)
+        {
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToDynamicPage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToDynamicPage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToDynamicPage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToDynamicPage(pageIndex, pageSize);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 将Queryable转换为分页后的Dynamic
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryable">查询对象</param>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示数量</param>
+        /// <param name="pageCount">pageCount无需赋值，函数执行完自动赋值</param>
+        /// <returns>Dynamic</returns>
+        public static dynamic ToDynamicPage<T>(this ISugarQueryable<T> queryable, int pageIndex, int pageSize, ref int pageCount)
+        {
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToDynamicPage(pageIndex, pageSize, ref  pageCount);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToDynamicPage(pageIndex, pageSize, ref  pageCount);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToDynamicPage(pageIndex, pageSize, ref  pageCount);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToDynamicPage(pageIndex, pageSize, ref  pageCount);
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 将ISugarQueryable转换为DataTable
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
@@ -1388,6 +1506,66 @@ namespace SqlSugarRepository
             }
             return null;
         }
+
+        /// <summary>
+        /// 将Queryable转换为分页后的DataTable
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryable">查询对象</param>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示数量</param>
+        /// <returns>DataTable</returns>
+        public static DataTable ToDataTablePage<T>(this ISugarQueryable<T> queryable, int pageIndex, int pageSize)
+        {
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToDataTablePage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToDataTablePage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToDataTablePage(pageIndex, pageSize);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToDataTablePage(pageIndex, pageSize);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 将Queryable转换为分页后的DataTable
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryable">查询对象</param>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示数量</param>
+        /// <param name="pageCount">pageCount无需赋值，函数执行完自动赋值</param>
+        /// <returns>DataTable</returns>
+        public static DataTable ToDataTablePage<T>(this ISugarQueryable<T> queryable, int pageIndex, int pageSize, ref int pageCount)
+        {
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToDataTablePage(pageIndex, pageSize,ref pageCount);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToDataTablePage(pageIndex, pageSize, ref pageCount);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToDataTablePage(pageIndex, pageSize, ref pageCount);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToDataTablePage(pageIndex, pageSize, ref pageCount);
+            }
+            return null;
+        }
+
 
         /// <summary>
         /// 将ISugarQueryable转换为分页后的List&lt;T&gt;集合
