@@ -22,8 +22,8 @@ namespace NewTest.Dao
  
         public static ISqlSugarClient GetInstance()
         {
-            var dbType = DbType.SqlServer;
-            var db =DbRepository.GetInstance(dbType, SqlConnString);//可以切换成其它数据库
+            var dbType = DbType.MySql;
+            var db =DbRepository.GetInstance(dbType, MySqlConnString);//可以切换成其它数据库
             Console.WriteLine("启动"+dbType.ToString());
             return db;
         }
