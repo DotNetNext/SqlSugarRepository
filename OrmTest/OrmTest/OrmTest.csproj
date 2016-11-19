@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dao\SugarDao.cs" />
+    <Compile Include="Demos\AttributesMapping.cs" />
     <Compile Include="Demos\Insert.cs" />
     <Compile Include="Demos\InsertOrUpdate.cs" />
     <Compile Include="Demos\MappingColumns.cs" />

@@ -34,6 +34,10 @@ namespace SqlSugarRepository
         /// </summary>
         bool IsClearParameters { get; set; }
         /// <summary>
+        /// 是否排除非数据库字段
+        /// </summary>
+        bool IsIgnoreErrorColumns { get; set; }
+        /// <summary>
         /// 将页面参数自动填充到SqlParameter []，无需在程序中指定参数
         /// 例如：
         ///     var list = db.Queryable&lt;Student&gt;().Where("id=@id").ToList();

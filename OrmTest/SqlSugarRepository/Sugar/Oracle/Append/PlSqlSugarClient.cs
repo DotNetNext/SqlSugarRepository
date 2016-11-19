@@ -159,6 +159,18 @@ namespace SqlSugarRepository
                 _db.IsEnableAttributeMapping = value;
             }
         }
+        public bool IsIgnoreErrorColumns
+        {
+            get
+            {
+                return _db.IsIgnoreErrorColumns;
+            }
+
+            set
+            {
+                _db.IsIgnoreErrorColumns = value;
+            }
+        }
         public void AddDisableInsertColumns(params string[] columns)
         {
             _db.AddDisableInsertColumns(columns);
