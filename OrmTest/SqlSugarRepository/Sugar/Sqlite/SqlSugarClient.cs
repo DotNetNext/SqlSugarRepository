@@ -169,7 +169,7 @@ namespace SQLiteSugar
         /// <summary>
         /// 查询是否允许脏读（默认为:true）
         /// </summary>
-        public bool IsNoLock { get; set; }
+        internal bool IsNoLock { get; set; }
 
         /// <summary>
         /// 忽略非数据库列 （默认为:false）
@@ -185,7 +185,7 @@ namespace SQLiteSugar
         /// 添加禁止更新列
         /// </summary>
         /// <param name="columns"></param>
-        public void AddDisableUpdateColumn(params string[] columns)
+        public void AddDisableUpdateColumns(params string[] columns)
         {
             this.DisableUpdateColumns = this.DisableUpdateColumns.ArrayAdd(columns);
         }
@@ -241,7 +241,7 @@ namespace SQLiteSugar
         {
             if (filterColumns.Values == null || filterColumns.Values.Count == 0)
             {
-                throw new Exception("过滤器的列名集合不能为空SetFilterItems.filters");
+                throw new Exception("过滤器的列名集合不能为空SetFilterFilterParas.filters");
             }
             _filterColumns = filterColumns;
         }
@@ -287,12 +287,12 @@ namespace SQLiteSugar
         /// <summary>
         /// 添加实体字段与数据库字段的映射，Key为实体字段 Value为表字段名称 （注意：不区分表，设置后所有表通用）
         /// </summary>
-        /// <param name="mappingColumns"></param>
-        public void AddMappingColum(KeyValue mappingColumns)
+        /// <param name="mappingColumn"></param>
+        public void AddMappingColumn(KeyValue mappingColumn)
         {
-            Check.ArgumentNullException(mappingColumns, "AddMappingTables.mappingColumns不能为null。");
-            Check.Exception(_mappingColumns.Any(it => it.Key == mappingColumns.Key), "mappingColumns的Key已经存在。");
-            _mappingColumns.Add(mappingColumns);
+            Check.ArgumentNullException(mappingColumn, "AddMappingTables.mappingColumns不能为null。");
+            Check.Exception(_mappingColumns.Any(it => it.Key == mappingColumn.Key), "mappingColumns的Key已经存在。");
+            _mappingColumns.Add(mappingColumn);
             string cacheKey = "SqlSugarClient.InitAttributes";
             var cm = CacheManager<List<KeyValue>>.GetInstance();
             cm.Add(cacheKey, _mappingColumns, cm.Day);
@@ -309,6 +309,12 @@ namespace SQLiteSugar
                 _serialNumber = serNum;
             }
         }
+
+        /// <summary>
+        /// 在同一个会话中可以存储一些临时数据
+        /// </summary>
+        public object TempData = null;
+
         #endregion
 
 
@@ -872,6 +878,34 @@ namespace SQLiteSugar
         }
         #endregion
 
+        #region InsertOrUpdate
+        /// <summary>
+        /// 主键有值则更新，无值则插入，不支持复合主键。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="operationObj">操作的实体对象</param>
+        /// <returns>更新返回bool,插入如果有自增列返回自增列的值否则也返回bool</returns>
+        public object InsertOrUpdate<T>(T operationObj) where T : class
+        {
+            Type type = typeof(T);
+            string typeName = type.Name;
+            typeName = GetTableNameByClassType(typeName);
+            string pkName = SqlSugarTool.GetPrimaryKeyByTableName(this, typeName);
+            string pkClassName = GetMappingColumnClassName(pkName);
+            Check.Exception(pkName == null, string.Format("InsertOrUpdate操作失败，因为表{0}中不存在主键。", typeName));
+            var prop = type.GetProperties().Single(it => it.Name.ToLower() == pkClassName.ToLower());
+            var value = prop.GetValue(operationObj, null);
+            var isAdd = value == null || value.ToString() == "" || value.ToString() == "0" || value.ToString() == Guid.Empty.ToString();
+            if (isAdd)
+            {
+                return Insert(operationObj);
+            }
+            else
+            {
+                return Update(operationObj);
+            }
+        }
+        #endregion
 
         #region update
         /// <summary>

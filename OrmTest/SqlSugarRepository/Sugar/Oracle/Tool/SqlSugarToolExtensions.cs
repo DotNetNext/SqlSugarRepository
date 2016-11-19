@@ -162,6 +162,7 @@ namespace OracleSugar
         {
             return SqlSugarTool.GetOracleParameterNameNoParSymbol(name);
         }
+
         /// <summary>
         /// 数组条件筛选
         /// </summary>

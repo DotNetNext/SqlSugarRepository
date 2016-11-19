@@ -64,12 +64,12 @@ namespace SqlSugarRepository
 
         public void AddDisableUpdateColumns(params string[] columns)
         {
-            _db.AddDisableUpdateColumn(columns);
+            _db.AddDisableUpdateColumns(columns);
         }
 
-        public void AddMappingColumn(KeyValue mappingColumns)
+        public void AddMappingColumn(KeyValue mappingColumn)
         {
-            _db.AddMappingColum(new OracleSugar.KeyValue() { Key = mappingColumns.Key, Value = mappingColumns.Value });
+            _db.AddMappingColumn(new OracleSugar.KeyValue() { Key = mappingColumn.Key, Value = mappingColumn.Value });
         }
 
         public void AddMappingTable(KeyValue mappingTable)
