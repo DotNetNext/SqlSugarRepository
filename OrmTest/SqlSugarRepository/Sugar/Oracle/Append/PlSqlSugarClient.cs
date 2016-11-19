@@ -228,7 +228,7 @@ namespace SqlSugarRepository
 
         public bool Delete<T, FiledType>(params FiledType[] whereIn) where T : class
         {
-            return _db.Delete(whereIn);
+            return _db.Delete<T, FiledType>(whereIn);
         }
 
         public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, List<FiledType> whereIn) where T : class
