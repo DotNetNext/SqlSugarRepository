@@ -6,7 +6,7 @@ using System.Text;
 using SqlSugar;
 namespace SqlSugarRepository
 {
-   public class SqlServerQueryable<T> : ISugarQueryable<T>
+   internal class SqlServerQueryable<T> : ISugarQueryable<T>
     {
         public object QueryableCore
         {

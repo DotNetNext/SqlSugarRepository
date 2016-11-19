@@ -146,6 +146,19 @@ namespace SqlSugarRepository
             }
         }
 
+        public bool IsEnableAttributeMapping
+        {
+            get
+            {
+                return _db.IsEnableAttributeMapping;
+            }
+
+            set
+            {
+                _db.IsEnableAttributeMapping = value;
+            }
+        }
+
         public void AddDisableInsertColumns(params string[] columns)
         {
             _db.AddDisableInsertColumns(columns);

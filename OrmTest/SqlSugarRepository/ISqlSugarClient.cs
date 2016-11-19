@@ -18,6 +18,10 @@ namespace SqlSugarRepository
 
         #region Sugar
         /// <summary>
+        /// 是否启动属性映射
+        /// </summary>
+        bool IsEnableAttributeMapping { get; set; }
+        /// <summary>
         /// 是否启用日志事件(默认为:false)
         /// </summary>
         bool IsEnableLogEvent { get; set; }

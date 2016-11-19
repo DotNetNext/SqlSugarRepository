@@ -28,7 +28,6 @@ F:\SugarForOne\OrmTest\OrmTest\bin\Debug\Lib\x86\SQLite.Interop2.dll
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\OrmTest.exe.config
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\obj\Debug\OrmTest.csprojResolveAssemblyReference.cache
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\MyLib\x64\SQLite.Interop.dll
-F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\MyLib\x86\SQLite.Interop2.dll
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\OrmTest.exe
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\OrmTest.pdb
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\SqlSugarRepository.dll
@@ -41,3 +40,4 @@ F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\obj\Debug\OrmTest.exe
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\obj\Debug\OrmTest.pdb
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\x64\SQLite.Interop.dll
 F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\x86\SQLite.Interop.dll
+F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\bin\Debug\MyLib\x86\SQLite.Interop.dll

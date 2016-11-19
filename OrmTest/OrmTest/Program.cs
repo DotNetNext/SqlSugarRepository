@@ -17,7 +17,7 @@ namespace OrmTest
             OracleSugar.OracleConfig.SequenceMapping = new List<OracleSugar.SequenceModel>() { new OracleSugar.SequenceModel() { TableName="student", ColumnName="id", Value="seq" } };
 
             //设置执行的DEMO
-            string switchOn = "insert";
+            string switchOn = "insertorupdate";
             //数据库类型
             DbType type = DbType.Oracle;
             switch (switchOn)
