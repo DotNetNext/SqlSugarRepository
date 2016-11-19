@@ -1417,6 +1417,35 @@ namespace SqlSugarRepository
             }
             return null;
         }
+        /// <summary>
+        /// 将Queryable转换为分页后的List&lt;T&gt;集合
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryable">查询对象</param>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示数量</param>
+        /// <param name="pageCount">pageCount无需赋值，函数执行完自动赋值</param>
+        /// <returns>T的集合</returns>
+        public static List<T> ToPageList<T>(this ISugarQueryable<T> queryable, int pageIndex, int pageSize, ref int pageCount)
+        {
+            if (queryable.QueryableCore is SqlSugar.Queryable<T>)
+            {
+                return ((SqlSugar.Queryable<T>)queryable.QueryableCore).ToPageList(pageIndex, pageSize,ref pageCount);
+            }
+            else if (queryable.QueryableCore is MySqlSugar.Queryable<T>)
+            {
+                return ((MySqlSugar.Queryable<T>)queryable.QueryableCore).ToPageList(pageIndex, pageSize, ref pageCount);
+            }
+            else if (queryable.QueryableCore is OracleSugar.Queryable<T>)
+            {
+                return ((OracleSugar.Queryable<T>)queryable.QueryableCore).ToPageList(pageIndex, pageSize, ref pageCount);
+            }
+            else if (queryable.QueryableCore is SQLiteSugar.Queryable<T>)
+            {
+                return ((SQLiteSugar.Queryable<T>)queryable.QueryableCore).ToPageList(pageIndex, pageSize, ref pageCount);
+            }
+            return null;
+        }
 
         /// <summary>
         /// 联表查询
