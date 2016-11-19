@@ -5,7 +5,6 @@ using System.Text;
 using NewTest.Dao;
 using Models;
 using System.Data.SqlClient;
-using System.Data;
 using SqlSugarRepository;
 namespace NewTest.Demos
 {
@@ -14,17 +13,17 @@ namespace NewTest.Demos
     {
   
 
-        public void Init()
+        public void Init(DbType type)
         {
             Console.WriteLine("启动Select.Init");
             //使用拉姆达查询 基于Queryable
-            QueryableDemo();
+            QueryableDemo(type);
 
             //新容器转换
-            QueryableSelectNewClass();
+            QueryableSelectNewClass(type);
 
             //使用原生Sql查询 
-            SqlQuery();
+            SqlQuery(type);
 
 
         }
@@ -32,10 +31,10 @@ namespace NewTest.Demos
         /// <summary>
         /// 拉姆达表达示
         /// </summary>
-        private void QueryableDemo()
+        private void QueryableDemo(DbType type)
         {
 
-            using (var db = SugarDao.GetInstance())
+            using (var db = SugarDao.GetInstance(type))
             {
 
 
@@ -251,10 +250,10 @@ namespace NewTest.Demos
         /// <summary>
         /// 新容器转换
         /// </summary>
-        private void QueryableSelectNewClass()
+        private void QueryableSelectNewClass(DbType type)
         {
 
-            using (var db = SugarDao.GetInstance())
+            using (var db = SugarDao.GetInstance(type))
             {
 
                 //单表操作将Student转换成V_Student
@@ -353,9 +352,9 @@ namespace NewTest.Demos
         /// <summary>
         /// 基于原生Sql的查询
         /// </summary>
-        private void SqlQuery()
+        private void SqlQuery(DbType type)
         {
-            using (var db = SugarDao.GetInstance())
+            using (var db = SugarDao.GetInstance(type))
             {
                 //转成list
                 List<Student> list1 = db.SqlQuery<Student>("select * from Student");

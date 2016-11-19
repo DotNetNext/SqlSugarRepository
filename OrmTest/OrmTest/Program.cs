@@ -21,7 +21,7 @@ namespace OrmTest
             {
                 /****************************基本功能**************************************/
                 //查询
-                case "select": new Select().Init(); break;
+                case "select": new Select().Init(DbType.Oracle); break;
             }
             Console.WriteLine("执行成功请关闭窗口");
             Console.ReadKey();
