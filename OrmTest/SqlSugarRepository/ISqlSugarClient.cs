@@ -30,6 +30,14 @@ namespace SqlSugarRepository
         /// </summary>
         bool IsClearParameters { get; set; }
         /// <summary>
+        /// 将页面参数自动填充到SqlParameter []，无需在程序中指定参数
+        /// 例如：
+        ///     var list = db.Queryable&lt;Student&gt;().Where("id=@id").ToList();
+        ///     以前写法
+        ///     var list = db.Queryable&lt;Student&gt;().Where("id=@id", new { id=Request["id"] }).ToList();
+        /// </summary>
+        bool IsGetPageParas { get; set; }
+        /// <summary>
         /// 设置在终止执行命令的尝试并生成错误之前的等待时间。（单位：秒）
         /// </summary>
         int CommandTimeOut { get; set; }
