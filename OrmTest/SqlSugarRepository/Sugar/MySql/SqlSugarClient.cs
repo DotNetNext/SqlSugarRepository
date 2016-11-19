@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Data;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using SqlSugarRepository;
+
 namespace MySqlSugar
 {
     /// <summary>
@@ -169,7 +169,7 @@ namespace MySqlSugar
         /// <summary>
         /// 查询是否允许脏读（默认为:true）
         /// </summary>
-        public bool IsNoLock { get; set; }
+        internal bool IsNoLock { get; set; }
 
         /// <summary>
         /// 忽略非数据库列 （默认为:false）
@@ -185,7 +185,7 @@ namespace MySqlSugar
         /// 添加禁止更新列
         /// </summary>
         /// <param name="columns"></param>
-        public void AddDisableUpdateColumn(params string[] columns)
+        public void AddDisableUpdateColumns(params string[] columns)
         {
             this.DisableUpdateColumns = this.DisableUpdateColumns.ArrayAdd(columns);
         }
@@ -242,7 +242,7 @@ namespace MySqlSugar
         {
             if (filterColumns.Values == null || filterColumns.Values.Count == 0)
             {
-                throw new Exception("过滤器的列名集合不能为空SetFilterItems.filters");
+                throw new Exception("过滤器的列名集合不能为空SetFilterFilterParas.filters");
             }
             _filterColumns = filterColumns;
         }
@@ -288,12 +288,12 @@ namespace MySqlSugar
         /// <summary>
         /// 添加实体字段与数据库字段的映射，Key为实体字段 Value为表字段名称 （注意：不区分表，设置后所有表通用）
         /// </summary>
-        /// <param name="mappingColumns"></param>
-        public void AddMappingColum(KeyValue mappingColumns)
+        /// <param name="mappingColumn"></param>
+        public void AddMappingColumn(KeyValue mappingColumn)
         {
-            Check.ArgumentNullException(mappingColumns, "AddMappingTables.mappingColumns不能为null。");
-            Check.Exception(_mappingColumns.Any(it => it.Key == mappingColumns.Key), "mappingColumns的Key已经存在。");
-            _mappingColumns.Add(mappingColumns);
+            Check.ArgumentNullException(mappingColumn, "AddMappingTables.mappingColumns不能为null。");
+            Check.Exception(_mappingColumns.Any(it => it.Key == mappingColumn.Key), "mappingColumns的Key已经存在。");
+            _mappingColumns.Add(mappingColumn);
             string cacheKey = "SqlSugarClient.InitAttributes";
             var cm = CacheManager<List<KeyValue>>.GetInstance();
             cm.Add(cacheKey, _mappingColumns, cm.Day);
@@ -310,6 +310,11 @@ namespace MySqlSugar
                 _serialNumber = serNum;
             }
         }
+
+        /// <summary>
+        /// 在同一个会话中可以存储一些临时数据
+        /// </summary>
+        public object TempData = null;
         #endregion
 
 
@@ -873,6 +878,34 @@ namespace MySqlSugar
         }
         #endregion
 
+        #region InsertOrUpdate
+        /// <summary>
+        /// 主键有值则更新，无值则插入，不支持复合主键。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="operationObj">操作的实体对象</param>
+        /// <returns>更新返回bool,插入如果有自增列返回自增列的值否则也返回bool</returns>
+        public object InsertOrUpdate<T>(T operationObj) where T : class
+        {
+            Type type = typeof(T);
+            string typeName = type.Name;
+            typeName = GetTableNameByClassType(typeName);
+            string pkName = SqlSugarTool.GetPrimaryKeyByTableName(this, typeName);
+            string pkClassName = GetMappingColumnClassName(pkName);
+            Check.Exception(pkName == null, string.Format("InsertOrUpdate操作失败，因为表{0}中不存在主键。", typeName));
+            var prop = type.GetProperties().Single(it => it.Name.ToLower() == pkClassName.ToLower());
+            var value = prop.GetValue(operationObj, null);
+            var isAdd = value == null || value.ToString() == "" || value.ToString() == "0" || value.ToString() == Guid.Empty.ToString();
+            if (isAdd)
+            {
+                return Insert(operationObj);
+            }
+            else
+            {
+                return Update(operationObj);
+            }
+        }
+        #endregion
 
         #region update
         /// <summary>
@@ -1168,7 +1201,7 @@ namespace MySqlSugar
         /// <typeparam name="T"></typeparam>
         /// <param name="deleteObj"></param>
         /// <returns></returns>
-        public bool Delete<T>(T deleteObj)where T:class
+        public bool Delete<T>(T deleteObj)
         {
             InitAttributes<T>();
             var isDynamic = typeof(T).IsAnonymousType();
@@ -1198,7 +1231,7 @@ namespace MySqlSugar
         /// <typeparam name="T"></typeparam>
         /// <param name="deleteObjList"></param>
         /// <returns>全部删除成功返回true</returns>
-        public bool Delete<T>(List<T> deleteObjList) where T : class
+        public bool Delete<T>(List<T> deleteObjList) 
         {
             if (deleteObjList == null || deleteObjList.Count == 0) return false;
             var reval=true;
@@ -1218,7 +1251,7 @@ namespace MySqlSugar
         /// <typeparam name="T"></typeparam>
         /// <param name="expression">表达式条件</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T>(Expression<Func<T, bool>> expression) where T : class
+        public bool Delete<T>(Expression<Func<T, bool>> expression)
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1239,7 +1272,7 @@ namespace MySqlSugar
         /// <param name="SqlWhereString">不包含Where的字符串</param>
         /// <param name="whereObj">匿名参数(例如:new{id=1,name="张三"})</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T>(string SqlWhereString, object whereObj = null) where T : class
+        public bool Delete<T>(string SqlWhereString, object whereObj = null)
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1261,7 +1294,7 @@ namespace MySqlSugar
         /// <typeparam name="FiledType">主键类型</typeparam>
         /// <param name="whereIn">主键集合</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T, FiledType>(params FiledType[] whereIn) where T : class
+        public bool Delete<T, FiledType>(params FiledType[] whereIn)
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1289,7 +1322,7 @@ namespace MySqlSugar
         /// <param name="expression">表达式条件</param>
         /// <param name="whereIn">批定列值的集合</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, List<FiledType> whereIn) where T : class
+        public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, List<FiledType> whereIn)
         {
             InitAttributes<T>();
             if (whereIn == null) return false;
@@ -1304,7 +1337,7 @@ namespace MySqlSugar
         /// <param name="expression">表达式条件</param>
         /// <param name="whereIn">批定列值的集合</param>
         /// <returns>删除成功返回true</returns>
-        public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, params FiledType[] whereIn) where T : class
+        public bool Delete<T, FiledType>(Expression<Func<T, object>> expression, params FiledType[] whereIn)
         {
             InitAttributes<T>();
             ResolveExpress re = new ResolveExpress();
@@ -1334,7 +1367,7 @@ namespace MySqlSugar
         /// <param name="field">标识删除的字段</param>
         /// <param name="whereIn">主键集合</param>
         /// <returns>将field的值更新为1,则返回true表示状态删除成功</returns>
-        public bool FalseDelete<T, FiledType>(string field, params FiledType[] whereIn) where T : class
+        public bool FalseDelete<T, FiledType>(string field, params FiledType[] whereIn)
         {
             InitAttributes<T>();
             Type type = typeof(T);
@@ -1361,7 +1394,7 @@ namespace MySqlSugar
         /// <param name="field">标识删除的字段</param>
         /// <param name="expression">表达式条件</param>
         /// <returns>将field的值更新为1,则返回true表示状态删除成功</returns>
-        public bool FalseDelete<T>(string field, Expression<Func<T, bool>> expression) where T : class
+        public bool FalseDelete<T>(string field, Expression<Func<T, bool>> expression)
         {
             InitAttributes<T>();
             Type type = typeof(T);
