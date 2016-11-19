@@ -6,7 +6,7 @@ using SQLiteSugar;
 
 namespace SqlSugarRepository
 {
-    public class SqliteQueryable<T> : ISugarQueryable<T>
+    internal class SqliteQueryable<T> : ISugarQueryable<T>
     {
         public object QueryableCore
         {

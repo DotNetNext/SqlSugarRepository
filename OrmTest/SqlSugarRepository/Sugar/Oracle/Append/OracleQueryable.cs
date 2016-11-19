@@ -6,7 +6,7 @@ using System.Text;
 using OracleSugar;
 namespace SqlSugarRepository
 {
-    public class OracleQueryable<T> : ISugarQueryable<T>
+    internal class OracleQueryable<T> : ISugarQueryable<T>
     {
         public object QueryableCore
         {

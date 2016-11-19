@@ -6,8 +6,14 @@ using System.Linq.Expressions;
 
 namespace SqlSugarRepository
 {
+    /// <summary>
+    /// 连接数据库对象
+    /// </summary>
     public interface ISqlSugarClient: IDisposable
     {
+        /// <summary>
+        /// 连接唯一KEY
+        /// </summary>
         Guid ConnectionUniqueKey { get; set; }
 
         #region Sugar
