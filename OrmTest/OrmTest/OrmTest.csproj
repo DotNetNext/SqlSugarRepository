@@ -45,12 +45,14 @@
   <ItemGroup>
     <Compile Include="Dao\SugarDao.cs" />
     <Compile Include="Demos\AttributesMapping.cs" />
+    <Compile Include="Demos\Delete.cs" />
     <Compile Include="Demos\Insert.cs" />
     <Compile Include="Demos\InsertOrUpdate.cs" />
     <Compile Include="Demos\MappingColumns.cs" />
     <Compile Include="Demos\MappingTable.cs" />
     <Compile Include="Demos\Select.cs" />
     <Compile Include="Demos\Tran.cs" />
+    <Compile Include="Demos\Update.cs" />
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\InsertTest.cs" />
     <Compile Include="Models\LanguageTest.cs" />

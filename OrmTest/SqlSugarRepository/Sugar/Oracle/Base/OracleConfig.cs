@@ -148,5 +148,17 @@ namespace OracleSugar
             return sql;
         }
 
+        internal static void SetParsName(params OracleParameter[] pars)
+        {
+            if (pars != null && pars.Length > 0)
+            {
+                foreach (var item in pars)
+                {
+                    if (item.ParameterName.StartsWith("@")) {
+                        item.ParameterName = ":" + item.ParameterName.TrimStart('@');
+                    }
+                }
+            }
+        }
     }
 }

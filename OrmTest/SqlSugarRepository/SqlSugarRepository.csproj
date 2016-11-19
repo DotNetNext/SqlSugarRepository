@@ -236,7 +236,6 @@
     <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolExtensions.cs" />
     <Compile Include="Sugar\SqlServer\Tool\SqlSugarToolWithSqlMethod.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Tool.cs" />
     <Compile Include="SqlbuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

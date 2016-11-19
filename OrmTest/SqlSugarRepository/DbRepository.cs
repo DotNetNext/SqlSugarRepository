@@ -105,17 +105,7 @@ namespace SqlSugarRepository
             }
         }
 
-        /// <summary>
-        /// 工具类
-        /// </summary>
-        public Tool Tool
-        {
-            get
-            {
-                return new Tool(this);
-            }
-        }
-
+ 
         /// <summary>
         /// 设置当前连接池
         /// </summary>
