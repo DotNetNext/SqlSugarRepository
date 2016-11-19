@@ -241,6 +241,11 @@ namespace SqlSugarRepository
             return _db.Insert(entity, isIdentity);
         }
 
+        public object InsertOrUpdate<T>(T operationObj) where T : class
+        {
+            return _db.InsertOrUpdate(operationObj);
+        }
+
         public List<object> InsertRange<T>(List<T> entities, bool isIdentity = true) where T : class
         {
             return _db.InsertRange(entities, isIdentity);

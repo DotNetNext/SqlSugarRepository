@@ -142,7 +142,7 @@ namespace SqlSugarRepository
         /// <typeparam name="T"></typeparam>
         /// <param name="operationObj">操作的实体对象</param>
         /// <returns>更新返回bool,插入如果有自增列返回自增列的值否则也返回bool</returns>
-        object InsertOrUpdate<T>(T operationObj);
+        object InsertOrUpdate<T>(T operationObj) where T : class;
         /// <summary>
         /// 创建拉姆达查询对象
         /// </summary>

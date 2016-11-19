@@ -246,6 +246,11 @@ namespace SqlSugarRepository
             return _db.InsertRange(entities, isIdentity);
         }
 
+        public object InsertOrUpdate<T>(T operationObj) where T : class
+        {
+            return _db.InsertOrUpdate(operationObj);
+        }
+
         public ISugarQueryable<T> Queryable<T>() where T : class, new()
         {
             ISugarQueryable<T> queryable = new SqliteQueryable<T>();
