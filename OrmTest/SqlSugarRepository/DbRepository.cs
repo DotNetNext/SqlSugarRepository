@@ -60,9 +60,6 @@ namespace SqlSugarRepository
         /// <summary>
         /// 获取数据库连接实例
         /// </summary>
-        /// <param name="type">数据库类型</param>
-        /// <param name="connectionString">数据库连接字符串</param>
-        /// <returns></returns>
         public ISqlSugarClient Database
         {
             get
