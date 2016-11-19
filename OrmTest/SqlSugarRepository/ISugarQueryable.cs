@@ -6,8 +6,15 @@ using System.Text;
 
 namespace SqlSugarRepository
 {
+    /// <summary>
+    /// 拉姆达表达示操作
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface ISugarQueryable<T>
     {
+        /// <summary>
+        /// 存储queryable的对象
+        /// </summary>
         object QueryableCore { get; set; }
         ISugarQueryable<T> JoinTable<T2>(Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT);
         ISugarQueryable<T> JoinTable<T2, T3>(Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT);
