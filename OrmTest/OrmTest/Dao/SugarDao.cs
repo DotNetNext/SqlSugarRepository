@@ -20,63 +20,44 @@ namespace NewTest.Dao
         public static string PlSqlConnString = "Data Source=localhost/orcl;User ID=system;Password=JHL52771jhl;";
         public static string SqliteSqlConnString = @"DataSource=F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\Database\demo.sqlite";
 
-
+        /// <summary>
+        /// 获取实例
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static ISqlSugarClient GetInstance(DbType type)
         {
-
-            if (type == DbType.SqlServer) return GetSqlServerInstance();
-            if (type == DbType.Oracle) return GetOracleInstance();
-            if (type == DbType.MySql) return GetMyInstance();
-            if (type == DbType.Sqlite) return GetSqliteInstance();
-            return null;
-        }
-
-        public static ISqlSugarClient GetSqlServerInstance()
-        {
-            var dbType = DbType.SqlServer;
-            var db = DbRepository.GetInstance(dbType, SqlConnString);//可以切换成其它数据库
-            db.IsEnableLogEvent = true;
-            db.LogEventStarting = (sql, pars)=>
+            ISqlSugarClient db = null;
+            switch (type)
             {
-                PrintSql(sql, pars);
-            };
-            Console.WriteLine("启动" + dbType.ToString());
-            return db;
-        }
-        public static ISqlSugarClient GetMyInstance()
-        {
-            var dbType = DbType.MySql;
-            var db = DbRepository.GetInstance(dbType, MySqlConnString);//可以切换成其它数据库
+                case DbType.SqlServer:
+                    db = DbRepository.GetInstance(type, SqlConnString);
+                    break;
+                case DbType.Sqlite:
+                    db = DbRepository.GetInstance(type, SqliteSqlConnString);
+                    break;
+                case DbType.MySql:
+                    db = DbRepository.GetInstance(type, MySqlConnString);
+                    break;
+                case DbType.Oracle:
+                    db = DbRepository.GetInstance(type, PlSqlConnString);
+                    break;
+                default:
+                    db = DbRepository.GetInstance(type, SqlConnString);
+                    break;
+            }
             db.IsEnableLogEvent = true;
             db.LogEventStarting = (sql, pars) => {
                 PrintSql(sql, pars);
             };
-            Console.WriteLine("启动" + dbType.ToString());
-            return db;
-        }
-        public static ISqlSugarClient GetOracleInstance()
-        {
-            var dbType = DbType.Oracle;
-            var db = DbRepository.GetInstance(dbType, PlSqlConnString);//可以切换成其它数据库
-            db.IsEnableLogEvent = true;
-            db.LogEventStarting = (sql, pars) => {
-                PrintSql(sql, pars);
-            };
-            Console.WriteLine("启动" + dbType.ToString());
-            return db;
-        }
-        public static ISqlSugarClient GetSqliteInstance()
-        {
-            var dbType = DbType.Sqlite;
-            var db = DbRepository.GetInstance(dbType, SqliteSqlConnString);//可以切换成其它数据库
-            db.IsEnableLogEvent = true;
-            db.LogEventStarting = (sql, pars) => {
-                PrintSql(sql, pars);
-            };
-            Console.WriteLine("启动" + dbType.ToString());
             return db;
         }
 
+        /// <summary>
+        /// 打印Sql
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="pars"></param>
         private static void PrintSql(string sql, string pars)
         {
             Console.WriteLine("sql:" + sql);

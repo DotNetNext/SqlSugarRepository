@@ -16,7 +16,7 @@ namespace OrmTest
             //设置执行的DEMO
             string switchOn = "connection";
             //数据库类型
-            DbType type = DbType.Sqlite;
+            DbType type = DbType.SqlServer;
             //用到oracle才需要设置
             SetSeq();
 
