@@ -15,10 +15,10 @@ namespace NewTest.Dao
         {
 
         }
-        private static string SqlConnString = "server=.;uid=sa;pwd=sasa;database=SqlSugarTest";
-        private static string MySqlConnString = "server=localhost;Database=SqlSugarTest;Uid=root;Pwd=root";
-        private static string PlSqlConnString = "Data Source=localhost/orcl;User ID=system;Password=JHL52771jhl;";
-        private static string SqliteSqlConnString = @"DataSource=F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\Database\demo.sqlite";
+        public static string SqlConnString = "server=.;uid=sa;pwd=sasa;database=SqlSugarTest";
+        public static string MySqlConnString = "server=localhost;Database=SqlSugarTest;Uid=root;Pwd=root";
+        public static string PlSqlConnString = "Data Source=localhost/orcl;User ID=system;Password=JHL52771jhl;";
+        public static string SqliteSqlConnString = @"DataSource=F:\MyOpenSource\SqlSugarRepository\OrmTest\OrmTest\Database\demo.sqlite";
 
 
         public static ISqlSugarClient GetInstance(DbType type)

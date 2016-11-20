@@ -14,7 +14,7 @@ namespace OrmTest
         static void Main(string[] args)
         {
             //设置执行的DEMO
-            string switchOn = "delete";
+            string switchOn = "connection";
             //数据库类型
             DbType type = DbType.Sqlite;
             //用到oracle才需要设置
@@ -33,6 +33,8 @@ namespace OrmTest
                 case "update": new Update().Init(type); break;
                 //删除
                 case "delete": new Delete().Init(type); break;
+                //动态多库切换
+                case "connection": new Connection().Init(); break;
                 //别名表
                 case "mappingtable": new MappingTable().Init(type); break;
                 //别名列
