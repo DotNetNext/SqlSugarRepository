@@ -68,6 +68,39 @@ namespace SqlSugarRepository
         }
 
         /// <summary>
+        /// 获取ISugarQueryable
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static ISugarQueryable<T> GetISugarQueryableByType<T>(DbType type) where T:class,new()
+        {
+
+            switch (type)
+            {
+                case DbType.SqlServer:
+                    var queryableSql= new SqlServerQueryable<T>();
+                    queryableSql.QueryableCore = new SqlSugar.Queryable<T>();
+                    return queryableSql;
+                case DbType.Sqlite:
+                    var queryableLite = new SqliteQueryable<T>();
+                    queryableLite.QueryableCore = new SQLiteSugar.Queryable<T>();
+                    return queryableLite;
+                case DbType.MySql:
+                    var queryableMySql = new MySqlQueryable<T>();
+                    queryableMySql.QueryableCore = new MySqlSugar.Queryable<T>();
+                    return queryableMySql;
+                case DbType.Oracle:
+                    var queryableOracle = new OracleQueryable<T>();
+                    queryableOracle.QueryableCore = new OracleSugar.Queryable<T>();
+                    return queryableOracle;
+                default:
+                    return null;
+            }
+        }
+
+
+        /// <summary>
         /// 获取数据库连接实例
         /// </summary>
         public ISqlSugarClient Database
