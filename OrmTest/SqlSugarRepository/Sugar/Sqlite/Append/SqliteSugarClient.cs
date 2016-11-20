@@ -507,5 +507,10 @@ namespace SqlSugarRepository
         {
             return _db.UpdateRange(rowObjList);
         }
+
+        public void SetDB<T>(ISugarQueryable<T> queryable) where T : class, new()
+        {
+            ((Queryable<T>)(queryable.QueryableCore)).DB = _db.Queryable<T>().DB;
+        }
     }
 }

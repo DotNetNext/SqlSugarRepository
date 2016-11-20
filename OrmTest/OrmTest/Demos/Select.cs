@@ -214,10 +214,10 @@ namespace NewTest.Demos
                 var listJoin = queryable2.ToList();
 
 
-                ////queryable和SqlSugarClient解耦
-                //var par = new Queryable<Student>().Where(it => it.id == 1);//声名没有connection对象的Queryable
-                //par.DB = db;
-                //var listPar = par.ToList();
+                //queryable和SqlSugarClient解耦
+                var par =DbRepository.GetISugarQueryableByType<Student>(type).Where(it => it.id == 1);//声名没有connection对象的Queryable
+                db.SetDB(par);
+                var listPar = par.ToList();
 
 
                 //查看生成的sql和参数

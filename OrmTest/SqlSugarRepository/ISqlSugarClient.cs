@@ -262,6 +262,14 @@ namespace SqlSugarRepository
         /// <param name="whereObj">匿名参数(例如:new{id=1,name="张三"})</param>
         /// <returns>T的集合</returns>
         List<T> SqlQuery<T>(string sql, object whereObj = null);
+
+        /// <summary>
+        /// 将当前对象赋值给queryable
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        void SetDB<T>(ISugarQueryable<T> queryable) where T : class, new();
+
         /// <summary>
         /// 根据SQL语句将结果集映射到dynamic
         /// </summary>
