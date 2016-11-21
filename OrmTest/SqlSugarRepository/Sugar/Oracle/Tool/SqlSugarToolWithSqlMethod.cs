@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace OracleSugar
 {
@@ -43,44 +44,31 @@ namespace OracleSugar
             {
                 #region  rowNumber
                 string withNoLock = queryable.DB.IsNoLock ? "" : null;
-                var row = queryable.OrderByValue.IsValuable() ? (",ROWNUM row_index") : null;
-                string orderBy = queryable.OrderByValue.IsValuable() ? ("ORDER BY " + queryable.OrderByValue) : null;
-                sbSql.AppendFormat("SELECT " + queryable.SelectValue.GetSelectFiles(tableName) + " {1} FROM {0} {5} {2} WHERE 1=1 {3} {4} {6} ", tableName, row, withNoLock, string.Join("", queryable.WhereValue), queryable.GroupByValue.GetGroupBy(), joinInfo, orderBy);
+                var order = queryable.OrderByValue.IsValuable() ? (", ROW_NUMBER() OVER(ORDER BY " + queryable.OrderByValue + " ) row_index") : null;
+                sbSql.AppendFormat("SELECT t.* from( SELECT " + queryable.SelectValue.GetSelectFiles(tableName) + " {1} FROM {0} {5} {2} WHERE 1=1 {3} {4}  )", tableName, order, withNoLock, string.Join("", queryable.WhereValue), queryable.GroupByValue.GetGroupBy(), joinInfo);
                 if (queryable.Skip == null && queryable.Take != null)
                 {
-                    if (joinInfo.IsValuable())
-                    {
-                        sbSql.Insert(0, "SELECT * FROM ( ");
-                    }
-                    else
-                    {
-                        sbSql.Insert(0, "SELECT " + queryable.SelectValue.GetSelectFiles() + " FROM ( ");
-                    }
-                    sbSql.Append(") t WHERE t.row_index<=" + queryable.Take);
+
+                    sbSql.Insert(0, "SELECT * FROM ( ");
+                    sbSql.Append("t)  WHERE row_index<=" + queryable.Take);
                 }
                 else if (queryable.Skip != null && queryable.Take == null)
                 {
-                    if (joinInfo.IsValuable())
-                    {
-                        sbSql.Insert(0, "SELECT * FROM ( ");
-                    }
-                    else
-                    {
-                        sbSql.Insert(0, "SELECT " + queryable.SelectValue.GetSelectFiles() + " FROM ( ");
-                    }
-                    sbSql.Append(") t WHERE t.row_index>" + (queryable.Skip));
+
+                    sbSql.Insert(0, "SELECT * FROM ( ");
+                    sbSql.Append("t) WHERE row_index>" + (queryable.Skip));
                 }
                 else if (queryable.Skip != null && queryable.Take != null)
                 {
-                    if (joinInfo.IsValuable())
-                    {
-                        sbSql.Insert(0, "SELECT * FROM ( ");
-                    }
-                    else
-                    {
-                        sbSql.Insert(0, "SELECT " + queryable.SelectValue.GetSelectFiles() + " FROM ( ");
-                    }
-                    sbSql.Append(") t WHERE t.row_index BETWEEN " + (queryable.Skip + 1) + " AND " + (queryable.Skip + queryable.Take));
+
+                    sbSql.Insert(0, "SELECT * FROM ( ");
+                    sbSql.Append("t)  WHERE row_index BETWEEN " + (queryable.Skip + 1) + " AND " + (queryable.Skip + queryable.Take));
+                }
+                else {
+                    string sql = sbSql.ToString();
+                    sbSql = new StringBuilder();
+                    sql=Regex.Match(sql,@"^SELECT t.* from\((.+)\)").Groups[1].Value;
+                    sbSql.Append(sql);
                 }
                 #endregion
             }
@@ -134,7 +122,7 @@ namespace OracleSugar
             {
                 string sql = @"  				select cu.TABLE_NAME  ,cu.COLUMN_name KEYNAME  from user_cons_columns cu, user_constraints au 
    where cu.constraint_name = au.constraint_name
-    and au.constraint_type = 'P' and au.table_name = '" + tableName.GetTranslationSqlName()+ @"'";
+    and au.constraint_type = 'P' and au.table_name = '" + tableName.GetTranslationSqlName() + @"'";
                 var isLog = db.IsEnableLogEvent;
                 db.IsEnableLogEvent = false;
                 var dt = db.GetDataTable(sql);
@@ -169,7 +157,7 @@ namespace OracleSugar
         {
             if (OracleConfig.SequenceMapping.IsValuable())
             {
-                return OracleConfig.SequenceMapping.Where(it=>it.TableName.ToLower()==tableName.ToLower()).Select(it => new KeyValue() { Key = it.TableName, Value = it.ColumnName }).ToList();
+                return OracleConfig.SequenceMapping.Where(it => it.TableName.ToLower() == tableName.ToLower()).Select(it => new KeyValue() { Key = it.TableName, Value = it.ColumnName }).ToList();
             }
             else
             {

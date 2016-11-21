@@ -25,10 +25,12 @@ namespace SqlSugar
         {
             string joinInfo = string.Join(" ", queryable.JoinTableValue);
             string withNoLock = queryable.DB.IsNoLock ? "WITH(NOLOCK)" : null;
-            if (joinInfo.IsValuable()) {
+            if (joinInfo.IsValuable())
+            {
                 withNoLock = null;
-                if (queryable.DB.IsNoLock) {
-                   
+                if (queryable.DB.IsNoLock)
+                {
+
                 }
             }
             StringBuilder sbSql = new StringBuilder();
@@ -54,38 +56,19 @@ namespace SqlSugar
                 sbSql.AppendFormat("SELECT " + queryable.SelectValue.GetSelectFiles() + " {1} FROM {0} {5} {2} WHERE 1=1 {3} {4} ", tableName.GetTranslationSqlName(), order, withNoLock, string.Join("", queryable.WhereValue), queryable.GroupByValue.GetGroupBy(), joinInfo);
                 if (queryable.Skip == null && queryable.Take != null)
                 {
-                    if (joinInfo.IsValuable())
-                    {
-                        sbSql.Insert(0, "SELECT * FROM ( ");
-                    }
-                    else
-                    {
-                        sbSql.Insert(0, "SELECT " + queryable.SelectValue.GetSelectFiles() + " FROM ( ");
-                    }
+
+                    sbSql.Insert(0, "SELECT * FROM ( ");
                     sbSql.Append(") t WHERE t.row_index<=" + queryable.Take);
                 }
                 else if (queryable.Skip != null && queryable.Take == null)
                 {
-                    if (joinInfo.IsValuable())
-                    {
-                        sbSql.Insert(0, "SELECT * FROM ( ");
-                    }
-                    else
-                    {
-                        sbSql.Insert(0, "SELECT " + queryable.SelectValue.GetSelectFiles() + " FROM ( ");
-                    }
+                    sbSql.Insert(0, "SELECT * FROM ( ");
                     sbSql.Append(") t WHERE t.row_index>" + (queryable.Skip));
                 }
                 else if (queryable.Skip != null && queryable.Take != null)
                 {
-                    if (joinInfo.IsValuable())
-                    {
-                        sbSql.Insert(0, "SELECT * FROM ( ");
-                    }
-                    else
-                    {
-                        sbSql.Insert(0, "SELECT " + queryable.SelectValue.GetSelectFiles() + " FROM ( ");
-                    }
+
+                    sbSql.Insert(0, "SELECT * FROM ( ");
                     sbSql.Append(") t WHERE t.row_index BETWEEN " + (queryable.Skip + 1) + " AND " + (queryable.Skip + queryable.Take));
                 }
                 #endregion
@@ -140,7 +123,6 @@ namespace SqlSugar
         {
             return isNoLock ? " WITH(NOLOCK) " : "";
         }
-
         /// <summary>
         /// 根据表获取主键
         /// </summary>
@@ -148,6 +130,21 @@ namespace SqlSugar
         /// <param name="tableName"></param>
         /// <returns></returns>
         internal static string GetPrimaryKeyByTableName(SqlSugarClient db, string tableName)
+        {
+            var pkValues = GetPrimaryKeyByTableNames(db, tableName);
+            if (pkValues.IsValuable())
+            {
+                return pkValues.First();
+            }
+            return null;
+        }
+        /// <summary>
+        /// 根据表获取主键
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        internal static List<string> GetPrimaryKeyByTableNames(SqlSugarClient db, string tableName)
         {
             string key = "GetPrimaryKeyByTableName" + tableName;
             tableName = tableName.ToLower();
@@ -186,7 +183,7 @@ namespace SqlSugar
             {
                 return null;
             }
-            return primaryInfo.First(it => it.Key == tableName).Value;
+            return primaryInfo.Where(it => it.Key == tableName).Select(it => it.Value).ToList();
 
         }
 
