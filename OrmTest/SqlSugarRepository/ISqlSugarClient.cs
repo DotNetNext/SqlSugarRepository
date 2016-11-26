@@ -18,6 +18,11 @@ namespace SqlSugarRepository
         object GetDb();
 
         /// <summary>
+        /// 生成实体的对象
+        /// </summary>
+        IClassGenerating ClassGenerating { get; }
+
+        /// <summary>
         /// 连接唯一KEY
         /// </summary>
         Guid ConnectionUniqueKey { get; set; }

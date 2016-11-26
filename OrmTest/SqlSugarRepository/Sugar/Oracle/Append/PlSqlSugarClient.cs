@@ -23,6 +23,14 @@ namespace SqlSugarRepository
             return _db;
         }
 
+        public IClassGenerating ClassGenerating
+        {
+            get
+            {
+                return new OracleClassGenerating();
+            }
+        }
+
         public string ConnectionString
         {
             get

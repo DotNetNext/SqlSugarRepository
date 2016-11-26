@@ -22,6 +22,15 @@ namespace SqlSugarRepository
             return _db;
         }
 
+
+        public IClassGenerating ClassGenerating
+        {
+            get
+            {
+                return new MySqlClassGenerating();
+            }
+        }
+
         public string ConnectionString
         {
             get

@@ -21,6 +21,14 @@ namespace SqlSugarRepository
             return _db;
         }
 
+        public IClassGenerating ClassGenerating
+        {
+            get
+            {
+                return new SqliteClassGenerating();
+            }
+        }
+
         public string ConnectionString
         {
             get

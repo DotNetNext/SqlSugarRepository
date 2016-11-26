@@ -21,6 +21,14 @@ namespace SqlSugarRepository
             return _db;
         }
 
+        public IClassGenerating ClassGenerating
+        {
+            get
+            {
+                return new SqlServerClassGenerating();
+            }
+        }
+
         public string ConnectionString
         {
             get
@@ -175,6 +183,8 @@ namespace SqlSugarRepository
                 _db.IsIgnoreErrorColumns = value;
             }
         }
+
+
         public void AddDisableInsertColumns(params string[] columns)
         {
             _db.AddDisableInsertColumns(columns);
