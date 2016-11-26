@@ -22,6 +22,9 @@ namespace NewTest.Demos
             //新容器转换
             QueryableSelectNewClass(type);
 
+            //使用更接近sql的查询方式 基于Sqlable
+            SqlableDemo(type);
+
             //使用原生Sql查询 
             SqlQuery(type);
 
@@ -109,7 +112,7 @@ namespace NewTest.Demos
                 //order By 
                 var orderList = db.Queryable<Student>().OrderBy("id desc,name asc").ToList();//字符串支持多个排序
                 //可以多个order by表达示
-                var order2List = db.Queryable<Student>().OrderBy(it => it.name).OrderBy(it => it.id, OrderByType.desc).ToList(); // order by name as ,order by id desc
+                var order2List = db.Queryable<Student>().OrderBy(it => it.name).OrderBy(it => it.id, OrderByType.Desc).ToList(); // order by name as ,order by id desc
 
                 //In
                 var intArray = new[] { "5", "2", "3" };
@@ -392,6 +395,80 @@ namespace NewTest.Demos
                 double v3 = db.GetDouble(db.Sqlbuilder().ToOracle("select 1 as name from dual").ToOther("select 1 as name").ToString());
                 decimal v4 = db.GetDecimal(db.Sqlbuilder().ToOracle("select 1 as name from dual").ToOther("select 1 as name").ToString());
                 //....
+            }
+        }
+
+        /// <summary>
+        /// 接近Sql的编程模式
+        /// </summary>
+        private void SqlableDemo(DbType type)
+        {
+            using (var db = SugarDao.GetInstance(type))
+            {
+                //---------Sqlable,创建多表查询---------//
+
+                //多表查询
+                List<School> dataList = db.Sqlable()
+                   .From("school", "s")
+                   .Join("student", "st", "st.id", "s.id", JoinType.Inner)
+                   .Join("student", "st2", "st2.id", "st.id", JoinType.Left)
+                   .Where("s.id>100 and s.id<@id")
+                   .Where("1=1")//可以多个WHERE
+                   .OrderBy("id")
+                   .SelectToList<School/*新的Model我这里没有所以写的School*/>("st.*", new { id = 1 });
+
+                //多表分页
+                List<School> dataPageList = db.Sqlable()
+                    .From("school", "s")
+                    .Join("student", "st", "st.id", "s.id", JoinType.Inner)
+                    .Join("student", "st2", "st2.id", "st.id", JoinType.Left)
+                    .Where("s.id>100 and s.id<100")
+                    .SelectToPageList<School>("st.*", "s.id", 1, 10);
+
+                //多表分页WHERE加子查询
+                List<School> dataPageList2 = db.Sqlable()
+                    .From("school", "s")
+                    .Join("student", "st", "st.id", "s.id", JoinType.Inner)
+                    .Join("student", "st2", "st2.id", "st.id", JoinType.Left)
+                    .Where("s.id>100 and s.id<100 and s.id in (select 1 )" /*这里面写子查询都可以*/)
+                    .SelectToPageList<School>("st.*", "s.id", 1, 10);
+
+
+
+                //--------转成List Dynmaic 或者 Json-----//
+
+                //不分页
+                var list1 = db.Sqlable().From("student", "s").Join("school", "l", "s.sch_id", "l.id and l.id=@id", JoinType.Inner).SelectToDynamic("*", new { id = 1 });
+                var list2 = db.Sqlable().From("student", "s").Join("school", "l", "s.sch_id", "l.id and l.id=@id", JoinType.Inner).SelectToJson("*", new { id = 1 });
+                var list3 = db.Sqlable().From("student", "s").Join("school", "l", "s.sch_id", "l.id and l.id=@id", JoinType.Inner).SelectToDataTable("*", new { id = 1 });
+
+                //分页
+                var list4 = db.Sqlable().From("student", "s").Join("school", "l", "s.sch_id", "l.id and l.id=@id", JoinType.Inner).SelectToPageDynamic("s.*", "l.id", 1, 10, new { id = 1 });
+                var list5 = db.Sqlable().From("student", "s").Join("school", "l", "s.sch_id", "l.id and l.id=@id", JoinType.Inner).SelectToPageTable("s.*", "l.id", 1, 10, new { id = 1 });
+                var list6 = db.Sqlable().From("student", "s").Join("school", "l", "s.sch_id", "l.id and l.id=@id", JoinType.Inner).SelectToPageDynamic("s.*", "l.id", 1, 10, new { id = 1 });
+
+
+                //--------拼接-----//
+                ISqlable sable = db.Sqlable().From<Student>("s").Join<School>("l", "s.sch_id", "l.id", JoinType.Inner);
+                string name = "a";
+                int id = 1;
+                if (!string.IsNullOrEmpty(name))
+                {
+                    sable = sable.Where("s.name=@name");
+                }
+                if (!string.IsNullOrEmpty(name))
+                {
+                    sable = sable.Where("s.id=@id or s.id=100");
+                }
+                if (id > 0)
+                {
+                    sable = sable.Where("l.id in (select top 10 id from school)");//where加子查询
+                }
+                var pars = new { id = id, name = name };
+                int pageCount = sable.Count(pars);
+                var list7 = sable.SelectToPageList<Student>("s.*", "l.id desc", 1, 20, pars);
+
+
             }
         }
 

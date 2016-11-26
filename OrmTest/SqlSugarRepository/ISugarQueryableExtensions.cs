@@ -378,7 +378,7 @@ namespace SqlSugarRepository
         /// <param name="expression">排序字段 it=>it.fieldName </param>
         /// <param name="type">排序类型</param>
         /// <returns>ISugarQueryable</returns>
-        public static ISugarQueryable<T> OrderBy<T>(this ISugarQueryable<T> queryable, Expression<Func<T, object>> expression, OrderByType type = OrderByType.asc)
+        public static ISugarQueryable<T> OrderBy<T>(this ISugarQueryable<T> queryable, Expression<Func<T, object>> expression, OrderByType type = OrderByType.Asc)
         {
             if (queryable.QueryableCore is SqlSugar.Queryable<T>)
             {
@@ -408,7 +408,7 @@ namespace SqlSugarRepository
         /// <param name="expression">例如 (s1,s2)=>s1.id,相当于 order by s1.id</param>
         /// <param name="type">排序类型</param>
         /// <returns>ISugarQueryable</returns>
-        public static ISugarQueryable<T> OrderBy<T, T2>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, object>> expression, OrderByType type = OrderByType.asc)
+        public static ISugarQueryable<T> OrderBy<T, T2>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, object>> expression, OrderByType type = OrderByType.Asc)
         {
             if (queryable.QueryableCore is SqlSugar.Queryable<T>)
             {
@@ -1634,7 +1634,7 @@ namespace SqlSugarRepository
         /// <param name="expression">表达式</param>
         /// <param name="type">Join的类型</param>
         /// <returns>ISugarQueryable</returns>
-        public static ISugarQueryable<T> JoinTable<T, T2>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT)
+        public static ISugarQueryable<T> JoinTable<T, T2>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, object>> expression, JoinType type = JoinType.Left)
         {
             if (queryable.QueryableCore is SqlSugar.Queryable<T>)
             {
@@ -1666,7 +1666,7 @@ namespace SqlSugarRepository
         /// <param name="expression">条件表达式</param>
         /// <param name="type">Join的类型</param>
         /// <returns>ISugarQueryable</returns>
-        public static ISugarQueryable<T> JoinTable<T, T2, T3>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT)
+        public static ISugarQueryable<T> JoinTable<T, T2, T3>(this ISugarQueryable<T> queryable, Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.Left)
         {
             if (queryable.QueryableCore is SqlSugar.Queryable<T>)
             {
@@ -1698,7 +1698,7 @@ namespace SqlSugarRepository
         /// <param name="whereObj">匿名参数(例如:new{id=1,name="张三"})</param>
         /// <param name="type">Join的类型</param>
         /// <returns>ISugarQueryable</returns>
-        public static ISugarQueryable<T> JoinTable<T>(this ISugarQueryable<T> queryable, string tableName, string shortName, string onWhere, object whereObj, JoinType type = JoinType.LEFT)
+        public static ISugarQueryable<T> JoinTable<T>(this ISugarQueryable<T> queryable, string tableName, string shortName, string onWhere, object whereObj, JoinType type = JoinType.Left)
         {
             if (queryable.QueryableCore is SqlSugar.Queryable<T>)
             {

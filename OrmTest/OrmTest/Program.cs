@@ -14,9 +14,9 @@ namespace OrmTest
         static void Main(string[] args)
         {
             //设置执行的DEMO
-            string switchOn = "createclass";
+            string switchOn = "select";
             //数据库类型
-            DbType type = DbType.Oracle;
+            DbType type = DbType.SqlServer;
             //用到oracle才需要设置
             SetSeq();
 

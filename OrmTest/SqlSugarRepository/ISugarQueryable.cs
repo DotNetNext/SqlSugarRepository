@@ -23,7 +23,7 @@ namespace SqlSugarRepository
         /// <param name="expression">表达式</param>
         /// <param name="type">Join的类型</param>
         /// <returns></returns>
-        ISugarQueryable<T> JoinTable<T2>(Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT);
+        ISugarQueryable<T> JoinTable<T2>(Expression<Func<T, T2, object>> expression, JoinType type = JoinType.Left);
         /// <summary>
         /// 联表查询
         /// </summary>
@@ -32,7 +32,7 @@ namespace SqlSugarRepository
         /// <param name="expression">表达式</param>
         /// <param name="type">Join的类型</param>
         /// <returns></returns>
-        ISugarQueryable<T> JoinTable<T2, T3>(Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT);
+        ISugarQueryable<T> JoinTable<T2, T3>(Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.Left);
         /// <summary>
         /// 获取最大值
         /// </summary>
@@ -54,7 +54,7 @@ namespace SqlSugarRepository
         /// <param name="expression">例如 (s1,s2)=>s1.id,相当于 order by s1.id</param>
         /// <param name="type">排序类型</param>
         /// <returns></returns>
-        ISugarQueryable<T> OrderBy<T2>(Expression<Func<T, T2, object>> expression, OrderByType type = OrderByType.asc);
+        ISugarQueryable<T> OrderBy<T2>(Expression<Func<T, T2, object>> expression, OrderByType type = OrderByType.Asc);
         /// <summary>
         /// 将源数据对象转换到新对象中
         /// </summary>

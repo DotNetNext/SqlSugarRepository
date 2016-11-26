@@ -13,13 +13,13 @@ namespace SqlSugarRepository
             get; set;
         }
 
-        public ISugarQueryable<T> JoinTable<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, JoinType type = JoinType.LEFT)
+        public ISugarQueryable<T> JoinTable<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, JoinType type = JoinType.Left)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).JoinTable<T2>(expression, (OracleSugar.JoinType)(int)type);
             return this;
         }
 
-        public ISugarQueryable<T> JoinTable<T2, T3>(System.Linq.Expressions.Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.LEFT)
+        public ISugarQueryable<T> JoinTable<T2, T3>(System.Linq.Expressions.Expression<Func<T, T2, T3, object>> expression, JoinType type = JoinType.Left)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).JoinTable<T2, T3>(expression, (OracleSugar.JoinType)(int)type);
             return this;
@@ -35,7 +35,7 @@ namespace SqlSugarRepository
             return ((Queryable<T>)this.QueryableCore).Min<TResult>(minField);
         }
 
-        public ISugarQueryable<T> OrderBy<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, OrderByType type = OrderByType.asc)
+        public ISugarQueryable<T> OrderBy<T2>(System.Linq.Expressions.Expression<Func<T, T2, object>> expression, OrderByType type = OrderByType.Asc)
         {
             this.QueryableCore = ((Queryable<T>)this.QueryableCore).OrderBy<T2>(expression, (OracleSugar.OrderByType)(int)type);
             return this;

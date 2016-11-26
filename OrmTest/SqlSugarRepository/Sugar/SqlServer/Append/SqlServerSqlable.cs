@@ -157,7 +157,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public string SelectToJson(string fileds, object whereObj = null)
         {
-            return SelectToJson(fileds, whereObj);
+            return sqlable.SelectToJson(fileds, whereObj);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public dynamic SelectToDynamic(string fileds, object whereObj = null)
         {
-            return SelectToDynamic(fileds, whereObj);
+            return sqlable.SelectToDynamic(fileds, whereObj);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public string ToClass(string fileds, object whereObj = null)
         {
-            return ToClass(fileds, whereObj);
+            return sqlable.ToClass(fileds, whereObj);
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public int Count(object whereObj = null, string preSql = null, string nextSql = null)
         {
-            return Count(whereObj, preSql, nextSql);
+            return sqlable.Count(whereObj, preSql, nextSql);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public List<T> SelectToPageList<T>(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null) where T : class
         {
-            return SelectToPageList<T>(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+            return sqlable.SelectToPageList<T>(fileds, orderByFiled, pageIndex, pageSize, whereObj);
         }
 
 
@@ -223,7 +223,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public DataTable SelectToPageTable(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
         {
-            return SelectToPageTable(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+            return sqlable.SelectToPageTable(fileds, orderByFiled, pageIndex, pageSize, whereObj);
         }
 
 
@@ -238,7 +238,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public string SelectToPageJson(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
         {
-            return SelectToPageJson(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+            return sqlable.SelectToPageJson(fileds, orderByFiled, pageIndex, pageSize, whereObj);
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public dynamic SelectToPageDynamic(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
         {
-            return SelectToPageDynamic(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+            return sqlable.SelectToPageDynamic(fileds, orderByFiled, pageIndex, pageSize, whereObj);
         }
 
 

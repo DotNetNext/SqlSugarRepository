@@ -20,7 +20,8 @@ namespace SqlSugarRepository
             {
                 return (Sqlable)this.SqlableCore;
             }
-            set {
+            set
+            {
                 SqlableCore = value;
             }
         }
@@ -34,7 +35,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public ISqlable From(string tableName, string shortName)
         {
-            sqlable=sqlable.From(tableName, shortName);
+            sqlable = sqlable.From(tableName, shortName);
             return this;
         }
         /// <summary>
@@ -44,7 +45,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public ISqlable From<T>(string shortName)
         {
-            sqlable=sqlable.From<T>(shortName);
+            sqlable = sqlable.From<T>(shortName);
             return this;
         }
 
@@ -59,7 +60,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public ISqlable Join(string tableName, string shortName, string leftFiled, string rightFiled, JoinType type)
         {
-            sqlable= sqlable.Join(tableName, shortName, leftFiled, rightFiled, (SQLiteSugar.JoinType)(int)type);
+            sqlable = sqlable.Join(tableName, shortName, leftFiled, rightFiled, (SQLiteSugar.JoinType)(int)type);
             return this;
         }
 
@@ -73,7 +74,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public ISqlable Join<T>(string shortName, string leftFiled, string rightFiled, JoinType type)
         {
-            sqlable= sqlable.Join<T>(shortName, leftFiled, rightFiled, (SQLiteSugar.JoinType)(int)type);
+            sqlable = sqlable.Join<T>(shortName, leftFiled, rightFiled, (SQLiteSugar.JoinType)(int)type);
             return this;
         }
 
@@ -84,7 +85,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public ISqlable Where(string where)
         {
-            sqlable= sqlable.Where(where);
+            sqlable = sqlable.Where(where);
             return this;
         }
 
@@ -95,7 +96,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public ISqlable OrderBy(string orderBy)
         {
-            sqlable= sqlable.OrderBy(orderBy);
+            sqlable = sqlable.OrderBy(orderBy);
             return this;
         }
 
@@ -108,7 +109,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public ISqlable Apply(string applySql, string shotName, ApplyType type)
         {
-            sqlable= sqlable.Apply(applySql, shotName, (SQLiteSugar.ApplyType)(int)type);
+            sqlable = sqlable.Apply(applySql, shotName, (SQLiteSugar.ApplyType)(int)type);
             return this;
         }
 
@@ -119,7 +120,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public ISqlable GroupBy(string groupBy)
         {
-            sqlable= sqlable.GroupBy(groupBy);
+            sqlable = sqlable.GroupBy(groupBy);
             return this;
         }
 
@@ -157,7 +158,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public string SelectToJson(string fileds, object whereObj = null)
         {
-            return SelectToJson(fileds, whereObj);
+            return sqlable.SelectToJson(fileds, whereObj);
         }
 
         /// <summary>
@@ -168,7 +169,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public dynamic SelectToDynamic(string fileds, object whereObj = null)
         {
-            return SelectToDynamic(fileds, whereObj);
+            return sqlable.SelectToDynamic(fileds, whereObj);
         }
 
         /// <summary>
@@ -179,7 +180,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public string ToClass(string fileds, object whereObj = null)
         {
-            return ToClass(fileds, whereObj);
+            return sqlable.ToClass(fileds, whereObj);
         }
 
         /// <summary>
@@ -191,7 +192,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public int Count(object whereObj = null, string preSql = null, string nextSql = null)
         {
-            return Count(whereObj, preSql, nextSql);
+            return sqlable.Count(whereObj, preSql, nextSql);
         }
 
         /// <summary>
@@ -206,7 +207,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public List<T> SelectToPageList<T>(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null) where T : class
         {
-            return SelectToPageList<T>(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+            return sqlable.SelectToPageList<T>(fileds, orderByFiled, pageIndex, pageSize, whereObj);
         }
 
 
@@ -223,7 +224,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public DataTable SelectToPageTable(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
         {
-            return SelectToPageTable(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+            return sqlable.SelectToPageTable(fileds, orderByFiled, pageIndex, pageSize, whereObj);
         }
 
 
@@ -238,7 +239,7 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public string SelectToPageJson(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
         {
-            return SelectToPageJson(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+            return sqlable.SelectToPageJson(fileds, orderByFiled, pageIndex, pageSize, whereObj);
         }
 
         /// <summary>
@@ -252,9 +253,8 @@ namespace SqlSugarRepository
         /// <returns></returns>
         public dynamic SelectToPageDynamic(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
         {
-            return SelectToPageDynamic(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+            return sqlable.SelectToPageDynamic(fileds, orderByFiled, pageIndex, pageSize, whereObj);
         }
-
 
     }
 }
