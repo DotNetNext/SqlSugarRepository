@@ -155,8 +155,10 @@ namespace SQLiteSugar
         public static Queryable<T> In<T>(this Queryable<T> queryable, params object[] pkValues)
         {
             Check.Exception(pkValues == null || pkValues.Length == 0, "In.pkValues的Count不能为0");
-            var type=pkValues[0].GetType();
-            if (type!=SqlSugarTool.IntType&&type!=SqlSugarTool.GuidType&&type.FullName.IsCollectionsList())
+            var type = pkValues[0].GetType();
+            var childIsArray = pkValues[0].GetType().IsArray;
+            var isList = type != SqlSugarTool.IntType && type != SqlSugarTool.GuidType && type.FullName.IsCollectionsList();
+            if (isList || childIsArray)
             {
                 var newList = new List<object>();
                 foreach (var item in (IEnumerable)pkValues[0])
@@ -707,6 +709,10 @@ namespace SQLiteSugar
             {
                 reval.SelectValue = expStr;
                 ResolveSelect.GetResult<TResult>(reval,expression);
+                if (reval.SelectValue=="*")
+                {
+                    reval.SelectValue = new ResolveExpress().GetExpressionRightField(expression, reval.DB);
+                }
             }
             return reval;
         }
