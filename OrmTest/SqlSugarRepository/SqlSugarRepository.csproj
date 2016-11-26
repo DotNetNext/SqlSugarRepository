@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IClassGenerating.cs" />
+    <Compile Include="ISqlable.cs" />
     <Compile Include="ISugarQueryable.cs" />
     <Compile Include="ISugarQueryableExtensions.cs" />
     <Compile Include="Models\CacheManager.cs" />
