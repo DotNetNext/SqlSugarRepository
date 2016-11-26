@@ -414,7 +414,7 @@ namespace NewTest.Demos
                    .Join("student", "st2", "st2.id", "st.id", JoinType.Left)
                    .Where("s.id>100 and s.id<@id")
                    .Where("1=1")//可以多个WHERE
-                   .OrderBy("id")
+                   .OrderBy("s.id")
                    .SelectToList<School/*新的Model我这里没有所以写的School*/>("st.*", new { id = 1 });
 
                 //多表分页
@@ -430,7 +430,7 @@ namespace NewTest.Demos
                     .From("school", "s")
                     .Join("student", "st", "st.id", "s.id", JoinType.Inner)
                     .Join("student", "st2", "st2.id", "st.id", JoinType.Left)
-                    .Where("s.id>100 and s.id<100 and s.id in (select 1 )" /*这里面写子查询都可以*/)
+                    .Where("s.id>100 and s.id<100 " /*这里面写子查询都可以*/)
                     .SelectToPageList<School>("st.*", "s.id", 1, 10);
 
 
@@ -462,7 +462,7 @@ namespace NewTest.Demos
                 }
                 if (id > 0)
                 {
-                    sable = sable.Where("l.id in (select top 10 id from school)");//where加子查询
+                    sable = sable.Where("l.id >1");//where加子查询
                 }
                 var pars = new { id = id, name = name };
                 int pageCount = sable.Count(pars);
