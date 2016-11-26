@@ -46,6 +46,7 @@
     <Compile Include="Dao\SugarDao.cs" />
     <Compile Include="Demos\AttributesMapping.cs" />
     <Compile Include="Demos\Connection.cs" />
+    <Compile Include="Demos\CreateClassFile.cs" />
     <Compile Include="Demos\Delete.cs" />
     <Compile Include="Demos\Insert.cs" />
     <Compile Include="Demos\InsertOrUpdate.cs" />

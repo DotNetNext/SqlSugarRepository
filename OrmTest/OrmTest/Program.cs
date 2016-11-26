@@ -14,9 +14,9 @@ namespace OrmTest
         static void Main(string[] args)
         {
             //设置执行的DEMO
-            string switchOn = "select";
+            string switchOn = "createclass";
             //数据库类型
-            DbType type = DbType.SqlServer;
+            DbType type = DbType.Oracle;
             //用到oracle才需要设置
             SetSeq();
 
@@ -33,6 +33,8 @@ namespace OrmTest
                 case "update": new Update().Init(type); break;
                 //删除
                 case "delete": new Delete().Init(type); break;
+                //生成实体
+                case "createclass": new CreateClass().Init(type);break;
                 //动态多库切换
                 case "connection": new Connection().Init(); break;
                 //别名表
