@@ -542,5 +542,11 @@ namespace SqlSugarRepository
             ((Queryable<T>)(queryable.QueryableCore)).DB = _db.Queryable<T>().DB;
         }
 
+        public ISqlable Sqlable()
+        {
+            SqlServerSqlable reval = new SqlServerSqlable();
+            reval.SqlableCore = _db.Sqlable();
+            return reval;
+        }
     }
 }

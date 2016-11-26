@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
+using SqlSugarRepository;
+using MySqlSugar;
+using System.Data;
 
 namespace SqlSugarRepository
 {
-    /// <summary>
-    /// 复杂查询对象
-    /// </summary>
-    public interface  ISqlable
+    internal class MySqlSqlable : ISqlable
     {
-        /// <summary>
-        /// 存储sqlable对象
-        /// </summary>
-         object SqlableCore { get; set; }
+        public object SqlableCore
+        {
+            get; set;
+        }
+        private Sqlable sqlable
+        {
+            get
+            {
+                return (Sqlable)this.SqlableCore;
+            }
+            set {
+                SqlableCore = value;
+            }
+        }
+
 
         /// <summary>
         /// Form
@@ -22,15 +32,21 @@ namespace SqlSugarRepository
         /// <param name="tableName">表名</param>
         /// <param name="shortName">表名简写</param>
         /// <returns></returns>
-        ISqlable From(string tableName, string shortName);
-
+        public ISqlable From(string tableName, string shortName)
+        {
+            sqlable=sqlable.From(tableName, shortName);
+            return this;
+        }
         /// <summary>
         /// Form
         /// </summary>
         /// <param name="shortName">表名简写</param>
         /// <returns></returns>
-        ISqlable From<T>(string shortName);
-
+        public ISqlable From<T>(string shortName)
+        {
+            sqlable=sqlable.From<T>(shortName);
+            return this;
+        }
 
         /// <summary>
         /// Join
@@ -41,7 +57,11 @@ namespace SqlSugarRepository
         /// <param name="rightFiled">join右边连接字段</param>
         /// <param name="type">join类型</param>
         /// <returns></returns>
-        ISqlable Join(string tableName, string shortName, string leftFiled, string rightFiled, JoinType type);
+        public ISqlable Join(string tableName, string shortName, string leftFiled, string rightFiled, JoinType type)
+        {
+            sqlable= sqlable.Join(tableName, shortName, leftFiled, rightFiled, (MySqlSugar.JoinType)(int)type);
+            return this;
+        }
 
         /// <summary>
         /// Join
@@ -51,22 +71,33 @@ namespace SqlSugarRepository
         /// <param name="rightFiled">join右边连接字段</param>
         /// <param name="type">join类型</param>
         /// <returns></returns>
-        ISqlable Join<T>(string shortName, string leftFiled, string rightFiled, JoinType type);
-
+        public ISqlable Join<T>(string shortName, string leftFiled, string rightFiled, JoinType type)
+        {
+            sqlable= sqlable.Join<T>(shortName, leftFiled, rightFiled, (MySqlSugar.JoinType)(int)type);
+            return this;
+        }
 
         /// <summary>
         /// Where
         /// </summary>
         /// <param name="where">查询条件、开头无需写 AND或者WHERE</param>
         /// <returns></returns>
-        ISqlable Where(string where);
+        public ISqlable Where(string where)
+        {
+            sqlable= sqlable.Where(where);
+            return this;
+        }
 
         /// <summary>
         /// OrderBy
         /// </summary>
         /// <param name="orderBy">排序字段，可以多个</param>
         /// <returns></returns>
-        ISqlable OrderBy(string orderBy);
+        public ISqlable OrderBy(string orderBy)
+        {
+            sqlable= sqlable.OrderBy(orderBy);
+            return this;
+        }
 
         /// <summary>
         /// Apply
@@ -75,14 +106,22 @@ namespace SqlSugarRepository
         /// <param name="shotName">apply简写</param>
         /// <param name="type">Apply类型</param>
         /// <returns></returns>
-        ISqlable Apply(string applySql, string shotName, ApplyType type);
+        public ISqlable Apply(string applySql, string shotName, ApplyType type)
+        {
+            sqlable= sqlable.Apply(applySql, shotName, (MySqlSugar.ApplyType)(int)type);
+            return this;
+        }
 
         /// <summary>
         /// GroupBy
         /// </summary>
         /// <param name="groupBy">GroupBy字段，可以多个</param>
         /// <returns></returns>
-        ISqlable GroupBy(string groupBy);
+        public ISqlable GroupBy(string groupBy)
+        {
+            sqlable= sqlable.GroupBy(groupBy);
+            return this;
+        }
 
         /// <summary>
         /// 设置查询列执行查询，并且将结果集转成List《T》
@@ -93,8 +132,10 @@ namespace SqlSugarRepository
         /// <param name="preSql">在这语句之前可插入自定义SQL</param>
         /// <param name="nextSql">在这语句之后可以插自定义SQL</param>
         /// <returns></returns>
-        List<T> SelectToList<T>(string fileds, object whereObj = null, string preSql = null, string nextSql = null) where T : class;
-
+        public List<T> SelectToList<T>(string fileds, object whereObj = null, string preSql = null, string nextSql = null) where T : class
+        {
+            return sqlable.SelectToList<T>(fileds, whereObj, preSql, nextSql);
+        }
 
 
         /// <summary>
@@ -103,8 +144,10 @@ namespace SqlSugarRepository
         /// <param name="fileds">查询列</param>
         /// <param name="whereObj">SQL参数,例如:new{id=1,name="张三"}</param>
         /// <returns></returns>
-        DataTable SelectToDataTable(string fileds, object whereObj = null);
-
+        public DataTable SelectToDataTable(string fileds, object whereObj = null)
+        {
+            return sqlable.SelectToDataTable(fileds, whereObj);
+        }
 
         /// <summary>
         /// 设置查询列执行查询，并且将结果集转成json
@@ -112,7 +155,10 @@ namespace SqlSugarRepository
         /// <param name="fileds">查询列</param>
         /// <param name="whereObj">SQL参数,例如:new{id=1,name="张三"}</param>
         /// <returns></returns>
-        string SelectToJson(string fileds, object whereObj = null);
+        public string SelectToJson(string fileds, object whereObj = null)
+        {
+            return SelectToJson(fileds, whereObj);
+        }
 
         /// <summary>
         /// 设置查询列执行查询，并且将结果集转成dynamic
@@ -120,7 +166,10 @@ namespace SqlSugarRepository
         /// <param name="fileds">查询列</param>
         /// <param name="whereObj">SQL参数,例如:new{id=1,name="张三"}</param>
         /// <returns></returns>
-       dynamic SelectToDynamic(string fileds, object whereObj = null);
+        public dynamic SelectToDynamic(string fileds, object whereObj = null)
+        {
+            return SelectToDynamic(fileds, whereObj);
+        }
 
         /// <summary>
         /// 生成查询结果对应的实体类字符串
@@ -128,8 +177,10 @@ namespace SqlSugarRepository
         /// <param name="fileds">查询列</param>
         /// <param name="whereObj">SQL参数,例如:new{id=1,name="张三"}</param>
         /// <returns></returns>
-        string ToClass(string fileds, object whereObj = null);
-
+        public string ToClass(string fileds, object whereObj = null)
+        {
+            return ToClass(fileds, whereObj);
+        }
 
         /// <summary>
         /// 反回记录数
@@ -138,7 +189,10 @@ namespace SqlSugarRepository
         /// <param name="preSql">在这语句之前可插入自定义SQL</param>
         /// <param name="nextSql">在这语句之后可以插自定义SQL</param>
         /// <returns></returns>
-        int Count(object whereObj = null, string preSql = null, string nextSql = null);
+        public int Count(object whereObj = null, string preSql = null, string nextSql = null)
+        {
+            return Count(whereObj, preSql, nextSql);
+        }
 
         /// <summary>
         /// 设置查询列和分页参数执行查询，并且将结果集转成List《T》
@@ -150,7 +204,13 @@ namespace SqlSugarRepository
         /// <param name="pageSize">每页显示数量</param>
         /// <param name="whereObj">SQL参数,例如:new{id=1,name="张三"}</param>
         /// <returns></returns>
-        List<T> SelectToPageList<T>(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null) where T : class;
+        public List<T> SelectToPageList<T>(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null) where T : class
+        {
+            return SelectToPageList<T>(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+        }
+
+
+
 
         /// <summary>
         /// 设置查询列和分页参数执行查询，并且将结果集转成DataTable
@@ -161,7 +221,10 @@ namespace SqlSugarRepository
         /// <param name="pageSize">每页显示数量</param>
         /// <param name="whereObj">SQL参数,例如:new{id=1,name="张三"}</param>
         /// <returns></returns>
-        DataTable SelectToPageTable(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null);
+        public DataTable SelectToPageTable(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
+        {
+            return SelectToPageTable(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+        }
 
 
         /// <summary>
@@ -173,7 +236,10 @@ namespace SqlSugarRepository
         /// <param name="pageSize">每页显示数量</param>
         /// <param name="whereObj">SQL参数,例如:new{id=1,name="张三"}</param>
         /// <returns></returns>
-        string SelectToPageJson(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null);
+        public string SelectToPageJson(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
+        {
+            return SelectToPageJson(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+        }
 
         /// <summary>
         /// 设置查询列和分页参数执行查询，并且将结果集转成dynamic
@@ -184,6 +250,11 @@ namespace SqlSugarRepository
         /// <param name="pageSize">每页显示数量</param>
         /// <param name="whereObj">SQL参数,例如:new{id=1,name="张三"}</param>
         /// <returns></returns>
-        dynamic SelectToPageDynamic(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null);
+        public dynamic SelectToPageDynamic(string fileds, string orderByFiled, int pageIndex, int pageSize, object whereObj = null)
+        {
+            return SelectToPageDynamic(fileds, orderByFiled, pageIndex, pageSize, whereObj);
+        }
+
+
     }
 }

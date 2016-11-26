@@ -236,7 +236,13 @@ namespace SqlSugarRepository
         /// </summary>
         /// <param name="serNum">设置流水号所需要的参数集合</param>
         void SetSerialNumber(List<SerialNumber> serNum);
-        // Sqlable Sqlable();
+
+        /// <summary>
+        /// 创建复杂查询对象
+        /// </summary>
+        /// <returns></returns>
+        ISqlable Sqlable();
+
         /// <summary>
         /// 大数据插入
         /// </summary>

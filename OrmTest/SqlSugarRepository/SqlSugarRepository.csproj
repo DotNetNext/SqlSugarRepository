@@ -74,9 +74,11 @@
     <Compile Include="Sugar\MySql\Append\MySqlSugarClient.cs" />
     <Compile Include="Sugar\MySql\Append\MySqlQueryable.cs" />
     <Compile Include="Sugar\MySql\Append\MySqlClassGenerating.cs" />
+    <Compile Include="Sugar\MySql\Append\MySqlSqlable.cs" />
     <Compile Include="Sugar\Oracle\Append\PlSqlSugarClient.cs" />
     <Compile Include="Sugar\Oracle\Append\OracleQueryable.cs" />
     <Compile Include="Sugar\Oracle\Append\OracleClassGenerating.cs" />
+    <Compile Include="Sugar\Oracle\Append\OracleSqlable.cs" />
     <Compile Include="Sugar\Oracle\Base\OracleConfig.cs" />
     <Compile Include="Sugar\Oracle\Base\SqlHelper.cs" />
     <Compile Include="Sugar\Oracle\Cloud\CloudModels.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Sugar\Sqlite\Append\SqliteSugarClient.cs" />
     <Compile Include="Sugar\Sqlite\Append\SqliteQueryable.cs" />
     <Compile Include="Sugar\Sqlite\Append\SqliteClassGenerating.cs" />
+    <Compile Include="Sugar\Sqlite\Append\SqliteSqlable.cs" />
     <Compile Include="Sugar\Sqlite\Base\SqlHelper.cs" />
     <Compile Include="Sugar\Sqlite\Cloud\CloudModels.cs" />
     <Compile Include="Sugar\Sqlite\Cloud\CloudPubMethod.cs" />
@@ -161,6 +164,7 @@
     <Compile Include="Sugar\Sqlite\Tool\SqlSugarToolWithSqlMethod.cs" />
     <Compile Include="Sugar\SqlServer\Append\SqlServerClassGenerating.cs" />
     <Compile Include="Sugar\SqlServer\Append\SqlServerQueryable.cs" />
+    <Compile Include="Sugar\SqlServer\Append\SqlServerSqlable.cs" />
     <Compile Include="Sugar\SqlServer\Append\SqlServerSugarClient.cs" />
     <Compile Include="Sugar\MySql\Base\SqlHelper.cs" />
     <Compile Include="Sugar\MySql\Cloud\CloudModels.cs" />
