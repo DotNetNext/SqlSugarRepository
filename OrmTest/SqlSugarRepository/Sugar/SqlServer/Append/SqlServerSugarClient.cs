@@ -16,6 +16,10 @@ namespace SqlSugarRepository
         {
             _db = new SqlSugarClient(connectionString);
         }
+        public object GetDb()
+        {
+            return _db;
+        }
 
         public string ConnectionString
         {
@@ -527,5 +531,6 @@ namespace SqlSugarRepository
         {
             ((Queryable<T>)(queryable.QueryableCore)).DB = _db.Queryable<T>().DB;
         }
+
     }
 }

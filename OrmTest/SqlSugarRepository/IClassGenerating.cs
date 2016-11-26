@@ -12,14 +12,14 @@ namespace SqlSugarRepository
     public interface IClassGenerating
     {
         /// <summary>
-        /// 创类实体文件
+        /// 创建实体文件
         /// </summary>
         /// <param name="db"></param>
         /// <param name="fileDirectory"></param>
-        /// <param name="nameSpace"></param>
-        /// <param name="tableOrView"></param>
-        /// <param name="callBack"></param>
-        /// <param name="preAction"></param>
+        /// <param name="nameSpace">命名空间（默认：system）</param>
+        /// <param name="tableOrView">是生成视图文件还是表文件,null生成表和视图，true生成表，false生成视图(默认为：null)</param>
+        /// <param name="callBack">生成文件后的处理，参数string为实体名</param>
+        /// <param name="preAction">生成文件前的处理，参数string为表名</param>
         void CreateClassFiles(ISqlSugarClient db, string fileDirectory, string nameSpace = null, bool? tableOrView = default(bool?), Action<string> callBack = null, Action<string> preAction = null);
         /// <summary>
         /// 创建类根据表名

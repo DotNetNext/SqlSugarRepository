@@ -16,6 +16,10 @@ namespace SqlSugarRepository
         {
             _db = new SqlSugarClient(connectionString);
         }
+        public object GetDb()
+        {
+            return _db;
+        }
 
         public string ConnectionString
         {

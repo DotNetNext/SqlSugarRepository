@@ -155,6 +155,7 @@
     <Compile Include="Sugar\Sqlite\Tool\SqlSugarToolCoreDiff.cs" />
     <Compile Include="Sugar\Sqlite\Tool\SqlSugarToolExtensions.cs" />
     <Compile Include="Sugar\Sqlite\Tool\SqlSugarToolWithSqlMethod.cs" />
+    <Compile Include="Sugar\SqlServer\Append\SqlServerClassGenerating.cs" />
     <Compile Include="Sugar\SqlServer\Append\SqlServerQueryable.cs" />
     <Compile Include="Sugar\SqlServer\Append\SqlServerSugarClient.cs" />
     <Compile Include="Sugar\MySql\Base\SqlHelper.cs" />

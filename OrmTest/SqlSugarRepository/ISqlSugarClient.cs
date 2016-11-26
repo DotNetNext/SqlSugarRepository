@@ -12,6 +12,12 @@ namespace SqlSugarRepository
     public partial interface ISqlSugarClient : IDisposable
     {
         /// <summary>
+        /// 获取db对象
+        /// </summary>
+        /// <returns></returns>
+        object GetDb();
+
+        /// <summary>
         /// 连接唯一KEY
         /// </summary>
         Guid ConnectionUniqueKey { get; set; }
