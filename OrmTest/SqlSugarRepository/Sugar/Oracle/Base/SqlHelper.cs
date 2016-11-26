@@ -85,7 +85,7 @@ namespace OracleSugar
         {
             _tran = _OracleConnection.BeginTransaction(iso);
         }
-    
+
         /// <summary>
         /// 回滚事务
         /// </summary>
@@ -207,7 +207,7 @@ namespace OracleSugar
         public object GetScalar(string sql, params OracleParameter[] pars)
         {
             OracleConfig.SetParsName(pars);
-            sql =OracleConfig.GetOracleSql(sql);
+            sql = OracleConfig.GetOracleSql(sql);
             ExecLogEvent(sql, pars, true);
             OracleCommand OracleCommand = new OracleCommand(sql, _OracleConnection);
             OracleCommand.BindByName = true;

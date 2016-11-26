@@ -154,7 +154,8 @@ namespace OracleSugar
             {
                 foreach (var item in pars)
                 {
-                    if (item.ParameterName.StartsWith("@")) {
+                    if (item.ParameterName.StartsWith("@"))
+                    {
                         item.ParameterName = ":" + item.ParameterName.TrimStart('@');
                     }
                 }

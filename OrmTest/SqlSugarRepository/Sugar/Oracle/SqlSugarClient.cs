@@ -826,24 +826,25 @@ namespace OracleSugar
             string pkName = SqlSugarTool.GetPrimaryKeyByTableName(this, typeName);
             var identityNames = SqlSugarTool.GetIdentitiesKeyByTableName(this, typeName);
             var isIdentity = identityNames != null && identityNames.Count > 0;
-            var columnNames =props.Select(it=>it.Name).ToList();
+            var columnNames = props.Select(it => it.Name).ToList();
             if (DisableInsertColumns.IsValuable())
             {//去除禁止插入列
-                columnNames.RemoveAll(it=>DisableInsertColumns.Any(dc=>dc.ToLower().Contains(it.ToLower())));
+                columnNames.RemoveAll(it => DisableInsertColumns.Any(dc => dc.ToLower().Contains(it.ToLower())));
             }
             //启用别名列
-            if (this.IsEnableAttributeMapping = true && _mappingColumns.IsValuable()) {
+            if (this.IsEnableAttributeMapping = true && _mappingColumns.IsValuable())
+            {
                 //将别名列转换成数据列
                 columnNames = columnNames.Select(it =>
                 {
-                    var cmInfo=_mappingColumns.Where(mc => mc.Key == it).ToList();
-                    return cmInfo.IsValuable()?cmInfo.Single().Value:it;
+                    var cmInfo = _mappingColumns.Where(mc => mc.Key == it).ToList();
+                    return cmInfo.IsValuable() ? cmInfo.Single().Value : it;
                 }).ToList();
             }
             if (this.IsIgnoreErrorColumns)
             {//去除非数据库列
-               var tableColumns=SqlSugarTool.GetColumnsByTableName(this, typeName);
-               columnNames = columnNames.Where(it => tableColumns.Any(tc => tc.ToLower() == it.ToLower())).ToList();
+                var tableColumns = SqlSugarTool.GetColumnsByTableName(this, typeName);
+                columnNames = columnNames.Where(it => tableColumns.Any(tc => tc.ToLower() == it.ToLower())).ToList();
             }
 
             Check.Exception(columnNames == null || columnNames.Count == 0, "没有可插入的列，请查看实体和插入配置。");
@@ -854,12 +855,13 @@ namespace OracleSugar
 
 
             var updateCount = entities.Count();
-            int sqBegin=0;
-            if(isIdentity){
-                 var seqName = seqMap.First(it => it.TableName.ToLower() == typeName.ToLower()).Value;
-                 ExecuteCommand("alter sequence " + seqName + " increment by " + updateCount);
-                 sqBegin = GetInt("select  " + seqName + ".Nextval  from dual") - updateCount;
-                 ExecuteCommand("alter sequence " + seqName + " increment by " + 1);
+            int sqBegin = 0;
+            if (isIdentity)
+            {
+                var seqName = seqMap.First(it => it.TableName.ToLower() == typeName.ToLower()).Value;
+                ExecuteCommand("alter sequence " + seqName + " increment by " + updateCount);
+                sqBegin = GetInt("select  " + seqName + ".Nextval  from dual") - updateCount;
+                ExecuteCommand("alter sequence " + seqName + " increment by " + 1);
             }
 
             foreach (var entity in entities)
@@ -869,11 +871,13 @@ namespace OracleSugar
                 foreach (var name in columnNames)
                 {
                     var className = name;
-                    var dbName=GetMappingColumnDbName(className);
-                      //启用别名列
-                    if (this.IsEnableAttributeMapping = true && _mappingColumns.IsValuable()) {
+                    var dbName = GetMappingColumnDbName(className);
+                    //启用别名列
+                    if (this.IsEnableAttributeMapping = true && _mappingColumns.IsValuable())
+                    {
                         var mappInfo = _mappingColumns.Where(mc => mc.Value.ToLower() == name.ToLower()).ToList();
-                        if (mappInfo.IsValuable()) {
+                        if (mappInfo.IsValuable())
+                        {
                             className = mappInfo.Single().Key;
                         }
                     }
@@ -886,14 +890,15 @@ namespace OracleSugar
                     if (seqList.Any())
                     {
                         objValue = sqBegin;
-   
-                    }else if (objValue == null)
+
+                    }
+                    else if (objValue == null)
                     {
                         objValue = "NULL";
                     }
                     else if (underType == SqlSugarTool.DateType)
                     {
-                        objValue = "'" + objValue.ObjToDate().ToString("yyyy-MM-dd HH:mm:ss")  + "'";
+                        objValue = "'" + objValue.ObjToDate().ToString("yyyy-MM-dd HH:mm:ss") + "'";
                     }
                     else if (underType == SqlSugarTool.BoolType)
                     {
@@ -961,7 +966,7 @@ namespace OracleSugar
         /// <param name="expression">表达式条件</param>
         /// <param name="whereObj">匿名参数(例如:new{id=1,name="张三"})</param>
         /// <returns></returns>
-        public bool Update<T>(string setValues, Expression<Func<T, bool>> expression, object whereObj = null)
+        public bool Update<T>(string setValues, Expression<Func<T, bool>> expression, object whereObj = null) where T : class
         {
             Type type = typeof(T);
             string typeName = type.Name;
@@ -976,7 +981,6 @@ namespace OracleSugar
             sql = null;
             return reval;
         }
-
         /// <summary>
         /// 根据表达式条件将实体对象更新到数据库
         /// </summary>
@@ -1259,16 +1263,27 @@ namespace OracleSugar
             if (deleteObj == null) { throw new ArgumentNullException("SqlSugarClient.Delete.deleteObj"); }
             string typeName = type.Name;
             typeName = GetTableNameByClassType(typeName);
-            string pkName = SqlSugarTool.GetPrimaryKeyByTableName(this, typeName);
-            Check.ArgumentNullException(pkName, typeName+"没有找到主键。");
-            string pkClassPropName = pkClassPropName = GetMappingColumnClassName(pkName);
-            pkClassPropName = type.GetProperties().Where(it => it.Name.ToLower() == pkClassPropName.ToLower()).Single().Name;
-            var pkValue = type.GetProperty(pkClassPropName).GetValue(deleteObj, null);
-            Check.Exception(pkValue == DBNull.Value, typeName + "主键的值不能为DBNull.Value。");
-            string sql = string.Format("DELETE FROM {0} WHERE {1}={2}", typeName.GetTranslationSqlName(),pkName.GetTranslationSqlName(), pkName.GetOracleParameterName());
-            var par = new OracleParameter(pkName.GetOracleParameterName(), pkValue);
-            SqlSugarTool.SetParSize(par);
-            bool isSuccess = ExecuteCommand(sql,par) > 0;
+            var pkNames = SqlSugarTool.GetPrimaryKeyByTableNames(this, typeName);
+            Check.ArgumentNullException(pkNames == null || pkNames.Count == 0, typeName + "没有找到主键。");
+            string whereString = "";
+            var pars = new List<OracleParameter>();
+            foreach (var pkName in pkNames)
+            {
+                string pkClassPropName = pkClassPropName = GetMappingColumnClassName(pkName);
+                pkClassPropName = type.GetProperties().Where(it => it.Name.ToLower() == pkClassPropName.ToLower()).First().Name;
+                var pkValue = type.GetProperty(pkClassPropName).GetValue(deleteObj, null);
+                if (pkValue.GetType().IsEnum)
+                {
+                    pkValue = pkValue.ObjToInt();
+                }
+                Check.Exception(pkValue == DBNull.Value, typeName + "主键的值不能为DBNull.Value。");
+                whereString += string.Format(" AND {0}={1} ", pkName.GetTranslationSqlName(), pkName.GetOracleParameterName());
+                OracleParameter par = new OracleParameter(pkName.GetOracleParameterName(), pkValue);
+                pars.Add(par);
+                SqlSugarTool.SetParSize(par);
+            }
+            string sql = string.Format("DELETE FROM {0} WHERE 1=1 {1}", typeName.GetTranslationSqlName(), whereString);
+            bool isSuccess = base.ExecuteCommand(sql, pars.ToArray()) > 0;
             return isSuccess;
         }
 
