@@ -27,6 +27,11 @@ namespace SqlSugarRepository
         /// </summary>
         Guid ConnectionUniqueKey { get; set; }
 
+        /// <summary>
+        /// 设置序列化json的日期格式
+        /// </summary>
+       string SerializerDateFormat { get; set; }
+
         #region Sugar
         /// <summary>
         /// 是否启动属性映射

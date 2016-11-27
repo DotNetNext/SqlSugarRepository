@@ -184,6 +184,18 @@ namespace SqlSugarRepository
             }
         }
 
+        public string SerializerDateFormat
+        {
+            get
+            {
+               return  _db.SerializerDateFormat;
+            }
+
+            set
+            {
+                _db.SerializerDateFormat = value;
+            }
+        }
 
         public void AddDisableInsertColumns(params string[] columns)
         {
