@@ -28,6 +28,11 @@ namespace SqlSugarRepository
         Guid ConnectionUniqueKey { get; set; }
 
         /// <summary>
+        /// 当前过滤器的KEY
+        /// </summary>
+        string CurrentFilterKey { get; set; }
+
+        /// <summary>
         /// 设置序列化json的日期格式
         /// </summary>
        string SerializerDateFormat { get; set; }
